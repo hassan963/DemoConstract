@@ -1,13 +1,16 @@
 package com.hassanmashraful.democonstract.Task;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.hassanmashraful.democonstract.Content.SpinnerData;
 import com.hassanmashraful.democonstract.app.AppConfig;
+import com.hassanmashraful.democonstract.app.AppController;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,23 +32,33 @@ public class BackgroundTask {
     }
 
     public ArrayList<SpinnerData> getList() {
-
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, AppConfig.URL_TRUCK, (String) null, new Response.Listener<JSONArray>() {
+        String tag_string_req = "req_category_base_serial_model";
+        StringRequest strReq = new StringRequest(Request.Method.GET,
+                AppConfig.URL_TRUCK, new Response.Listener<String>() {
             @Override
-            public void onResponse(JSONArray response) {
-                int count = 0;
-
-                while (count < response.length()) {
-                    try {
-                        JSONObject jsonObject = response.getJSONObject(count);
+            public void onResponse(String response) {
+                Log.i("serial_model", "Response: " + response.toString());
+                //int count = 0;
+                //while (count < response.length()) {
+                try {
+                    JSONArray jsonarray = new JSONArray(response);
+                    for (int i = 0; i < jsonarray.length(); i++) {
+                        JSONObject jsonobject = jsonarray.getJSONObject(i);
+                        String model = jsonobject.getString("model");
+                        String serial_no = jsonobject.getString("serial_no");
+                        SpinnerData spinnerData = new SpinnerData(model, serial_no);
+                        spinnerDatas.add(spinnerData);
+                        Log.i("model_serial", serial_no + " " + model);
+                    }
+                        /*JSONObject jsonObject = response.getJSONObject(count);
                         SpinnerData spinnerData = new SpinnerData(jsonObject.getString("model"), jsonObject.getString("serial_no"));
                         spinnerDatas.add(spinnerData);
-                        count++;
+                        count++;*/
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+                // }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -54,7 +67,7 @@ public class BackgroundTask {
             }
         });
 
-        MySingleton.getInstance(context).addToRequestQueue(jsonArrayRequest);
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
         return spinnerDatas;
 
