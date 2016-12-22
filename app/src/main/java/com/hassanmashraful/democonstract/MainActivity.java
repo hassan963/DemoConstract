@@ -117,7 +117,7 @@ public class MainActivity extends FragmentActivity {
                     // change your content accordingly.
                 } else if (tabId == R.id.tab_post) {
                     formFragment = (FormFragment) padapter.getCurrentFragment();
-                    //formFragment.save();
+                    formFragment.save();
                     //formFragment.displayDialog();
 
                     // The tab with id R.id.tab_favorites was selected,
@@ -287,9 +287,6 @@ public class MainActivity extends FragmentActivity {
         }
 
     }
-
-
-
 
 
 }
