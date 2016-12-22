@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.roughike.bottombar.BottomBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_alignParentBottom="true"
+        app:bb_tabXmlResource="@xml/bottombar_tabs"
+        app:bb_behavior="underNavbar" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/dateTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dateTV"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:id="@+id/dateSW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2.3.2016" />
+
+            <TextView
+                android:id="@+id/optTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/optTV"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:id="@+id/optSW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Operator" />
+
+            <TextView
+                android:id="@+id/fuelTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/fuelTV"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <CheckBox
+                android:id="@+id/fuel_check"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/checkbox_ok" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/truckTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/truckTV"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:id="@+id/truckSW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="truck" />
+
+            <TextView
+                android:id="@+id/engineOilTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/engineOilTV"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <CheckBox
+                android:id="@+id/engineOil_check"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/checkbox_ok" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/deptTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/deptTV"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:id="@+id/deptSW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="dept" />
+
+            <TextView
+                android:id="@+id/radiatorTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/radiatorTV"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <CheckBox
+                android:id="@+id/radiator_check"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/checkbox_ok" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/shiftTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/shiftTV"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:id="@+id/shiftSW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="shift" />
+
+            <TextView
+                android:id="@+id/hourTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hourTV"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <TextView
+                android:id="@+id/hourSW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="hour" />
+
+            <TextView
+                android:id="@+id/hydraulicTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hydraulicTV"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <CheckBox
+                android:id="@+id/hydraulic_check"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/checkbox_ok" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/modellTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/modelTV"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <!-- Spinner Dropdown -->
+            <Spinner
+                android:id="@+id/spinnerModel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:prompt="@string/spinner"
+                style="@style/Widget.AppCompat.DropDownItem.Spinner" />
+
+
+            <TextView
+                android:id="@+id/seriallTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/serialTV"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+
+            <!-- Spinner Dropdown -->
+            <Spinner
+                android:id="@+id/spinnerSerial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:prompt="@string/spinner"
+                style="@style/Widget.AppCompat.DropDownItem.Spinner" />
+
+
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@color/black" />
+
+
+        <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </android.support.v4.view.ViewPager>
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+</RelativeLayout>

@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">DemoConstract</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="firstTV">text</string>
+    <string name="checkbox_ok">OK</string>
+    <string name="commentET"> :add comment</string>
+
+    <string name="headerTwo">Engine On Checks-Unusual Noises Must Be Investigated Immediately</string>
+    <string name="ok">OK</string>
+    <string name="maint">Maintenance</string>
+
+    <string name="headerOne">Engine Off Checks</string>
+
+    <string name="dateTV">" DATE: "</string>
+    <string name="truckTV">" Truck: "</string>
+    <string name="deptTV">" Department: "</string>
+    <string name="shiftTV">" Shift: "</string>
+    <string name="optTV">"  Operator: "</string>
+    <string name="modelTV">"  Model: "</string>
+    <string name="serialTV">"  Serial: "</string>
+    <string name="hourTV">"  Hour Meter: "</string>
+    <string name="fuelTV">"  Fuel: "</string>
+    <string name="engineOilTV">"  Engine Oil: "</string>
+    <string name="radiatorTV">"  Radiator: "</string>
+    <string name="hydraulicTV">"  Hydraulic Oil: "</string>
+
+
+    <string name="spinner">Spinner</string>
+    
+    
+    
+</resources>

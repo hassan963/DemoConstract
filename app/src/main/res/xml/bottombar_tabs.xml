@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/tab_home"
+        icon="@drawable/home"
+        title="Form"
+        barColorWhenSelected="#f24813" />
+
+    <tab
+        id="@+id/tab_back"
+        icon="@drawable/back"
+        title="Back"
+        barColorWhenSelected="#74b41a" />
+    <tab
+        id="@+id/tab_post"
+        icon="@drawable/post"
+        title="Submit"
+        barColorWhenSelected="#d2bc12" />
+    <tab
+        id="@+id/tab_logout"
+        icon="@drawable/logout"
+        title="Logout"
+        barColorWhenSelected="#f24813" />
+
+</tabs>
