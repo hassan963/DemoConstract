@@ -20,8 +20,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.hassanmashraful.democonstract.Activity.LoginActivity;
 import com.hassanmashraful.democonstract.Adapter.FormOneAdapter;
 import com.hassanmashraful.democonstract.Content.FormData;
+import com.hassanmashraful.democonstract.MainActivity;
 import com.hassanmashraful.democonstract.R;
 import com.hassanmashraful.democonstract.app.AppConfig;
 import com.hassanmashraful.democonstract.app.AppController;
@@ -103,29 +105,27 @@ public class FormFragment extends Fragment {
 
         String tag_string_req = "req_operational_check";
         //insertion
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_INSERT_OPERATIONAL_CHECK, new Response.Listener<String>() {
+        StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.URL_INSERT_OPERATIONAL_CHECK, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
-                Log.i("checkout_insert", "Response: " + response.toString());
+                Log.i("operational_check", "Response: " + response.toString());
 
                 try {
                     JSONObject jObj = new JSONObject(response);
 
                     // Now store the user in SQLite
-                                                         /*   String id = jObj.getString("id");
+                    String id = jObj.getString("id");
 
-                                                        if (id != null) {
-                                                            Toast.makeText(CategoryActivity.this, "Checkout Successfully.", Toast.LENGTH_SHORT).show();
-                                                            logoutUser();
-                                                        } else {
-                                                            Toast.makeText(CategoryActivity.this, "Unexpected Error! Try again later.", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                        finish();*/
+                    if (id != null) {
+                        Log.i("operational_check", "Inserted: " + id);
+                    } else {
+                        Log.i("operational_check", " Not Inserted: Unexpected Error! Try again later.");
+                    }
                 } catch (JSONException e) {
                     // JSON error
                     e.printStackTrace();
+                    Log.i("operational_check", e.toString());
                     //Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
@@ -159,11 +159,19 @@ public class FormFragment extends Fragment {
 
 
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("checklist_item_id", String.valueOf(20));
-                params.put("truck_id", String.valueOf(8));
-                params.put("shift_id", String.valueOf(7));
-                params.put("status", String.valueOf(formDatas.get(0).getStatus()));
-                params.put("maintenance", formDatas.get(0).getComment());
+                /*
+                * String.valueOf(20)
+                *  String.valueOf(8)
+                *   String.valueOf(7)
+                *   String.valueOf(formDatas.get(0).getStatus())
+                *    formDatas.get(0).getComment()
+                *
+                * */
+                params.put("checklist_item_id", 1 + "");
+                params.put("truck_id", 3 + "");
+                params.put("shift_id", 2 + "");
+                params.put("status", 1 + "");
+                params.put("maintenance", "For checking Only");
                 params.put("timestamp", timestamp);
 
 
@@ -459,7 +467,6 @@ public class FormFragment extends Fragment {
 
         //requestQueue.add(jsObjRequest);
     }
-
 
 
 }
