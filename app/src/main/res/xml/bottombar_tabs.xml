@@ -3,7 +3,7 @@
     <tab
         id="@+id/tab_home"
         icon="@drawable/home"
-        barColorWhenSelected="#e1660f" />
+        barColorWhenSelected="#e1660f"/>
 
     <tab
         id="@+id/tab_back"
