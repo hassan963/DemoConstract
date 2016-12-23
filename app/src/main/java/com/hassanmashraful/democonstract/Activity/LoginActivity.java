@@ -221,7 +221,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Log.i(TAG, "Login Response: " + response.toString());
-                Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
                 hideDialog();
 
                 try {
@@ -282,7 +282,7 @@ public class LoginActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     // JSON error
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
 
             }
