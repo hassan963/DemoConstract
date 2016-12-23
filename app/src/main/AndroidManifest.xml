@@ -24,7 +24,7 @@
 
         <activity
             android:name=".Activity.CategoryActivity"
-            android:label="Category"></activity>
+            android:label="Categories"></activity>
 
         <activity
             android:name=".MainActivity"
@@ -33,7 +33,8 @@
 
         </activity>
 
-        <activity android:name=".Activity.ProfileActivity"></activity>
+        <activity android:name=".Activity.ProfileActivity"
+            android:label="Profile"></activity>
     </application>
 
 </manifest>
