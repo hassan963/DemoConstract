@@ -36,6 +36,12 @@ import java.util.Map;
  */
 
 public class LoginActivity extends AppCompatActivity {
+    String id;
+    String f_name;
+    String l_name;
+    String user_email;
+    String login_at;
+    String shift_id;
 /*
     private static final String TAG = "LoginActivity";
     @InjectView(R.id.user_id)
@@ -249,10 +255,10 @@ public class LoginActivity extends AppCompatActivity {
                             JSONObject object = jArray.getJSONObject(n);
 
                             // Now store the user in SQLite
-                            String id = object.getString("id");
-                            String f_name = object.getString("first_name");
-                            String l_name = object.getString("last_name");
-                            String email = object.getString("email");
+                            id = object.getString("id");
+                            f_name = object.getString("first_name");
+                            l_name = object.getString("last_name");
+                            user_email = object.getString("email");
 
                             Calendar c = Calendar.getInstance();
                             String date = c.get(Calendar.YEAR) + ":" + c.get(Calendar.MONTH) + ":" + c.get(Calendar.DATE) + " ";
@@ -266,15 +272,85 @@ public class LoginActivity extends AppCompatActivity {
                                 ampm = " AM";
                             }
 
-                            String login_at = date + time + ampm;
+                            login_at = date + time + ampm;
 
                             // Inserting row in users table
-                            db.addUser(f_name, l_name, email, id, login_at);
+                            db.addUser(f_name, l_name, user_email, id, login_at);
 
-                            // Launch main activity
-                            Intent intent = new Intent(LoginActivity.this, CategoryActivity.class);
-                            startActivity(intent);
-                            finish();
+                            //insert data into shift table
+
+                            String tag_string_req = "req_insert_shift";
+                            //insertion
+                            StringRequest strReq = new StringRequest(Request.Method.POST,
+                                    AppConfig.URL_INSERT_SHIFT, new Response.Listener<String>() {
+
+                                @Override
+                                public void onResponse(String response) {
+                                    Log.i("insert_shift", "Response: " + response.toString());
+
+                                    try {
+                                        JSONObject jObj = new JSONObject(response);
+
+                                        // Now store the user in SQLite
+                                        shift_id = jObj.getString("id");
+
+                                        if (shift_id != null) {
+                                            // Shift Inserted successfully so Launch main activity
+                                            Log.i("insert_shift", "shift id: " + shift_id);
+                                            Intent intent = new Intent(LoginActivity.this, CategoryActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            Log.i("insert_shift", "shift was not inserted");
+                                        }
+                                        finish();
+                                    } catch (JSONException e) {
+                                        // JSON error
+                                        e.printStackTrace();
+                                        Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+
+                                }
+                            }, new Response.ErrorListener() {
+
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Log.i("insert_shift", "insert_shift Error: " + error.getMessage());
+                                    Toast.makeText(getApplicationContext(),
+                                            error.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            }) {
+
+                                @Override
+                                protected Map<String, String> getParams() {
+
+                                    // Posting parameters to insert_check_message url
+                                    Calendar c = Calendar.getInstance();
+                                    String date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
+                                    String time = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
+                                    //int ampm= c.get(Calendar.AM_PM);
+
+                                    String timestamp = date + " " + time;
+                                    Log.i("time", date + " " + time);
+                                    Map<String, String> params = new HashMap<String, String>();
+                                    params.put("operator_id", id);
+                                    params.put("start_time", time);
+                                    params.put("end_time", time);
+                                    params.put("shift_date", date);
+
+                                    return params;
+                                }
+
+                            };
+
+                            // Adding request to request queue
+                            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+                            //end of insertion
+
+                            // end of inserttion
+
+
                         }
                     }
 
