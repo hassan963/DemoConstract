@@ -42,98 +42,6 @@ public class LoginActivity extends AppCompatActivity {
     String user_email;
     String login_at;
     String shift_id;
-/*
-    private static final String TAG = "LoginActivity";
-    @InjectView(R.id.user_id)
-    EditText user_id;
-    @InjectView(R.id.input_password)
-    EditText _passwordText;
-    @InjectView(R.id.btn_login)
-    Button _loginButton;
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_layout);
-        //getSupportActionBar().hide();
-        ButterKnife.inject(this);
-        _loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                login();
-            }
-        });
-    }
-    public void login() {
-        Log.d(TAG, "Login");
-        if (!validate()) {
-            onLoginFailed();
-            return;
-        }
-        _loginButton.setEnabled(false);
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
-        progressDialog.show();
-        String user_id = this.user_id.getText().toString();
-        String password = _passwordText.getText().toString();
-        // TODO: Implement your own authentication logic here.
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
-    }
-    *//*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_SIGNUP) {
-            if (resultCode == RESULT_OK) {
-
-                // TODO: Implement successful signup logic here
-                // By default we just finish the Activity and log them in automatically
-                this.finish();
-            }
-        }
-    }*//*
-            *//*@Override
-    public void onBackPressed() {
-        // disable going back to the MainActivity
-        moveTaskToBack(true);
-    }*//*
-    public void onLoginSuccess() {
-        _loginButton.setEnabled(true);
-        Intent i = new Intent(getApplicationContext(), CategoryActivity.class);
-        startActivity(i);
-        finish(); //for this, cant back to login panel again
-    }
-    public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-
-        _loginButton.setEnabled(true);
-    }
-    public boolean validate() {
-        boolean valid = true;
-        String user_id = this.user_id.getText().toString();
-        String password = _passwordText.getText().toString();
-        if (user_id.isEmpty()) {
-            this.user_id.setError("enter a valid user id address");
-            valid = false;
-        } else {
-            this.user_id.setError(null);
-        }
-        if (password.isEmpty() || password.length() < 4 || password.length() > 15) {
-            _passwordText.setError("between 4 and 10 alphanumeric characters");
-            valid = false;
-        } else {
-            _passwordText.setError(null);
-        }
-        return valid;
-    }*/
-
 
     private static final String TAG = LoginActivity.class.getSimpleName();
     private Button btnLogin;
@@ -198,17 +106,6 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         });
-
-        // Link to Register Screen
-        /*btnLinkToRegister.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),
-                        RegisterActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });*/
 
     }
 
