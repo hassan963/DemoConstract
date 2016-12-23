@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
-        app:bb_tabXmlResource="@xml/bottombar_tabs"
-        app:bb_behavior="underNavbar" />
+        app:bb_behavior="underNavbar"
+        app:bb_tabXmlResource="@xml/bottombar_tabs" />
 
 
     <LinearLayout
@@ -21,204 +21,254 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:orientation="horizontal">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:paddingTop="10dp">
 
             <TextView
                 android:id="@+id/dateTV"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/dateTV"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/dateSW"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="2.3.2016" />
+                android:layout_weight="1"
+                android:text="2.3.2016"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/optTV"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/optTV"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/optSW"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Operator" />
+                android:layout_weight="1"
+                android:text="1"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/fuelTV"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/fuelTV"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textSize="10sp" />
 
             <CheckBox
                 android:id="@+id/fuel_check"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/checkbox_ok" />
+                android:text="@string/checkbox_ok"
+                android:textSize="10sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/truckTV"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/truckTV"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/truckSW"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="truck" />
+                android:layout_weight="2"
+                android:text="Concretemixer"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/engineOilTV"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="2"
                 android:text="@string/engineOilTV"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textSize="10sp" />
 
             <CheckBox
                 android:id="@+id/engineOil_check"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/checkbox_ok" />
+                android:text="@string/checkbox_ok"
+                android:textSize="10sp" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/deptTV"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/deptTV"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/deptSW"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="dept" />
+                android:layout_weight="2"
+                android:text="XXXX"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/radiatorTV"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="2"
                 android:text="@string/radiatorTV"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textSize="10sp" />
 
             <CheckBox
                 android:id="@+id/radiator_check"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/checkbox_ok" />
+                android:text="@string/checkbox_ok"
+                android:textSize="10sp" />
 
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/shiftTV"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/shiftTV"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/shiftSW"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="shift" />
+                android:layout_weight="1"
+                android:text="1"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/hourTV"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/hourTV"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textSize="10sp" />
 
-            <TextView
-                android:id="@+id/hourSW"
-                android:layout_width="wrap_content"
+            <CheckBox
+                android:id="@+id/hour_meter"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="hour" />
+                android:layout_weight="1"
+                android:text="@string/checkbox_ok"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/hydraulicTV"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/hydraulicTV"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textSize="10sp" />
 
             <CheckBox
                 android:id="@+id/hydraulic_check"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/checkbox_ok" />
+                android:text="@string/checkbox_ok"
+                android:textSize="10sp" />
 
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/modellTV"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/modelTV"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textSize="10sp" />
 
             <!-- Spinner Dropdown -->
             <Spinner
                 android:id="@+id/spinnerModel"
-                android:layout_width="wrap_content"
+                style="@style/Widget.AppCompat.DropDownItem.Spinner"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:prompt="@string/spinner"
-                style="@style/Widget.AppCompat.DropDownItem.Spinner" />
+                android:textSize="10sp" />
 
 
             <TextView
                 android:id="@+id/seriallTV"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/serialTV"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium" />
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                android:textSize="10sp" />
 
             <!-- Spinner Dropdown -->
             <Spinner
                 android:id="@+id/spinnerSerial"
-                android:layout_width="wrap_content"
+                style="@style/Widget.AppCompat.DropDownItem.Spinner"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:prompt="@string/spinner"
-                style="@style/Widget.AppCompat.DropDownItem.Spinner" />
+                android:textSize="10sp" />
 
 
         </LinearLayout>
@@ -236,19 +286,13 @@
         <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            android:layout_weight="50">
 
         </android.support.v4.view.ViewPager>
 
 
-
-
     </LinearLayout>
-
-
-
-
-
 
 
 </RelativeLayout>
