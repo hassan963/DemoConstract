@@ -14,7 +14,7 @@
 
     <string name="dateTV">" DATE: "</string>
     <string name="truckTV">" Truck: "</string>
-    <string name="deptTV">" Department: "</string>
+    <string name="deptTV">" Dept: "</string>
     <string name="shiftTV">" Shift: "</string>
     <string name="optTV">"  Operator: "</string>
     <string name="modelTV">"  Model: "</string>
