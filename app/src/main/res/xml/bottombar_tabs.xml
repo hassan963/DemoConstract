@@ -3,19 +3,19 @@
     <tab
         id="@+id/tab_home"
         icon="@drawable/home"
-        barColorWhenSelected="#f24813" />
+        barColorWhenSelected="#e1660f" />
 
     <tab
         id="@+id/tab_back"
         icon="@drawable/back"
-        barColorWhenSelected="#74b41a" />
+        barColorWhenSelected="#e1660f" />
     <tab
         id="@+id/tab_post"
         icon="@drawable/post"
-        barColorWhenSelected="#d2bc12" />
+        barColorWhenSelected="#e1660f" />
     <tab
         id="@+id/tab_logout"
         icon="@drawable/logoutbottom"
-        barColorWhenSelected="#f24813" />
+        barColorWhenSelected="#e1660f" />
 
 </tabs>
