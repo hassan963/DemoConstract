@@ -11,6 +11,8 @@ public class AppConfig {
 
     // Server insert shift url
     public static String URL_INSERT_SHIFT = "http://23.235.211.194/~tecnot5/dev/construction/v1/shifts";
+    // Server update shift url
+    public static String URL_UPDATE_SHIFT = "http://23.235.211.194/~tecnot5/dev/construction/v1/shifts/";
 
     // Server user check_out_message url
     public static String URL_INSERT_CHECKOUT_MESSAGE = "http://23.235.211.194/~tecnot5/dev/construction/v1/checkout_messages";
