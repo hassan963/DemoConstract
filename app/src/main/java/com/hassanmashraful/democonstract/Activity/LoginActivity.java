@@ -36,98 +36,12 @@ import java.util.Map;
  */
 
 public class LoginActivity extends AppCompatActivity {
-/*
-    private static final String TAG = "LoginActivity";
-    @InjectView(R.id.user_id)
-    EditText user_id;
-    @InjectView(R.id.input_password)
-    EditText _passwordText;
-    @InjectView(R.id.btn_login)
-    Button _loginButton;
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.login_layout);
-        //getSupportActionBar().hide();
-        ButterKnife.inject(this);
-        _loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                login();
-            }
-        });
-    }
-    public void login() {
-        Log.d(TAG, "Login");
-        if (!validate()) {
-            onLoginFailed();
-            return;
-        }
-        _loginButton.setEnabled(false);
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.AppTheme_Dark_Dialog);
-        progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
-        progressDialog.show();
-        String user_id = this.user_id.getText().toString();
-        String password = _passwordText.getText().toString();
-        // TODO: Implement your own authentication logic here.
-        new android.os.Handler().postDelayed(
-                new Runnable() {
-                    public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
-                        progressDialog.dismiss();
-                    }
-                }, 3000);
-    }
-    *//*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_SIGNUP) {
-            if (resultCode == RESULT_OK) {
-
-                // TODO: Implement successful signup logic here
-                // By default we just finish the Activity and log them in automatically
-                this.finish();
-            }
-        }
-    }*//*
-            *//*@Override
-    public void onBackPressed() {
-        // disable going back to the MainActivity
-        moveTaskToBack(true);
-    }*//*
-    public void onLoginSuccess() {
-        _loginButton.setEnabled(true);
-        Intent i = new Intent(getApplicationContext(), CategoryActivity.class);
-        startActivity(i);
-        finish(); //for this, cant back to login panel again
-    }
-    public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
-
-        _loginButton.setEnabled(true);
-    }
-    public boolean validate() {
-        boolean valid = true;
-        String user_id = this.user_id.getText().toString();
-        String password = _passwordText.getText().toString();
-        if (user_id.isEmpty()) {
-            this.user_id.setError("enter a valid user id address");
-            valid = false;
-        } else {
-            this.user_id.setError(null);
-        }
-        if (password.isEmpty() || password.length() < 4 || password.length() > 15) {
-            _passwordText.setError("between 4 and 10 alphanumeric characters");
-            valid = false;
-        } else {
-            _passwordText.setError(null);
-        }
-        return valid;
-    }*/
-
+    String id;
+    String f_name;
+    String l_name;
+    String user_email;
+    String login_at;
+    String shift_id;
 
     private static final String TAG = LoginActivity.class.getSimpleName();
     private Button btnLogin;
@@ -193,17 +107,6 @@ public class LoginActivity extends AppCompatActivity {
 
         });
 
-        // Link to Register Screen
-        /*btnLinkToRegister.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(),
-                        RegisterActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });*/
-
     }
 
     /**
@@ -249,10 +152,10 @@ public class LoginActivity extends AppCompatActivity {
                             JSONObject object = jArray.getJSONObject(n);
 
                             // Now store the user in SQLite
-                            String id = object.getString("id");
-                            String f_name = object.getString("first_name");
-                            String l_name = object.getString("last_name");
-                            String email = object.getString("email");
+                            id = object.getString("id");
+                            f_name = object.getString("first_name");
+                            l_name = object.getString("last_name");
+                            user_email = object.getString("email");
 
                             Calendar c = Calendar.getInstance();
                             String date = c.get(Calendar.YEAR) + ":" + c.get(Calendar.MONTH) + ":" + c.get(Calendar.DATE) + " ";
@@ -266,15 +169,85 @@ public class LoginActivity extends AppCompatActivity {
                                 ampm = " AM";
                             }
 
-                            String login_at = date + time + ampm;
+                            login_at = date + time + ampm;
 
                             // Inserting row in users table
-                            db.addUser(f_name, l_name, email, id, login_at);
+                            db.addUser(f_name, l_name, user_email, id, login_at);
 
-                            // Launch main activity
-                            Intent intent = new Intent(LoginActivity.this, CategoryActivity.class);
-                            startActivity(intent);
-                            finish();
+                            //insert data into shift table
+
+                            String tag_string_req = "req_insert_shift";
+                            //insertion
+                            StringRequest strReq = new StringRequest(Request.Method.POST,
+                                    AppConfig.URL_INSERT_SHIFT, new Response.Listener<String>() {
+
+                                @Override
+                                public void onResponse(String response) {
+                                    Log.i("insert_shift", "Response: " + response.toString());
+
+                                    try {
+                                        JSONObject jObj = new JSONObject(response);
+
+                                        // Now store the user in SQLite
+                                        shift_id = jObj.getString("id");
+
+                                        if (shift_id != null) {
+                                            // Shift Inserted successfully so Launch main activity
+                                            Log.i("insert_shift", "shift id: " + shift_id);
+                                            Intent intent = new Intent(LoginActivity.this, CategoryActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        } else {
+                                            Log.i("insert_shift", "shift was not inserted");
+                                        }
+                                        finish();
+                                    } catch (JSONException e) {
+                                        // JSON error
+                                        e.printStackTrace();
+                                        Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+
+                                }
+                            }, new Response.ErrorListener() {
+
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+                                    Log.i("insert_shift", "insert_shift Error: " + error.getMessage());
+                                    Toast.makeText(getApplicationContext(),
+                                            error.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            }) {
+
+                                @Override
+                                protected Map<String, String> getParams() {
+
+                                    // Posting parameters to insert_check_message url
+                                    Calendar c = Calendar.getInstance();
+                                    String date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
+                                    String time = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
+                                    //int ampm= c.get(Calendar.AM_PM);
+
+                                    String timestamp = date + " " + time;
+                                    Log.i("time", date + " " + time);
+                                    Map<String, String> params = new HashMap<String, String>();
+                                    params.put("operator_id", id);
+                                    params.put("start_time", time);
+                                    params.put("end_time", time);
+                                    params.put("shift_date", date);
+
+                                    return params;
+                                }
+
+                            };
+
+                            // Adding request to request queue
+                            AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+                            //end of insertion
+
+                            // end of inserttion
+
+
                         }
                     }
 
