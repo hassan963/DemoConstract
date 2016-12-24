@@ -15,15 +15,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.hassanmashraful.democonstract.Activity.LoginActivity;
 import com.hassanmashraful.democonstract.Adapter.FormOneAdapter;
 import com.hassanmashraful.democonstract.Content.FormData;
-import com.hassanmashraful.democonstract.MainActivity;
 import com.hassanmashraful.democonstract.R;
 import com.hassanmashraful.democonstract.app.AppConfig;
 import com.hassanmashraful.democonstract.app.AppController;
@@ -44,7 +40,7 @@ public class FormFragment extends Fragment {
 
 
     private RecyclerView recyclerView;
-    private ArrayList<FormData> formDatas = new ArrayList<>();
+    private ArrayList<FormData> formDatas;// = new ArrayList<>();
     private FormOneAdapter formOneAdapter;
 
     String timestamp;
@@ -56,8 +52,9 @@ public class FormFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_recycle_form, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycleListView);
 
-        formOneAdapter = new FormOneAdapter(getFormData(), getActivity(), FormFragment.this);
+        formOneAdapter = new FormOneAdapter(getFormData(), getActivity());
         recyclerView.setAdapter(formOneAdapter);
+        formOneAdapter.notifyDataSetChanged();
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -72,36 +69,47 @@ public class FormFragment extends Fragment {
     * */
 
     private ArrayList<FormData> getFormData() {
-        formDatas.add(new FormData("Leaks........."));
-        formDatas.add(new FormData("Tires........."));
-        formDatas.add(new FormData("Safety........."));
-        formDatas.add(new FormData("Leaks........."));
-        formDatas.add(new FormData("Tires........."));
-        formDatas.add(new FormData("Safety........."));
-        formDatas.add(new FormData("Leaks........."));
-        formDatas.add(new FormData("Tires........."));
-        formDatas.add(new FormData("Leaks........."));
-        formDatas.add(new FormData("Tires........."));
-        formDatas.add(new FormData("Safety........."));
-        formDatas.add(new FormData("Leaks........."));
-        formDatas.add(new FormData("Tires........."));
-        formDatas.add(new FormData("Safety........."));
-        formDatas.add(new FormData("Leaks........."));
-        formDatas.add(new FormData("Tires........."));
-        formDatas.add(new FormData("Leaks........."));
-        formDatas.add(new FormData("Tires........."));
-        formDatas.add(new FormData("Safety........."));
-        formDatas.add(new FormData("Leaks........."));
-        formDatas.add(new FormData("Tires........."));
-        formDatas.add(new FormData("Safety........."));
-        formDatas.add(new FormData("Leaks........."));
-        formDatas.add(new FormData("Tires........."));
+        formDatas = new ArrayList<>();
+        formDatas.clear();
+        formDatas.add(new FormData("Leaks - Fuel, Hydraulic Oil or Radiator Coolant",1));
+        formDatas.add(new FormData("Tires - Condition and Pressure",2));
+        formDatas.add(new FormData("Fork, Top Clip Retaining Pin and Heel - Check Condition",3));
+        formDatas.add(new FormData("Load Backrest - Securely Attached",4));
+        formDatas.add(new FormData("Hydraulic Hoses, Mast Chains, Cables and Stops - Check Visually",5));
+        formDatas.add(new FormData("Overhead Guard - Attached",6));
+        formDatas.add(new FormData("Finger Guards - Attached",7));
+        formDatas.add(new FormData("Propane Tank(LP Gas Truck) - Rust Corrision, Damage",8));
+        formDatas.add(new FormData("Safety Wanings - Attached(Refer to PArts Manual for Location)",9));
+        formDatas.add(new FormData("Battery - Check Water/Electrolyte LEvel and Change",10));
+        formDatas.add(new FormData("All Engine Belts - Check Visually",11));
+        formDatas.add(new FormData("Hydraulic Fluid Level- Check Level",12));
+        formDatas.add(new FormData("Engine Oil LEvel - Dipstick",13));
+        formDatas.add(new FormData("Transmission Fluid Level - Dipstick",14));
+        formDatas.add(new FormData("Engine Air Cleaner - Squeeze Rubber Dirt Trap or Check the Restriction Alarm (if equipped)",15));
+        formDatas.add(new FormData("Fuel Sedimentor (Disel)",16));
+        formDatas.add(new FormData("Radiator Coolant - Check Level",17));
+        formDatas.add(new FormData("Operator's Mannual - In Container",18));
+        formDatas.add(new FormData("Nameplate - Attached and Information Matches Model, Serial Number and Attachments",19));
+        formDatas.add(new FormData("Seat Belt - Functioning Smoothly",20));
+        formDatas.add(new FormData("Hood Latch - Adjusted and Securely Fastened",21));
+        formDatas.add(new FormData("Brake Fluid - Check Level",22));
+        formDatas.add(new FormData("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",23));
 
         return formDatas;
     }
 
 
-    public void save() {
+
+    public void postDATA(){
+
+        for (int i = 0; i<formDatas.size()-1; i++){
+            save(i);
+        }
+
+    }
+
+
+    public void save(final int i) {
 
         String tag_string_req = "req_operational_check";
         //insertion
@@ -170,8 +178,8 @@ public class FormFragment extends Fragment {
                 params.put("checklist_item_id", 1 + "");
                 params.put("truck_id", 3 + "");
                 params.put("shift_id", 2 + "");
-                params.put("status", 1 + "");
-                params.put("maintenance", "For checking Only");
+                params.put("status", String.valueOf(formDatas.get(i).getStatus()));
+                params.put("maintenance", formDatas.get(i).getComment());
                 params.put("timestamp", timestamp);
 
 
@@ -185,131 +193,6 @@ public class FormFragment extends Fragment {
 
         //end of insertion
 
-
-        //String tag_string_req = "req_operational_check";
-
-        //if input not null then insert whats typed
-
-
-        //String tag_string_req = "req_check_message";
-        //insertion
-
-
-      /*
-        StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.URL_INSERT_OPERATIONAL_CHECK, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                Log.i("checkout_insert", "Response: " + response.toString());
-
-                try {
-                    JSONArray jObj = new JSONArray(response);
-
-                    // Now store the user in SQLite
-                    //String id = jObj.getString("id");
-
-                } catch (JSONException e) {
-                    // JSON error
-                    e.printStackTrace();
-
-                }
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i("checkout_insert", "Insertion Error: " + error.getMessage());
-
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                // Posting parameters to insert_check_message url
-                Calendar c = Calendar.getInstance();
-                String date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
-                String time = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
-                //int ampm= c.get(Calendar.AM_PM);
-
-                String timestamp = date + " " + time;
-                Log.i("time", date + " " + time);
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("checklist_item_id", "9");
-                params.put("truck_id", "8");
-                params.put("shift_id", "7");
-                params.put("status", String.valueOf(formDatas.get(0).getStatus()));
-                params.put("maintenance", formDatas.get(0).getComment());
-                params.put("timestamp", timestamp);
-
-                return params;
-            }
-
-        };
-
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-
-        Log.e("SAVING", formDatas.get(0).getComment());
-
-        //end of insertion
-
-    */
-
-
-        /*
-
-        Calendar c = Calendar.getInstance();
-        String date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
-        String time = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
-        timestamp = date + " " + time;
-
-        Volley.newRequestQueue(getContext()).add(
-                new JsonRequest<JSONArray>(Request.Method.POST, AppConfig.URL_INSERT_OPERATIONAL_CHECK, null,
-                        new Response.Listener<JSONArray>() {
-                            @Override
-                            public void onResponse(JSONArray response) {
-
-                            }
-                        }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                }) {
-                    @Override
-                    protected Map<String, String> getParams() {
-
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("checklist_item_id", String.valueOf(9));
-                        params.put("truck_id", String.valueOf(8));
-                        params.put("shift_id", String.valueOf(7));
-                        params.put("status", String.valueOf(formDatas.get(0).getStatus()));
-                        params.put("maintenance", formDatas.get(0).getComment());
-                        params.put("timestamp", timestamp);
-                        return params;
-                    }
-
-                    @Override
-                    protected Response<JSONArray> parseNetworkResponse(
-                            NetworkResponse response) {
-                        try {
-                            String jsonString = new String(response.data,
-                                    HttpHeaderParser
-                                            .parseCharset(response.headers));
-                            return Response.success(new JSONArray(jsonString),
-                                    HttpHeaderParser
-                                            .parseCacheHeaders(response));
-                        } catch (UnsupportedEncodingException e) {
-                            return Response.error(new ParseError(e));
-                        } catch (JSONException je) {
-                            return Response.error(new ParseError(je));
-                        }
-                    }
-                });
-                */
 
 
     }
@@ -358,16 +241,7 @@ public class FormFragment extends Fragment {
                                                     try {
                                                         JSONObject jObj = new JSONObject(response);
 
-                                                        // Now store the user in SQLite
-                                                         /*   String id = jObj.getString("id");
 
-                                                        if (id != null) {
-                                                            Toast.makeText(CategoryActivity.this, "Checkout Successfully.", Toast.LENGTH_SHORT).show();
-                                                            logoutUser();
-                                                        } else {
-                                                            Toast.makeText(CategoryActivity.this, "Unexpected Error! Try again later.", Toast.LENGTH_SHORT).show();
-                                                        }
-                                                        finish();*/
                                                     } catch (JSONException e) {
                                                         // JSON error
                                                         e.printStackTrace();
@@ -446,27 +320,6 @@ public class FormFragment extends Fragment {
     }
 
 
-    public void testCODE() {
-
-        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
-
-        Map<String, String> params = new HashMap<String, String>();
-        //params.put("operator_id", String.valueOf(8));
-        // params.put("body", String.valueOf(checkoutContent.getText()));
-        // params.put("timestamp", timestamp);
-
-
-        params.put("checklist_item_id", String.valueOf(20));
-        params.put("truck_id", String.valueOf(8));
-        params.put("shift_id", String.valueOf(7));
-        params.put("status", String.valueOf(formDatas.get(0).getStatus()));
-        params.put("maintenance", formDatas.get(0).getComment());
-        params.put("timestamp", timestamp);
-
-        // CustomRequest jsObjRequest = new CustomRequest(Request.Method.POST, AppConfig.URL_INSERT_OPERATIONAL_CHECK, params, this.createRequestSuccessListener(), this.createRequestErrorListener());
-
-        //requestQueue.add(jsObjRequest);
-    }
 
 
 }
