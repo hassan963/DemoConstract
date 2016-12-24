@@ -261,8 +261,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:prompt="@string/spinner"
-                android:textSize="10sp" />
+                android:textSize="20sp"
+                />
 
 
             <TextView
@@ -283,7 +283,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:prompt="@string/spinner"
-                android:textSize="10sp" />
+                android:textSize="15sp" />
 
 
         </LinearLayout>
