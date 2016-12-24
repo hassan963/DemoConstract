@@ -8,9 +8,11 @@ public class FormData {
 
     private String title, comment;
     private Boolean status;
+    private int id;
 
-    public FormData(String title){
+    public FormData(String title, int id){
         this.title = title;
+        this.id = id;
         this.comment = "";
         this.status = false;
     }
@@ -33,5 +35,13 @@ public class FormData {
 
     public Boolean getStatus() {
         return status;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
