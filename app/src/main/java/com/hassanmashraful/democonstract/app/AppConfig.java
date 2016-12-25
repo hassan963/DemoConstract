@@ -20,5 +20,5 @@ public class AppConfig {
     // Server user operational check url
     public static String URL_INSERT_OPERATIONAL_CHECK = "http://23.235.211.194/~tecnot5/dev/construction/v1/operantional_checks";
 
-    public static String URL_TRUCK = "http://23.235.211.194/~tecnot5/dev/construction/v1/trucks/vehicle/6";
+    public static String URL_TRUCK = "http://23.235.211.194/~tecnot5/dev/construction/v1/trucks/vehicle/";
 }

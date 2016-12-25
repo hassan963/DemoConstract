@@ -50,9 +50,6 @@ public class CategoryActivity extends AppCompatActivity {
     String l_name;
     String user_id;
     String email;
-    String shift_id;
-    String login_date;
-    String login_time;
 
     private final String recyclerViewTitleText[] = {"Bulldozer",
             "Concretemixer",
@@ -104,10 +101,92 @@ public class CategoryActivity extends AppCompatActivity {
         l_name = user.get("l_name");
         user_id = user.get("id");
         email = user.get("email");
-        shift_id = user.get("shift_id");
-        login_time = user.get("login_at_time");
-        login_date = user.get("login_at_date");
 
+        /*BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+
+        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelected(@IdRes int tabId) {
+                if (tabId == R.id.tab_cat) {
+                    // The tab with id R.id.tab_cat was selected,
+                    // change your content to CategoryActivity.
+                    // Launch Category activity
+                    Intent intent = new Intent(CategoryActivity.this, CategoryActivity.class);
+                    startActivity(intent);
+                } else if (tabId == R.id.tab_msg) {
+
+                    //The tab with id R.id.tab_msg was selected,
+                    //Ask employee to leave checkout message and checkout for that day
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CategoryActivity.this);
+
+                    builder.setTitle("Checking Out? Leave A Message");
+                    builder.setMessage("By chosing this option you are going to leave a message to the authority and also CHECKOUT for today...");
+
+                    builder.setPositiveButton("Checkout", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            *//*Send Checkout message
+                            and
+                            logout for that day*//*
+
+                            AlertDialog.Builder abuilder = new AlertDialog.Builder(CategoryActivity.this);
+
+                            abuilder.setTitle("Checkout Message");
+                            final EditText checkoutContent = new EditText(CategoryActivity.this);
+                            abuilder.setView(checkoutContent);
+
+                            abuilder.setPositiveButton("Send and Checkout", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    Log.i("AppInfo", String.valueOf(checkoutContent.getText()));
+                                    Toast.makeText(CategoryActivity.this, String.valueOf(checkoutContent.getText()), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            abuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                            abuilder.show();
+                        }
+                    });
+
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    builder.show();
+
+                } else if (tabId == R.id.tab_logout) {
+
+                    // Logout
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CategoryActivity.this);
+
+                    builder.setTitle("Logout");
+                    builder.setMessage("Do you want to logout?");
+                    builder.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            logoutUser();
+                        }
+                    });
+
+                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+                    builder.show();
+
+                }
+            }
+        });
+*/
 
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
                 .getColor(R.color.primary)));
@@ -224,75 +303,6 @@ public class CategoryActivity extends AppCompatActivity {
 
                                                             if (id != null) {
                                                                 Toast.makeText(CategoryActivity.this, "Checkout Successfully.", Toast.LENGTH_SHORT).show();
-
-                                                                // update started
-
-                                                                /*String tag_string_req = "req_update_shift";
-                                                                //insertion
-                                                                StringRequest strReq = new StringRequest(Request.Method.PUT,
-                                                                        AppConfig.URL_UPDATE_SHIFT + shift_id, new Response.Listener<String>() {
-
-                                                                    @Override
-                                                                    public void onResponse(String response) {
-                                                                        Log.i("update_shift", "Response: " + response.toString());
-
-                                                                        try {
-                                                                            JSONObject jObj = new JSONObject(response);
-
-                                                                            // Now store the user in SQLite
-                                                                            shift_id = jObj.getString("id");
-
-                                                                            if (shift_id != null) {
-                                                                                // Shift Updated successfully so Logout
-                                                                                Log.i("update_shift", "shift id: " + shift_id);
-
-                                                                                logoutUser();
-                                                                            } else {
-                                                                                Log.i("insert_shift", "shift was not Updated");
-                                                                            }
-                                                                            finish();
-                                                                        } catch (JSONException e) {
-                                                                            // JSON error
-                                                                            e.printStackTrace();
-                                                                            Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                                                                        }
-
-                                                                    }
-                                                                }, new Response.ErrorListener() {
-
-                                                                    @Override
-                                                                    public void onErrorResponse(VolleyError error) {
-                                                                        Log.i("update_shift", "update_shift Error: " + error.getMessage());
-                                                                        Toast.makeText(getApplicationContext(),
-                                                                                error.getMessage(), Toast.LENGTH_LONG).show();
-                                                                    }
-                                                                }) {
-
-                                                                    @Override
-                                                                    protected Map<String, String> getParams() {
-
-                                                                        // Posting parameters to insert_check_message url
-                                                                        Calendar c = Calendar.getInstance();
-                                                                        String date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
-                                                                        String time = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
-                                                                        //int ampm= c.get(Calendar.AM_PM);
-
-                                                                        String timestamp = date + " " + time;
-                                                                        Log.i("time", date + " " + time);
-                                                                        Map<String, String> params = new HashMap<String, String>();
-                                                                        params.put("operator_id", user_id);
-                                                                        params.put("start_time", login_time);
-                                                                        params.put("end_time", time);
-                                                                        params.put("shift_date", login_date);
-
-                                                                        return params;
-                                                                    }
-
-                                                                };
-                                                                // Adding request to request queue
-                                                                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);*/
-
-                                                                //end of update
                                                                 logoutUser();
                                                             } else {
                                                                 Toast.makeText(CategoryActivity.this, "Unexpected Error! Try again later.", Toast.LENGTH_SHORT).show();

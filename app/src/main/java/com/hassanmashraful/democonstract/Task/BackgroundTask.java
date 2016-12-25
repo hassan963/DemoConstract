@@ -6,7 +6,6 @@ import android.util.Log;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.hassanmashraful.democonstract.Content.SpinnerData;
 import com.hassanmashraful.democonstract.app.AppConfig;
@@ -17,24 +16,29 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by Hassan M.Ashraful on 12/22/2016.
+ * Created by Hassan M.Ashraful on 12/24/2016.
  */
 
 public class BackgroundTask {
 
-    Context context;
-    ArrayList<SpinnerData> spinnerDatas = new ArrayList<>();
 
-    public BackgroundTask(Context context) {
+    Context context;
+    int pressBTN;
+    ArrayList<SpinnerData> spinnerDatas = new ArrayList<>();
+    List<String> strings = new ArrayList<>();
+
+    public BackgroundTask(Context context, int pressBTN) {
         this.context = context;
+        this.pressBTN = pressBTN;
     }
 
-    public ArrayList<SpinnerData> getList() {
+    public List<String> getList() {
         String tag_string_req = "req_category_base_serial_model";
         StringRequest strReq = new StringRequest(Request.Method.GET,
-                AppConfig.URL_TRUCK, new Response.Listener<String>() {
+                AppConfig.URL_TRUCK+pressBTN, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.i("serial_model", "Response: " + response.toString());
@@ -48,6 +52,7 @@ public class BackgroundTask {
                         String serial_no = jsonobject.getString("serial_no");
                         SpinnerData spinnerData = new SpinnerData(model, serial_no);
                         spinnerDatas.add(spinnerData);
+                        strings.add(model);
                         Log.i("model_serial", serial_no + " " + model);
                     }
                         /*JSONObject jsonObject = response.getJSONObject(count);
@@ -69,9 +74,10 @@ public class BackgroundTask {
 
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
-        return spinnerDatas;
+        return strings;
 
     }
+
 
 
 }

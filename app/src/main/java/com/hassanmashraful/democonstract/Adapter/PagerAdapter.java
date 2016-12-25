@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
 import com.hassanmashraful.democonstract.Fragment.FormFragment;
+import com.hassanmashraful.democonstract.Fragment.FormFragmentTwo;
 
 /**
  * Created by Hassan M.Ashraful on 11/25/2016.
@@ -39,7 +40,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
 
                 return new FormFragment();
             case 1:
-                return new FormFragment();
+                return new FormFragmentTwo();
 
             default:
                 break;

@@ -78,6 +78,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             Intent intent = new Intent(context, MainActivity.class);
 
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.putExtra("CATEGORY", position);
 
             context.startActivity(intent);
 

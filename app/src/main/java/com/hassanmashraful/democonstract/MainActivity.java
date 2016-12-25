@@ -1,6 +1,7 @@
 package com.hassanmashraful.democonstract;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentActivity;
@@ -9,9 +10,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hassanmashraful.democonstract.Activity.CategoryActivity;
@@ -19,6 +22,7 @@ import com.hassanmashraful.democonstract.Activity.LoginActivity;
 import com.hassanmashraful.democonstract.Adapter.PagerAdapter;
 import com.hassanmashraful.democonstract.Content.SpinnerData;
 import com.hassanmashraful.democonstract.Fragment.FormFragment;
+import com.hassanmashraful.democonstract.Fragment.FormFragmentTwo;
 import com.hassanmashraful.democonstract.Task.BackgroundTask;
 import com.hassanmashraful.democonstract.helper.SQLiteHandler;
 import com.hassanmashraful.democonstract.helper.SessionManager;
@@ -32,12 +36,15 @@ public class MainActivity extends FragmentActivity {
 
     private SQLiteHandler db;
     private SessionManager session;
+    private int pressBTN;;
+
+    List<String> list = new ArrayList<>();
 
     ArrayList<SpinnerData> spinnerDatas = new ArrayList<>();
 
     ViewPager viewpager;
     FormFragment formFragment;
-
+    FormFragmentTwo formFragmentTwo;
     // Spinner element
     Spinner spinnerModel, spinnerSerial;
 
@@ -58,11 +65,31 @@ public class MainActivity extends FragmentActivity {
             logoutUser();
         }
 
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                pressBTN = 0;
+            } else {
+                pressBTN= extras.getInt("CATEGORY");
+            }
+        } else {
+            pressBTN= (Integer) savedInstanceState.getSerializable("CATEGORY");
+        }
+
+
+
+        BackgroundTask backgroundTask = new BackgroundTask(MainActivity.this, pressBTN);
+        list = backgroundTask.getList();
+
         BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
         // Spinner element
         spinnerModel = (Spinner) findViewById(R.id.spinnerModel);
         loadSpinnerModelData();
+
+
+
 
         spinnerSerial = (Spinner) findViewById(R.id.spinnerSerial);
         loadSpinnerSerialData();
@@ -80,6 +107,9 @@ public class MainActivity extends FragmentActivity {
             }
         });
 
+
+
+
         // Spinner click listener
         spinnerSerial.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -94,8 +124,6 @@ public class MainActivity extends FragmentActivity {
         });
 
 
-        BackgroundTask backgroundTask = new BackgroundTask(MainActivity.this);
-        spinnerDatas = backgroundTask.getList();
 
         viewpager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter padapter = new PagerAdapter(getSupportFragmentManager());
@@ -117,9 +145,10 @@ public class MainActivity extends FragmentActivity {
                     // change your content accordingly.
                 } else if (tabId == R.id.tab_post) {
                     formFragment = (FormFragment) padapter.getCurrentFragment();
-                    formFragment.save();
-                    //formFragment.displayDialog();
+                    formFragment.postDATA();
 
+                    //formFragmentTwo = (FormFragmentTwo) padapter.getCurrentFragment();
+                    //formFragmentTwo.postDATA();
                     // The tab with id R.id.tab_favorites was selected,
                     // change your content accordingly.
                 } else if (tabId == R.id.tab_logout) {
@@ -232,17 +261,19 @@ public class MainActivity extends FragmentActivity {
         // Spinner Drop down elements
 
 
-        List<String> list = new ArrayList<>();
+
+
+        /*
         list.add("First");
         list.add("Second");
         list.add("Third");
         list.add("Fourth");
         list.add("Five");
-        list.add("Six");
+        list.add("Six");*/
 
         // Creating adapter for spinnerModel
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, list);
+                android.R.layout.simple_dropdown_item_1line, list);
 
         // Drop down layout style - list view with radio button
         dataAdapter
@@ -250,6 +281,7 @@ public class MainActivity extends FragmentActivity {
 
         // attaching data adapter to spinnerModel
         spinnerModel.setAdapter(dataAdapter);
+        dataAdapter.notifyDataSetChanged();
     }
 
 
@@ -257,26 +289,41 @@ public class MainActivity extends FragmentActivity {
 
         // Spinner Drop down elements
 
-
-        List<String> list = new ArrayList<>();
-        list.add("Tools");
-        list.add("Fools");
-        list.add("Cools");
-        list.add("Do");
-        list.add("SSS");
-        list.add("VVVV");
+        List<String> listT = new ArrayList<>();
+        listT.add("Tools");
+        listT.add("Fools");
+        listT.add("Cools");
+        listT.add("Do");
+        listT.add("SSS");
+        listT.add("VVVV");
 
 
         // Creating adapter for spinnerModel
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, list);
+                android.R.layout.simple_spinner_item, listT){
+            @Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+            View view = super.getDropDownView(position, convertView, parent);
+
+            TextView text = (TextView)view.findViewById(android.R.id.text1);
+            text.setTextColor(Color.BLUE);
+
+            return view;
+        }
+    };
+
+
 
         // Drop down layout style - list view with radio button
         dataAdapter
                 .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+
         // attaching data adapter to spinnerModel
         spinnerSerial.setAdapter(dataAdapter);
+        dataAdapter.notifyDataSetChanged();
+
+
 
     }
 
@@ -287,6 +334,8 @@ public class MainActivity extends FragmentActivity {
         }
 
     }
+
+
 
 
 }
