@@ -50,8 +50,12 @@ public class CategoryActivity extends AppCompatActivity {
     String l_name;
     String user_id;
     String email;
+    String login_at_date;
+    String login_at_time;
+    String shift_id;
 
-    private final String recyclerViewTitleText[] = {"Bulldozer",
+    private final String recyclerViewTitleText[] = {
+            "Bulldozer",
             "Concretemixer",
             "Crane",
             "Dump Truck",
@@ -101,6 +105,9 @@ public class CategoryActivity extends AppCompatActivity {
         l_name = user.get("l_name");
         user_id = user.get("id");
         email = user.get("email");
+        login_at_date = user.get("login_at_date");
+        login_at_time = user.get("login_at_time");
+        shift_id = user.get("shift_id");
 
         /*BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
@@ -297,13 +304,88 @@ public class CategoryActivity extends AppCompatActivity {
 
                                                         try {
                                                             JSONObject jObj = new JSONObject(response);
-
                                                             // Now store the user in SQLite
                                                             String id = jObj.getString("id");
-
                                                             if (id != null) {
                                                                 Toast.makeText(CategoryActivity.this, "Checkout Successfully.", Toast.LENGTH_SHORT).show();
-                                                                logoutUser();
+
+                                                                /*
+                                                                * here comes the pain
+                                                                * */
+
+                                                                String tag_string_req = "req_update_shift";
+                                                                //insertion
+                                                                StringRequest strReq = new StringRequest(Request.Method.POST,
+                                                                        AppConfig.URL_UPDATE_SHIFT + shift_id, new Response.Listener<String>() {
+
+                                                                    @Override
+                                                                    public void onResponse(String response) {
+                                                                        //Log.i("update_shift", "Response: " + response.toString());
+                                                                        Toast.makeText(CategoryActivity.this, "User ID" + user_id + "Shift ID" + shift_id + " " + login_at_time + response.toString(), Toast.LENGTH_SHORT).show();
+                                                                        try {
+                                                                            JSONObject jObj = new JSONObject(response);
+
+                                                                            // Now store the user in SQLite
+                                                                            String status = jObj.getString("status");
+
+                                                                            if (status != null) {
+                                                                                Toast.makeText(CategoryActivity.this, "Shift Ended Successfully.", Toast.LENGTH_SHORT).show();
+                                                                                logoutUser();
+                                                                            } else {
+                                                                                Toast.makeText(CategoryActivity.this, "Unexpected Error! Try again later.", Toast.LENGTH_SHORT).show();
+                                                                            }
+                                                                            finish();
+                                                                        } catch (JSONException e) {
+                                                                            // JSON error
+                                                                            e.printStackTrace();
+                                                                            Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                                                        }
+
+                                                                    }
+                                                                }, new Response.ErrorListener() {
+
+                                                                    @Override
+                                                                    public void onErrorResponse(VolleyError error) {
+                                                                        Log.i("update_shift", "Insertion Error: " + error.getMessage());
+                                                                        Toast.makeText(getApplicationContext(),
+                                                                                error.getMessage(), Toast.LENGTH_LONG).show();
+                                                                    }
+                                                                }) {
+
+                                                                    @Override
+                                                                    protected Map<String, String> getParams() {
+
+                                                                        // Posting parameters to insert_check_message url
+                                                                        Calendar c = Calendar.getInstance();
+                                                                        String date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
+                                                                        String time = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
+                                                                        //int ampm= c.get(Calendar.AM_PM);
+                                                                        int am_pm = c.get(Calendar.AM_PM);
+                                                                        //String ampm;
+                                                                        if (am_pm == 1) {
+                                                                            time = time + " PM";
+                                                                        } else {
+                                                                            time = time + " AM";
+                                                                        }
+                                                                        String timestamp = date + " " + time;
+                                                                        Log.i("time", date + " " + time);
+                                                                        Map<String, String> params = new HashMap<String, String>();
+                                                                        params.put("operator_id", user_id);
+                                                                        params.put("start_time", login_at_time);
+                                                                        params.put("end_time", time);
+                                                                        params.put("shift_date", login_at_date);
+                                                                        params.put("_METHOD", "PUT");
+
+                                                                        return params;
+                                                                    }
+
+                                                                };
+
+                                                                // Adding request to request queue
+                                                                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+                                                                //end of insertion
+
                                                             } else {
                                                                 Toast.makeText(CategoryActivity.this, "Unexpected Error! Try again later.", Toast.LENGTH_SHORT).show();
                                                             }
@@ -384,6 +466,12 @@ public class CategoryActivity extends AppCompatActivity {
 
             // Launch profile activity
             Intent intent = new Intent(CategoryActivity.this, ProfileActivity.class);
+            startActivity(intent);
+
+        }else if (id == R.id.f_r) {
+
+            // Launch profile activity
+            Intent intent = new Intent(CategoryActivity.this, FuelRecordActivity.class);
             startActivity(intent);
 
         }

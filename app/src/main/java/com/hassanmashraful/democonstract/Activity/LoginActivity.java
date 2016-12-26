@@ -40,7 +40,8 @@ public class LoginActivity extends AppCompatActivity {
     String f_name;
     String l_name;
     String user_email;
-    String login_at;
+    String login_at_date;
+    String login_at_time;
     String shift_id;
 
     private static final String TAG = LoginActivity.class.getSimpleName();
@@ -157,25 +158,8 @@ public class LoginActivity extends AppCompatActivity {
                             l_name = object.getString("last_name");
                             user_email = object.getString("email");
 
-                            Calendar c = Calendar.getInstance();
-                            String date = c.get(Calendar.YEAR) + ":" + c.get(Calendar.MONTH) + ":" + c.get(Calendar.DATE) + " ";
-                            String time = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
-                            int am_pm = c.get(Calendar.AM_PM);
-                            String ampm;
-                            if (am_pm == 1) {
-                                ampm = " PM";
-                            } else {
-
-                                ampm = " AM";
-                            }
-
-                            login_at = date + time + ampm;
-
-                            // Inserting row in users table
-                            db.addUser(f_name, l_name, user_email, id, login_at);
 
                             //insert data into shift table
-
                             String tag_string_req = "req_insert_shift";
                             //insertion
                             StringRequest strReq = new StringRequest(Request.Method.POST,
@@ -194,6 +178,22 @@ public class LoginActivity extends AppCompatActivity {
                                         if (shift_id != null) {
                                             // Shift Inserted successfully so Launch main activity
                                             Log.i("insert_shift", "shift id: " + shift_id);
+
+
+                                            Calendar c = Calendar.getInstance();
+                                            /*String date = c.get(Calendar.YEAR) + ":" + c.get(Calendar.MONTH) + ":" + c.get(Calendar.DATE) + " ";
+                                            String time = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);*/
+                                            int am_pm = c.get(Calendar.AM_PM);
+                                            String ampm;
+                                            if (am_pm == 1) {
+                                                ampm = " PM";
+                                            } else {
+
+                                                ampm = " AM";
+                                            }
+                                            // Inserting row in users table
+                                            db.addUser(f_name, l_name, user_email, id, login_at_date, login_at_time, shift_id);
+
                                             Intent intent = new Intent(LoginActivity.this, CategoryActivity.class);
                                             startActivity(intent);
                                             finish();
@@ -223,17 +223,24 @@ public class LoginActivity extends AppCompatActivity {
 
                                     // Posting parameters to insert_check_message url
                                     Calendar c = Calendar.getInstance();
-                                    String date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
-                                    String time = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
+                                    login_at_date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
+                                    login_at_time = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
                                     //int ampm= c.get(Calendar.AM_PM);
+                                    int am_pm = c.get(Calendar.AM_PM);
+                                    //String ampm;
+                                    if (am_pm == 1) {
+                                        login_at_time = login_at_time + " PM";
+                                    } else {
+                                        login_at_time = login_at_time + " AM";
+                                    }
 
-                                    String timestamp = date + " " + time;
-                                    Log.i("time", date + " " + time);
+                                    /*String timestamp = date + " " + time;
+                                    Log.i("time", date + " " + time);*/
                                     Map<String, String> params = new HashMap<String, String>();
                                     params.put("operator_id", id);
-                                    params.put("start_time", time);
-                                    params.put("end_time", time);
-                                    params.put("shift_date", date);
+                                    params.put("start_time", login_at_time );
+                                    params.put("end_time", login_at_time);
+                                    params.put("shift_date", login_at_date);
 
                                     return params;
                                 }
@@ -244,10 +251,6 @@ public class LoginActivity extends AppCompatActivity {
                             AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
                             //end of insertion
-
-                            // end of inserttion
-
-
                         }
                     }
 

@@ -18,230 +18,231 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!--
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp">
+
+                    <TextView
+                        android:id="@+id/dateTV"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/dateTV"
+                        android:textStyle="bold"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/dateSW"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="2.3.2016"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/optTV"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/optTV"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/optSW"
+                        android:layout_width="0dp"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="1"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/fuelTV"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/fuelTV"
+                        android:textStyle="bold"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textSize="10sp" />
+
+                    <CheckBox
+                        android:id="@+id/fuel_check"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/checkbox_ok"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/truckTV"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:text="@string/truckTV"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/truckSW"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:textStyle="bold"
+                        android:text="Concretemixer"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/engineOilTV"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:textStyle="bold"
+                        android:text="@string/engineOilTV"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textSize="10sp" />
+
+                    <CheckBox
+                        android:id="@+id/engineOil_check"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/checkbox_ok"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/deptTV"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/deptTV"
+                        android:textStyle="bold"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/deptSW"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:textStyle="bold"
+                        android:text="XXXX"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/radiatorTV"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:textStyle="bold"
+                        android:text="@string/radiatorTV"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textSize="10sp" />
+
+                    <CheckBox
+                        android:id="@+id/radiator_check"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/checkbox_ok"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/shiftTV"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:text="@string/shiftTV"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/shiftSW"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:text="1"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/hourTV"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:text="@string/hourTV"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textSize="10sp" />
+
+                    <CheckBox
+                        android:id="@+id/hour_meter"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/checkbox_ok"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/hydraulicTV"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/hydraulicTV"
+                        android:textStyle="bold"
+                        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+                        android:textSize="10sp" />
+
+                    <CheckBox
+                        android:id="@+id/hydraulic_check"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/checkbox_ok"
+                        android:textSize="10sp" />
+
+                </LinearLayout>-->
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:paddingTop="10dp">
-
-            <TextView
-                android:id="@+id/dateTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/dateTV"
-                android:textStyle="bold"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/dateSW"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="2.3.2016"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/optTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/optTV"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/optSW"
-                android:layout_width="0dp"
-                android:textStyle="bold"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="1"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/fuelTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/fuelTV"
-                android:textStyle="bold"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textSize="10sp" />
-
-            <CheckBox
-                android:id="@+id/fuel_check"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/checkbox_ok"
-                android:textSize="10sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/truckTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:text="@string/truckTV"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/truckSW"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:textStyle="bold"
-                android:text="Concretemixer"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/engineOilTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:textStyle="bold"
-                android:text="@string/engineOilTV"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textSize="10sp" />
-
-            <CheckBox
-                android:id="@+id/engineOil_check"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/checkbox_ok"
-                android:textSize="10sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/deptTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/deptTV"
-                android:textStyle="bold"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/deptSW"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:textStyle="bold"
-                android:text="XXXX"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/radiatorTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:textStyle="bold"
-                android:text="@string/radiatorTV"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textSize="10sp" />
-
-            <CheckBox
-                android:id="@+id/radiator_check"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/checkbox_ok"
-                android:textSize="10sp" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/shiftTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:text="@string/shiftTV"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/shiftSW"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:text="1"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/hourTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:text="@string/hourTV"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textSize="10sp" />
-
-            <CheckBox
-                android:id="@+id/hour_meter"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/checkbox_ok"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/hydraulicTV"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/hydraulicTV"
-                android:textStyle="bold"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textSize="10sp" />
-
-            <CheckBox
-                android:id="@+id/hydraulic_check"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/checkbox_ok"
-                android:textSize="10sp" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_marginTop="30dp"
             android:orientation="horizontal">
 
             <TextView
@@ -251,8 +252,7 @@
                 android:layout_weight="1"
                 android:textStyle="bold"
                 android:text="@string/modelTV"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textSize="10sp" />
+                android:textSize="20sp" />
 
             <!-- Spinner Dropdown -->
             <Spinner
@@ -262,9 +262,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
+
                 />
 
-
+<!--
             <TextView
                 android:id="@+id/seriallTV"
                 android:layout_width="0dp"
@@ -272,10 +273,9 @@
                 android:layout_weight="1"
                 android:text="@string/serialTV"
                 android:textStyle="bold"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                android:textSize="10sp" />
+                android:textSize="20sp" />
 
-            <!-- Spinner Dropdown -->
+            &lt;!&ndash; Spinner Dropdown &ndash;&gt;
             <Spinner
                 android:id="@+id/spinnerSerial"
                 style="@style/Widget.AppCompat.DropDownItem.Spinner"
@@ -283,7 +283,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:prompt="@string/spinner"
-                android:textSize="15sp" />
+                android:textSize="20sp" />-->
 
 
         </LinearLayout>
@@ -291,6 +291,7 @@
 
         <View
             android:layout_width="match_parent"
+
             android:layout_height="2dp"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
@@ -302,7 +303,7 @@
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="50">
+            android:layout_weight="95">
 
         </android.support.v4.view.ViewPager>
 

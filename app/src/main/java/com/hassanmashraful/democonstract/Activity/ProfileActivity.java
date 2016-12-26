@@ -42,12 +42,13 @@ public class ProfileActivity extends AppCompatActivity {
     private SQLiteHandler db;
     private SessionManager session;
 
-
-    String user_id;
     String f_name;
     String l_name;
-    String loginAt;
+    String user_id;
     String email;
+    String login_at_date;
+    String login_at_time;
+    String shift_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,30 +83,17 @@ public class ProfileActivity extends AppCompatActivity {
 
         f_name = user.get("f_name");
         l_name = user.get("l_name");
-        email = user.get("email");
-        loginAt = user.get("login_at");
         user_id = user.get("id");
+        email = user.get("email");
+        login_at_date = user.get("login_at_date");
+        login_at_time = user.get("login_at_time");
+        shift_id = user.get("shift_id");
 
         // Displaying the user details on the screen
-        txtName.setText("Name: " + f_name + l_name);
+        txtName.setText("Name: " + f_name + " " + l_name);
         txtEmail.setText("Email: " + email);
-        txtLogin.setText("Login At: " + loginAt);
+        txtLogin.setText("Login At: " + login_at_date + " " + login_at_time);
 
-    }
-
-    /**
-     * Logging out the user. Will set isLoggedIn flag to false in shared
-     * preferences Clears the user data from sqlite users table
-     */
-    private void logoutUser() {
-        session.setLogin(false);
-
-        db.deleteUsers();
-
-        // Launching the login activity
-        Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
     }
 
 
@@ -162,13 +150,88 @@ public class ProfileActivity extends AppCompatActivity {
 
                                                         try {
                                                             JSONObject jObj = new JSONObject(response);
-
                                                             // Now store the user in SQLite
                                                             String id = jObj.getString("id");
-
                                                             if (id != null) {
                                                                 Toast.makeText(ProfileActivity.this, "Checkout Successfully.", Toast.LENGTH_SHORT).show();
-                                                                logoutUser();
+
+                                                                /*
+                                                                * here comes the pain
+                                                                * */
+
+                                                                String tag_string_req = "req_update_shift";
+                                                                //insertion
+                                                                StringRequest strReq = new StringRequest(Request.Method.POST,
+                                                                        AppConfig.URL_UPDATE_SHIFT + shift_id, new Response.Listener<String>() {
+
+                                                                    @Override
+                                                                    public void onResponse(String response) {
+                                                                        //Log.i("update_shift", "Response: " + response.toString());
+                                                                        Toast.makeText(ProfileActivity.this, "User ID" + user_id + "Shift ID" + shift_id + " " + login_at_time + response.toString(), Toast.LENGTH_SHORT).show();
+                                                                        try {
+                                                                            JSONObject jObj = new JSONObject(response);
+
+                                                                            // Now store the user in SQLite
+                                                                            String status = jObj.getString("status");
+
+                                                                            if (status != null) {
+                                                                                Toast.makeText(ProfileActivity.this, "Shift Ended Successfully.", Toast.LENGTH_SHORT).show();
+                                                                                logoutUser();
+                                                                            } else {
+                                                                                Toast.makeText(ProfileActivity.this, "Unexpected Error! Try again later.", Toast.LENGTH_SHORT).show();
+                                                                            }
+                                                                            finish();
+                                                                        } catch (JSONException e) {
+                                                                            // JSON error
+                                                                            e.printStackTrace();
+                                                                            Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                                                        }
+
+                                                                    }
+                                                                }, new Response.ErrorListener() {
+
+                                                                    @Override
+                                                                    public void onErrorResponse(VolleyError error) {
+                                                                        Log.i("update_shift", "Insertion Error: " + error.getMessage());
+                                                                        Toast.makeText(getApplicationContext(),
+                                                                                error.getMessage(), Toast.LENGTH_LONG).show();
+                                                                    }
+                                                                }) {
+
+                                                                    @Override
+                                                                    protected Map<String, String> getParams() {
+
+                                                                        // Posting parameters to insert_check_message url
+                                                                        Calendar c = Calendar.getInstance();
+                                                                        String date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
+                                                                        String time = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
+                                                                        //int ampm= c.get(Calendar.AM_PM);
+                                                                        int am_pm = c.get(Calendar.AM_PM);
+                                                                        //String ampm;
+                                                                        if (am_pm == 1) {
+                                                                            time = time + " PM";
+                                                                        } else {
+                                                                            time = time + " AM";
+                                                                        }
+                                                                        String timestamp = date + " " + time;
+                                                                        Log.i("time", date + " " + time);
+                                                                        Map<String, String> params = new HashMap<String, String>();
+                                                                        params.put("operator_id", user_id);
+                                                                        params.put("start_time", login_at_time);
+                                                                        params.put("end_time", time);
+                                                                        params.put("shift_date", login_at_date);
+                                                                        params.put("_METHOD", "PUT");
+
+                                                                        return params;
+                                                                    }
+
+                                                                };
+
+                                                                // Adding request to request queue
+                                                                AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+                                                                //end of insertion
+
                                                             } else {
                                                                 Toast.makeText(ProfileActivity.this, "Unexpected Error! Try again later.", Toast.LENGTH_SHORT).show();
                                                             }
@@ -245,6 +308,7 @@ public class ProfileActivity extends AppCompatActivity {
             );
             builder.show();
 
+
         } else if (id == R.id.category) {
 
             // Launch profile activity
@@ -253,5 +317,20 @@ public class ProfileActivity extends AppCompatActivity {
 
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Logging out the user. Will set isLoggedIn flag to false in shared
+     * preferences Clears the user data from sqlite users table
+     */
+    private void logoutUser() {
+        session.setLogin(false);
+
+        db.deleteUsers();
+
+        // Launching the login activity
+        Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

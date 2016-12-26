@@ -2,6 +2,7 @@ package com.hassanmashraful.democonstract.Task;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -36,9 +37,10 @@ public class BackgroundTask {
     }
 
     public List<String> getList() {
+        Toast.makeText(context, AppConfig.URL_TRUCK + pressBTN , Toast.LENGTH_SHORT).show();
         String tag_string_req = "req_category_base_serial_model";
         StringRequest strReq = new StringRequest(Request.Method.GET,
-                AppConfig.URL_TRUCK+pressBTN, new Response.Listener<String>() {
+                AppConfig.URL_TRUCK + pressBTN, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Log.i("serial_model", "Response: " + response.toString());
@@ -77,7 +79,6 @@ public class BackgroundTask {
         return strings;
 
     }
-
 
 
 }

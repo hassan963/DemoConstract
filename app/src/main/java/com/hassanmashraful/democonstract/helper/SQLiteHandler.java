@@ -33,7 +33,9 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String KEY_LNAME = "last_name";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_UID = "id";
-    private static final String KEY_LOGIN_AT = "last_login";
+    private static final String KEY_LOGIN_AT_DATE = "last_login_date";
+    private static final String KEY_LOGIN_AT_TIME = "last_login_time";
+    private static final String KEY_SHIFT_ID = "shift_id";
 
     public SQLiteHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -45,7 +47,8 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_USER + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_FNAME + " TEXT," + KEY_LNAME + " TEXT,"
                 + KEY_EMAIL + " TEXT UNIQUE," + KEY_UID + " TEXT,"
-                + KEY_LOGIN_AT + " TEXT" + ")";
+                + KEY_LOGIN_AT_DATE + " TEXT," + KEY_LOGIN_AT_TIME + " TEXT,"
+                + KEY_SHIFT_ID + " TEXT" + ")";
         db.execSQL(CREATE_LOGIN_TABLE);
 
         Log.d(TAG, "Database tables created");
@@ -64,7 +67,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     /**
      * Storing user details in database
      */
-    public void addUser(String f_name, String l_name, String email, String id, String login_at) {
+    public void addUser(String f_name, String l_name, String email, String id, String login_at_date, String login_at_time, String shift_id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -72,13 +75,15 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         values.put(KEY_LNAME, l_name); // Last Name
         values.put(KEY_EMAIL, email); // Email
         values.put(KEY_UID, id); // User ID from Web
-        values.put(KEY_LOGIN_AT, login_at); // Created At
+        values.put(KEY_LOGIN_AT_DATE, login_at_date); // Created At
+        values.put(KEY_LOGIN_AT_TIME, login_at_time); // Created At
+        values.put(KEY_SHIFT_ID, shift_id); // shift_id
 
         // Inserting Row
         long uid = db.insert(TABLE_USER, null, values);
         db.close(); // Closing database connection
 
-        Log.d(TAG, "New user inserted into sqlite: " + uid);
+        Log.i(TAG, "New user inserted into sqlite: " + uid);
     }
 
     /**
@@ -97,12 +102,14 @@ public class SQLiteHandler extends SQLiteOpenHelper {
             user.put("l_name", cursor.getString(2));
             user.put("email", cursor.getString(3));
             user.put("id", cursor.getString(4));
-            user.put("login_at", cursor.getString(5));
+            user.put("login_at_date", cursor.getString(5));
+            user.put("login_at_time", cursor.getString(6));
+            user.put("shift_id", cursor.getString(7));
         }
         cursor.close();
         db.close();
         // return user
-        Log.d(TAG, "Fetching user from Sqlite: " + user.toString());
+        Log.i("user", "Fetching user from Sqlite: " + user.toString());
 
         return user;
     }
@@ -116,7 +123,7 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.delete(TABLE_USER, null, null);
         db.close();
 
-        Log.d(TAG, "Deleted all user info from sqlite");
+        Log.i(TAG, "Deleted all user info from sqlite");
     }
 
 }
