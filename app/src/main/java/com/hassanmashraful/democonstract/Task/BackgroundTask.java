@@ -30,6 +30,7 @@ public class BackgroundTask {
     int pressBTN;
     ArrayList<SpinnerData> spinnerDatas = new ArrayList<>();
     List<String> strings = new ArrayList<>();
+    List<String> vehicle_json_id = new ArrayList<>();
 
     public BackgroundTask(Context context, int pressBTN) {
         this.context = context;
@@ -37,7 +38,7 @@ public class BackgroundTask {
     }
 
     public List<String> getList() {
-        Toast.makeText(context, AppConfig.URL_TRUCK + pressBTN , Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, AppConfig.URL_TRUCK + pressBTN, Toast.LENGTH_SHORT).show();
         String tag_string_req = "req_category_base_serial_model";
         StringRequest strReq = new StringRequest(Request.Method.GET,
                 AppConfig.URL_TRUCK + pressBTN, new Response.Listener<String>() {
@@ -50,12 +51,14 @@ public class BackgroundTask {
                     JSONArray jsonarray = new JSONArray(response);
                     for (int i = 0; i < jsonarray.length(); i++) {
                         JSONObject jsonobject = jsonarray.getJSONObject(i);
+                        String vehicle_id = jsonobject.getString("id");
                         String model = jsonobject.getString("model");
                         String serial_no = jsonobject.getString("serial_no");
-                        SpinnerData spinnerData = new SpinnerData(model, serial_no);
+                        SpinnerData spinnerData = new SpinnerData(vehicle_id, model, serial_no);
                         spinnerDatas.add(spinnerData);
-                        strings.add(model);
-                        Log.i("model_serial", serial_no + " " + model);
+                        strings.add(serial_no);
+                        vehicle_json_id.add(vehicle_id);
+                        Log.i("model_serial", vehicle_id + " " + serial_no + " " + model);
                     }
                         /*JSONObject jsonObject = response.getJSONObject(count);
                         SpinnerData spinnerData = new SpinnerData(jsonObject.getString("model"), jsonObject.getString("serial_no"));

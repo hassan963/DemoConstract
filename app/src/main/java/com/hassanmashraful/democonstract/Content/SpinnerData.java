@@ -6,11 +6,21 @@ package com.hassanmashraful.democonstract.Content;
 
 public class SpinnerData {
 
-    String model, serial;
+    String id, model, serial;
 
-    public SpinnerData(String model, String serial) {
+    public SpinnerData(String id, String model, String serial) {
+        this.id = id;
         this.model = model;
         this.serial = serial;
+    }
+
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getModel() {

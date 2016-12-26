@@ -94,7 +94,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         @Override
         public void onClick(View v) {
             final int position = getAdapterPosition();
-            CategoryData android = this.android.get(position);
+            final CategoryData android = this.android.get(position);
+            Toast.makeText(context, "CLICKED: " + android.getrecyclerViewTitleText(), Toast.LENGTH_SHORT).show();
 
             //show dialog
             AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
@@ -106,6 +107,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                             Intent intent = new Intent(context, FuelRecordActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.putExtra("CATEGORY", position);
+                            intent.putExtra("CATEGORY_NAME", android.getrecyclerViewTitleText());
                             context.startActivity(intent);
                         }
                     }

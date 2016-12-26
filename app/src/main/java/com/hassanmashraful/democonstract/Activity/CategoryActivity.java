@@ -468,12 +468,6 @@ public class CategoryActivity extends AppCompatActivity {
             Intent intent = new Intent(CategoryActivity.this, ProfileActivity.class);
             startActivity(intent);
 
-        }else if (id == R.id.f_r) {
-
-            // Launch profile activity
-            Intent intent = new Intent(CategoryActivity.this, FuelRecordActivity.class);
-            startActivity(intent);
-
         }
         return super.onOptionsItemSelected(item);
     }

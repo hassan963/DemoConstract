@@ -14,9 +14,4 @@
         android:orderInCategory="100"
         android:title="Check Out"
         app:showAsAction="always" />
-    <item
-        android:id="@+id/f_r"
-        android:orderInCategory="100"
-        android:title="F R"
-        app:showAsAction="always" />
 </menu>
