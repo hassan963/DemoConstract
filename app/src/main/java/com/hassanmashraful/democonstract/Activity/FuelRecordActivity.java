@@ -1,14 +1,18 @@
 package com.hassanmashraful.democonstract.Activity;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,27 +24,33 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.hassanmashraful.democonstract.Content.SpinnerData;
 import com.hassanmashraful.democonstract.R;
-import com.hassanmashraful.democonstract.Task.BackgroundTask;
 import com.hassanmashraful.democonstract.app.AppConfig;
 import com.hassanmashraful.democonstract.app.AppController;
 import com.hassanmashraful.democonstract.helper.SQLiteHandler;
 import com.hassanmashraful.democonstract.helper.SessionManager;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 
-public class FuelRecordActivity extends AppCompatActivity {
+public class FuelRecordActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     TextView dateSW;
     TextView truckSW;
     TextView operatorTextView;
     EditText deptSW;
+    CheckBox fuel_checkbox;
+    CheckBox radiator_checkbox;
+    CheckBox engineOil_checkbox;
+    CheckBox hour_meterbox;
+    CheckBox hydraulic_checkbox;
+
 
     private int pressBTN;
     private String pressCAT;
@@ -51,18 +61,18 @@ public class FuelRecordActivity extends AppCompatActivity {
     String login_at_date;
     String login_at_time;
     String shift_id;
-    String deptName;
-    ArrayAdapter<String> dataSerialAdapter;
-    ArrayAdapter<String> dataModelAdapter;
 
     private SQLiteHandler db;
+    SQLiteHandler dbOne;
     private SessionManager session;
 
     // Spinner element
     Spinner spinnerSerial;
     List<String> vehicle_json_id;
     List<String> list;
-    ArrayList<SpinnerData> spinnerDatas = new ArrayList<>();
+    List<String> ids;
+    List<String> lables;
+    ArrayList<SpinnerData> spinnerDatas;
 
 
     @Override
@@ -79,8 +89,15 @@ public class FuelRecordActivity extends AppCompatActivity {
         truckSW = (TextView) findViewById(R.id.truckSW);
         operatorTextView = (TextView) findViewById(R.id.operatorTextView);
         deptSW = (EditText) findViewById(R.id.deptSW);
+        fuel_checkbox = (CheckBox) findViewById(R.id.fuel_check);
+        radiator_checkbox = (CheckBox) findViewById(R.id.radiator_check);
+        engineOil_checkbox = (CheckBox) findViewById(R.id.engineOil_check);
+        hour_meterbox = (CheckBox) findViewById(R.id.hour_meter);
+        hydraulic_checkbox = (CheckBox) findViewById(R.id.hydraulic_check);
+
         // Spinner element
         spinnerSerial = (Spinner) findViewById(R.id.spinnerSerial);
+        spinnerDatas = new ArrayList<SpinnerData>();
 
 
         //get the pressed button from context
@@ -98,15 +115,23 @@ public class FuelRecordActivity extends AppCompatActivity {
             pressCAT = (String) savedInstanceState.getSerializable("CATEGORY_NAME");
         }
 
+        /*Long tsLong = System.currentTimeMillis();
+        String ts = tsLong.toString();
+        Log.i("timestamp", ts);*/
+        /*UUID idOne = UUID.randomUUID();
+        UUID idTwo = UUID.randomUUID();
+        Log.i("timestamp", "UUID One: " + idOne);
+        Log.i("timestamp", "UUID Two: " + idTwo);*/
+
+
         //Getting session
         db = new SQLiteHandler(getApplicationContext());
-
+        dbOne = new SQLiteHandler(getApplicationContext());
         // session manager
         session = new SessionManager(getApplicationContext());
 
         // Fetching user details from SQLite
         HashMap<String, String> user = db.getUserDetails();
-
         f_name = user.get("f_name");
         l_name = user.get("l_name");
         user_id = user.get("id");
@@ -116,28 +141,11 @@ public class FuelRecordActivity extends AppCompatActivity {
         shift_id = user.get("shift_id");
 
         Log.i("clicked", pressBTN + "");
-        getList();
-        /*BackgroundTask backgroundTask = new BackgroundTask(FuelRecordActivity.this, pressBTN);
-        list = backgroundTask.getList();*/
+        //db.deleteLabels();
 
+        //getListFromWebAndInsertIntoDB();
+        ids = db.getAllLabelIds(String.valueOf(pressBTN));
 
-        loadSpinnerSerialData();
-        // Spinner click listener
-        spinnerSerial.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //spinnerModel.setSelection(list.get(position));
-                /*Toast.makeText(getApplicationContext(), parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
-                //spinnerSerial.setSelection();
-                Log.i("selected truck", parent.getItemAtPosition(spinnerSerial.getSelectedItemPosition()).toString());*/
-                Toast.makeText(getApplicationContext(), "Cliked!!!", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
 // Posting parameters to insert_check_message url
         Calendar c = Calendar.getInstance();
         String date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
@@ -145,47 +153,29 @@ public class FuelRecordActivity extends AppCompatActivity {
         dateSW.setText(date);
         truckSW.setText(pressCAT);
         operatorTextView.setText(f_name);
+        // Spinner click listener
+        spinnerSerial.setOnItemSelectedListener(this);
+
+        // Loading spinner data from database
+        loadSpinnerData();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        //fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_full_sad));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
-
+                Toast.makeText(FuelRecordActivity.this, "formSubmit clicked", Toast.LENGTH_SHORT).show();
+                Log.i("formSubmit", "clicked");
+                submitForm();
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        Log.i("Serial", lables.toString());
+        Log.i("Serial", ids.toString());
     }
 
-    /**
-     * Function to load the spinnerModel data from SQLite database
-     */
-    private void loadSpinnerSerialData() {
-        String selectedValue = "";
-
-        // Creating adapter for spinnerModel
-        dataSerialAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, list);
-
-        // Drop down layout style - list view with radio button
-        dataSerialAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // attaching data adapter to spinnerModel
-        spinnerSerial.setAdapter(dataSerialAdapter);
-        dataSerialAdapter.notifyDataSetChanged();
-    }
-
-
-    public void show() {
-        for (int i = 0; i < spinnerDatas.size(); i++) {
-            Log.v("DATA ", spinnerDatas.get(i).getSerial());
-            Toast.makeText(getApplicationContext(), spinnerDatas.get(0).getSerial(), Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
-    public void getList() {
+    /*public void getListFromWebAndInsertIntoDB() {
         Toast.makeText(getApplicationContext(), AppConfig.URL_TRUCK + pressBTN, Toast.LENGTH_SHORT).show();
         String tag_string_req = "req_category_base_serial_model";
         StringRequest strReq = new StringRequest(Request.Method.GET,
@@ -200,11 +190,21 @@ public class FuelRecordActivity extends AppCompatActivity {
                         String vehicle_id = jsonobject.getString("id");
                         String model = jsonobject.getString("model");
                         String serial_no = jsonobject.getString("serial_no");
-                        SpinnerData spinnerData = new SpinnerData(vehicle_id, model, serial_no);
+                        Log.i("serial_model", String.valueOf(pressBTN) + " - " + vehicle_id + " - " + serial_no);
+                        Toast.makeText(FuelRecordActivity.this, "1st One " + String.valueOf(pressBTN) + " - " + vehicle_id + " - " + serial_no, Toast.LENGTH_SHORT).show();
+
+
+                        db.insertLabel(Integer.toString(pressBTN), vehicle_id, serial_no);
+                        Log.i("labelInsert", String.valueOf(pressBTN) + " " + vehicle_id + " " + serial_no);
+                        Toast.makeText(FuelRecordActivity.this, "2nd One " + String.valueOf(pressBTN) + " - " + vehicle_id + " - " + serial_no, Toast.LENGTH_SHORT).show();
+
+                        *//*SpinnerData spin = new SpinnerData(vehicle_id, model, serial_no);
+                        spinnerDatas.add(spin);
+                        *//**//**//**//*SpinnerData spinnerData = new SpinnerData(vehicle_id, model, serial_no);
                         spinnerDatas.add(spinnerData);
                         list.add(serial_no);
-                        vehicle_json_id.add(vehicle_id);
-                        Log.i("model_serial", vehicle_id + " " + serial_no + " " + model);
+                        vehicle_json_id.add(vehicle_id);*//**//**//**//*
+                        Log.i("model_serial", vehicle_id + " " + serial_no + " " + model);*//*
                     }
 
                 } catch (JSONException e) {
@@ -219,5 +219,224 @@ public class FuelRecordActivity extends AppCompatActivity {
         });
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
+    }*/
+
+    /**
+     * Function to load the spinner data from SQLite database
+     */
+    private void loadSpinnerData() {
+        // database handler
+        SQLiteHandler db = new SQLiteHandler(getApplicationContext());
+
+        // Spinner Drop down elements
+        lables = db.getAllLabels(Integer.toString(pressBTN));
+        Log.i("labels", "load spinner data " + lables.toString());
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lables);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinnerSerial.setAdapter(dataAdapter);
+    }
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
+        // On selecting a spinner item
+        String label = parent.getItemAtPosition(position).toString();
+
+        // Showing selected spinner item
+        Toast.makeText(parent.getContext(), "You selected: " + spinnerSerial.getSelectedItemPosition(),
+                Toast.LENGTH_LONG).show();
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> arg0) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void submitForm() {
+
+        //id - generate a unique_id for whole form
+        //date//
+        //truck id from truck serial - selectedSerial//
+        //department input//
+        //shift//
+        //operator//
+        //hour meter//
+        //fuel type//
+        //status 0/1 means checked or unchecked
+
+
+        /*
+        * get hour meter
+        * */
+        String hour_meter;
+        if (hour_meterbox.isChecked()) {
+            hour_meter = "1";
+        } else {
+            hour_meter = "0";
+        }
+
+
+        /**
+         * generate unique id for each form
+         * **/
+
+        Long tsLong = System.currentTimeMillis() / 1000;
+        String idMill = tsLong.toString();
+        char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 20; i++) {
+            char c = chars[random.nextInt(chars.length)];
+            sb.append(c);
+        }
+        String output = sb.toString();
+
+        String id = idMill + output;
+        Log.i("timestamp", "ID : " + id);
+
+        /*
+        * get date
+        * */
+        Calendar c = Calendar.getInstance();
+        String date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
+        String time = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
+        //int ampm= c.get(Calendar.AM_PM);
+        String timestamp = date + " " + time;
+        Log.i("time", date + " " + time);
+
+
+        /*
+        * get selected vehicle serial
+        * */
+        String truck_id = ids.get(spinnerSerial.getSelectedItemPosition());
+
+        /*
+        * get department name from editText
+        * */
+        String deptName = deptSW.getText().toString();
+
+
+
+        /*
+        * get hour meter
+        * */
+        if (fuel_checkbox.isChecked()) {
+            String fuel_check = "1";
+            insertFuelRecord(id, truck_id, "1", deptName, hour_meter, timestamp, fuel_check);
+        } else {
+            String fuel_check = "0";
+            insertFuelRecord(id, truck_id, "1", deptName, hour_meter, timestamp, fuel_check);
+        }
+
+        /*
+        * get hour meter
+        * */
+        if (engineOil_checkbox.isChecked()) {
+            String engineOil_check = "1";
+            insertFuelRecord(id, truck_id, "2", deptName, hour_meter, timestamp, engineOil_check);
+        } else {
+            String engineOil_check = "0";
+            insertFuelRecord(id, truck_id, "2", deptName, hour_meter, timestamp, engineOil_check);
+        }
+        /*
+        * get hour meter
+        * */
+        if (radiator_checkbox.isChecked()) {
+            String radiator_check = "1";
+            insertFuelRecord(id, truck_id, "3", deptName, hour_meter, timestamp, radiator_check);
+        } else {
+            String radiator_check = "0";
+            insertFuelRecord(id, truck_id, "3", deptName, hour_meter, timestamp, radiator_check);
+        }
+        /*
+        * get hour meter
+        * */
+        if (hydraulic_checkbox.isChecked()) {
+            String hydraulic_check = "1";
+            insertFuelRecord(id, truck_id, "4", deptName, hour_meter, timestamp, hydraulic_check);
+        } else {
+            String hydraulic_check = "0";
+            insertFuelRecord(id, truck_id, "4", deptName, hour_meter, timestamp, hydraulic_check);
+        }
+    }
+
+    public void insertFuelRecord(final String forum_id, final String truck_id, final String fuel_type_id, final String department, final String hour_meter, final String time_stamp, final String status) {
+        Log.i("formSubmit", forum_id + truck_id + user_id + fuel_type_id + department + shift_id + hour_meter + time_stamp + status);
+        Toast.makeText(FuelRecordActivity.this, "id " + forum_id + " truck:" + truck_id + " op:" + user_id + " fuel:" + fuel_type_id + " dept:" + department + " shift:" + shift_id + " hr:" + hour_meter + " ts:" + time_stamp + " ok:" + status, Toast.LENGTH_SHORT).show();
+
+        //insertion
+        String tag_string_req = "req_insert_fuel";
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                AppConfig.URL_INSERT_FUEL_RECORD, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.i("insert_fuel_record", "Response: " + response.toString());
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+
+                    // Now store the user in SQLite
+                    String response_id = jObj.getString("id");
+
+                    if (response_id != null) {
+
+                        // Fuel record Inserted successfully
+                        Toast.makeText(FuelRecordActivity.this, "Fuel Record Sent To Server", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(FuelRecordActivity.this, CategoryActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Log.i("insert_shift", "shift was not inserted");
+                    }
+                    finish();
+                } catch (JSONException e) {
+                    // JSON error
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i("insert_shift", "insert_shift Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("id", forum_id);
+                params.put("truck_id", truck_id);
+                params.put("operator_id", user_id);
+                params.put("fuel_type_id", fuel_type_id);
+                params.put("department", department);
+                params.put("shift_id", shift_id);
+                params.put("hour_meter", hour_meter);
+                params.put("timestamp", time_stamp);
+                params.put("status", status);
+
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
+        //end of insertion
     }
 }

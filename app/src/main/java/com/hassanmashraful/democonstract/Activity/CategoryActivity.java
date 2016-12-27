@@ -95,6 +95,8 @@ public class CategoryActivity extends AppCompatActivity {
         // session manager
         session = new SessionManager(getApplicationContext());
 
+        //db.deleteLabels();
+
         if (!session.isLoggedIn()) {
             logoutUser();
         }
@@ -205,6 +207,11 @@ public class CategoryActivity extends AppCompatActivity {
         }
 
     }
+
+
+
+
+
 
 /*
     @Override
@@ -482,6 +489,7 @@ public class CategoryActivity extends AppCompatActivity {
         session.setLogin(false);
 
         db.deleteUsers();
+        db.deleteLabels();
 
         // Launching the login activity
         Intent intent = new Intent(CategoryActivity.this, LoginActivity.class);

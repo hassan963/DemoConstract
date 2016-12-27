@@ -21,5 +21,13 @@ public class AppConfig {
     // Server user operational check url
     public static String URL_INSERT_OPERATIONAL_CHECK = "http://23.235.211.194/~tecnot5/dev/construction/v1/operantional_checks";
 
+    //Server get vehicles by category
     public static String URL_TRUCK = "http://23.235.211.194/~tecnot5/dev/construction/v1/trucks/vehicle/";
+
+    //Server get all vehicles available in database
+    public static String URL_ALL_VEHICLES = "http://23.235.211.194/~tecnot5/dev/construction/v1/trucks";
+
+    //Server get all vehicles available in database
+    public static String URL_INSERT_FUEL_RECORD = "http://23.235.211.194/~tecnot5/dev/construction/v1/fuel_record";
+
 }

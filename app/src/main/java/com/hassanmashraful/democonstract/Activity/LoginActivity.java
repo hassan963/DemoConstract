@@ -17,6 +17,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.hassanmashraful.democonstract.MainActivity;
 import com.hassanmashraful.democonstract.R;
 import com.hassanmashraful.democonstract.app.AppConfig;
 import com.hassanmashraful.democonstract.app.AppController;
@@ -148,7 +149,6 @@ public class LoginActivity extends AppCompatActivity {
                         // Create login session
                         session.setLogin(true);
 
-
                         for (int n = 0; n < jArray.length(); n++) {
                             JSONObject object = jArray.getJSONObject(n);
 
@@ -193,7 +193,7 @@ public class LoginActivity extends AppCompatActivity {
                                             }
                                             // Inserting row in users table
                                             db.addUser(f_name, l_name, user_email, id, login_at_date, login_at_time, shift_id);
-
+                                            getListFromWebAndInsertIntoDB();
                                             Intent intent = new Intent(LoginActivity.this, CategoryActivity.class);
                                             startActivity(intent);
                                             finish();
@@ -238,7 +238,7 @@ public class LoginActivity extends AppCompatActivity {
                                     Log.i("time", date + " " + time);*/
                                     Map<String, String> params = new HashMap<String, String>();
                                     params.put("operator_id", id);
-                                    params.put("start_time", login_at_time );
+                                    params.put("start_time", login_at_time);
                                     params.put("end_time", login_at_time);
                                     params.put("shift_date", login_at_date);
 
@@ -296,6 +296,43 @@ public class LoginActivity extends AppCompatActivity {
     private void hideDialog() {
         if (pDialog.isShowing())
             pDialog.dismiss();
+    }
+
+
+    public void getListFromWebAndInsertIntoDB() {
+        Toast.makeText(getApplicationContext(), AppConfig.URL_ALL_VEHICLES, Toast.LENGTH_SHORT).show();
+        String tag_string_req = "req_get_all_vehicles";
+        StringRequest strReq = new StringRequest(Request.Method.GET, AppConfig.URL_ALL_VEHICLES, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i("all_vehicles", "Response: " + response.toString());
+                try {
+                    JSONArray jsonarray = new JSONArray(response);
+                    for (int i = 0; i < jsonarray.length(); i++) {
+                        JSONObject jsonobject = jsonarray.getJSONObject(i);
+                        String vehicle_id = jsonobject.getString("id");
+                        String model = jsonobject.getString("model");
+                        String serial_no = jsonobject.getString("serial_no");
+                        String vehicle_type_id = jsonobject.getString("vehicle_type_id");
+                        Log.i("serial_model", vehicle_type_id + " - " + vehicle_id + " - " + serial_no);
+                        Toast.makeText(LoginActivity.this, "1st One " + vehicle_type_id + " - " + vehicle_id + " - " + serial_no, Toast.LENGTH_SHORT).show();
+
+                        db.insertLabel(vehicle_type_id, vehicle_id, serial_no);
+                        Log.i("labelInsert", vehicle_type_id + " " + vehicle_id + " " + serial_no);
+                        Toast.makeText(LoginActivity.this, "labelInsert " + vehicle_type_id + " - " + vehicle_id + " - " + serial_no, Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
     }
 
 

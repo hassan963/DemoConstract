@@ -6,8 +6,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.hassanmashraful.democonstract.Activity.FuelRecordActivity;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Optimus Prime on 12/18/2016.
@@ -27,6 +32,9 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     // Login table name
     private static final String TABLE_USER = "user";
 
+    // Login table name
+    private static final String TABLE_LABELS = "labels";
+
     // Login Table Columns names
     private static final String KEY_ID = "uid";
     private static final String KEY_FNAME = "first_name";
@@ -36,6 +44,13 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String KEY_LOGIN_AT_DATE = "last_login_date";
     private static final String KEY_LOGIN_AT_TIME = "last_login_time";
     private static final String KEY_SHIFT_ID = "shift_id";
+
+    // Labels Table Columns names
+    private static final String KEY_LABEL_ID = "label_id";
+    private static final String KEY_LABEL_VEHICLE_TYPE = "label_vehicle_type";
+    private static final String KEY_LABEL_VEHICLE_ID = "label_vehicle_id";
+    private static final String KEY_LABEL_SERIAL = "label_serial";
+
 
     public SQLiteHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -51,6 +66,14 @@ public class SQLiteHandler extends SQLiteOpenHelper {
                 + KEY_SHIFT_ID + " TEXT" + ")";
         db.execSQL(CREATE_LOGIN_TABLE);
 
+
+        // Category table create query
+        String CREATE_CATEGORIES_TABLE = "CREATE TABLE " + TABLE_LABELS + "("
+                + KEY_LABEL_ID + " INTEGER PRIMARY KEY,"
+                + KEY_LABEL_VEHICLE_TYPE + " TEXT," + KEY_LABEL_VEHICLE_ID + " TEXT,"
+                + KEY_LABEL_SERIAL + " TEXT)";
+        db.execSQL(CREATE_CATEGORIES_TABLE);
+
         Log.d(TAG, "Database tables created");
     }
 
@@ -59,10 +82,108 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
+        // Drop older table if existed
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_LABELS);
 
         // Create tables again
         onCreate(db);
     }
+
+    /**
+     * Inserting new lable into lables table
+     */
+    public void insertLabel(String type, String vid, String label) {
+        //deleteLabels();
+
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues valuesVehicle = new ContentValues();
+        valuesVehicle.put(KEY_LABEL_VEHICLE_TYPE, type);
+        valuesVehicle.put(KEY_LABEL_VEHICLE_ID, vid);
+        valuesVehicle.put(KEY_LABEL_SERIAL, label);
+
+        // Inserting Row
+        long uid = db.insert(TABLE_LABELS, null, valuesVehicle);
+        String strLong = Long.toString(uid);
+
+        if (strLong != null) {
+            Log.i("inserted", "successfully " + type + vid + label);
+        } else {
+            Log.i("inserted", "error");
+        }
+
+        db.close(); // Closing database connection
+    }
+
+    /**
+     * Getting all labels
+     * returns list of labels
+     */
+    public List<String> getAllLabels(String id) {
+
+        //Log.i("labels", "getAllLabels method called with " + id);
+        List<String> labels = new ArrayList<String>();
+
+        // Select All Query
+        //String selectQuery = "SELECT  * FROM " + TABLE_LABELS;
+
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        //Cursor cursor = db.rawQuery(selectQuery, null);
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_LABELS + " where " + KEY_LABEL_VEHICLE_TYPE + " = '" + id + "'", null);
+        /*Cursor cursor = db.query(TABLE_LABELS,
+                new String[]{KEY_LABEL_VEHICLE_TYPE, KEY_LABEL_VEHICLE_ID, KEY_LABEL_SERIAL}, KEY_LABEL_VEHICLE_TYPE + "=?",
+                new String[]{id}, null, null, null, null);*/
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                labels.add(cursor.getString(3));
+            } while (cursor.moveToNext());
+        }
+
+        // closing connection
+        cursor.close();
+        db.close();
+        Log.i("labels", "load spinner data " + labels.toString());
+
+        // returning lables
+        return labels;
+    }
+
+    /**
+     * Getting all labels
+     * returns list of labels
+     */
+    public List<String> getAllLabelIds(String id) {
+        List<String> ids = new ArrayList<String>();
+
+        // Select All Query
+        //String selectQuery = "SELECT  * FROM " + TABLE_LABELS;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_LABELS + " where " + KEY_LABEL_VEHICLE_TYPE + " = '" + id + "'", null);
+       /* Cursor cursor = db.query(TABLE_LABELS,
+                new String[]{KEY_LABEL_VEHICLE_TYPE, KEY_LABEL_VEHICLE_ID, KEY_LABEL_SERIAL}, KEY_LABEL_VEHICLE_TYPE + "=?",
+                new String[]{id}, null, null, null, null);*/
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                ids.add(cursor.getString(2));
+            } while (cursor.moveToNext());
+        }
+
+        // closing connection
+        cursor.close();
+        db.close();
+
+        // returning lables
+        return ids;
+    }
+
 
     /**
      * Storing user details in database
@@ -124,6 +245,19 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.close();
 
         Log.i(TAG, "Deleted all user info from sqlite");
+    }
+
+
+    /**
+     * Re crate database Delete all tables and create them again
+     */
+    public void deleteLabels() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        // Delete All Rows
+        db.execSQL("delete from " + TABLE_LABELS);
+        db.close();
+
+        Log.i(TAG, "Deleted all labels info from sqlite");
     }
 
 }
