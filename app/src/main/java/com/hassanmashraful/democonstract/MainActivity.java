@@ -51,7 +51,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements
+        AdapterView.OnItemSelectedListener {
 
 
     String f_name;
@@ -62,7 +63,6 @@ public class MainActivity extends FragmentActivity {
     String login_at_time;
     String shift_id;
 
-    ArrayAdapter<String> dataSerialAdapter;
     ArrayAdapter<String> dataModelAdapter;
 
     private SQLiteHandler db;
@@ -70,6 +70,8 @@ public class MainActivity extends FragmentActivity {
     private int pressBTN;
 
     List<String> list = new ArrayList<>();
+    List<String> ids;
+    List<String> lables;
 
     ArrayList<SpinnerData> spinnerDatas = new ArrayList<>();
 
@@ -124,22 +126,29 @@ public class MainActivity extends FragmentActivity {
             pressBTN = (Integer) savedInstanceState.getSerializable("CATEGORY");
         }
 
+        ids = db.getAllLabelIds(String.valueOf(pressBTN));
 
-        BackgroundTask backgroundTask = new BackgroundTask(MainActivity.this, pressBTN);
-        list = backgroundTask.getList();
+        /*BackgroundTask backgroundTask = new BackgroundTask(MainActivity.this, pressBTN);
+        list = backgroundTask.getList();*/
 
         BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
         // Spinner element
         spinnerModel = (Spinner) findViewById(R.id.spinnerModel);
-        loadSpinnerModelData();
+
+        // Spinner click listener
+        spinnerModel.setOnItemSelectedListener(this);
+
+        // Loading spinner data from database
+        loadSpinnerData();
+        //loadSpinnerModelData();
 
 
         /*spinnerSerial = (Spinner) findViewById(R.id.spinnerSerial);
         loadSpinnerSerialData();*/
 
         // Spinner click listener
-        spinnerModel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        /*spinnerModel.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //spinnerModel.setSelection(list.get(position));
@@ -152,7 +161,7 @@ public class MainActivity extends FragmentActivity {
 
             }
         });
-
+*/
 
         // Spinner click listener
         /*spinnerSerial.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -178,7 +187,7 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onTabSelected(@IdRes int tabId) {
                 if (tabId == R.id.tab_home) {
-                    Toast.makeText(getApplicationContext(), "HOME", Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(getApplicationContext(), "HOME", Toast.LENGTH_SHORT).show();
                     show();
                 } else if (tabId == R.id.tab_back) {
                     //oneFragment.save();
@@ -228,7 +237,7 @@ public class MainActivity extends FragmentActivity {
 
                                                         //if input not null then insert whats typed
                                                         Log.i("AppInfo", String.valueOf(checkoutContent.getText()));
-                                                        Toast.makeText(MainActivity.this, String.valueOf(checkoutContent.getText()), Toast.LENGTH_SHORT).show();
+                                                        //Toast.makeText(MainActivity.this, String.valueOf(checkoutContent.getText()), Toast.LENGTH_SHORT).show();
 
                                                         String tag_string_req = "req_check_message";
                                                         //insertion
@@ -258,7 +267,7 @@ public class MainActivity extends FragmentActivity {
                                                                             @Override
                                                                             public void onResponse(String response) {
                                                                                 //Log.i("update_shift", "Response: " + response.toString());
-                                                                                Toast.makeText(MainActivity.this, "User ID" + user_id + "Shift ID" + shift_id + " " + login_at_time + response.toString(), Toast.LENGTH_SHORT).show();
+                                                                                //Toast.makeText(MainActivity.this, "User ID" + user_id + "Shift ID" + shift_id + " " + login_at_time + response.toString(), Toast.LENGTH_SHORT).show();
                                                                                 try {
                                                                                     JSONObject jObj = new JSONObject(response);
 
@@ -453,6 +462,45 @@ public class MainActivity extends FragmentActivity {
     }
 
 
+    /**
+     * Function to load the spinner data from SQLite database
+     */
+    private void loadSpinnerData() {
+        // database handler
+        SQLiteHandler db = new SQLiteHandler(getApplicationContext());
+
+        // Spinner Drop down elements
+        lables = db.getAllLabels(Integer.toString(pressBTN));
+        Log.i("labels", "load spinner data " + lables.toString());
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, lables);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinnerModel.setAdapter(dataAdapter);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position,
+                               long id) {
+        // On selecting a spinner item
+        String label = parent.getItemAtPosition(position).toString();
+
+        // Showing selected spinner item
+        //Toast.makeText(parent.getContext(), "You selected: " + label,Toast.LENGTH_LONG).show();
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> arg0) {
+        // TODO Auto-generated method stub
+
+    }
+
+
     private void logoutUser() {
         session.setLogin(false);
 
@@ -496,16 +544,18 @@ public class MainActivity extends FragmentActivity {
 
 
     }*/
+/*
 
+    */
 
     /**
      * Function to load the spinnerModel data from SQLite database
-     */
+     *//*
     private void loadSpinnerModelData() {
         // Spinner Drop down elements
-        /*list.add("Ford2018");
+        *//*list.add("Ford2018");
         list.add("Ford2017");
-        list.add("FF");*/
+        list.add("FF");*//*
 
         String selectedValue = "";
 
@@ -518,7 +568,7 @@ public class MainActivity extends FragmentActivity {
         // attaching data adapter to spinnerModel
         spinnerModel.setAdapter(dataModelAdapter);
         dataModelAdapter.notifyDataSetChanged();
-    }
+    }*/
 
 
     /*private void loadSpinnerSerialData() {
@@ -548,7 +598,6 @@ public class MainActivity extends FragmentActivity {
         spinnerSerial.setAdapter(dataSerialAdapter);
         dataSerialAdapter.notifyDataSetChanged();
     }*/
-
     public void show() {
         for (int i = 0; i < spinnerDatas.size(); i++) {
             Log.v("DATA ", spinnerDatas.get(i).getModel());

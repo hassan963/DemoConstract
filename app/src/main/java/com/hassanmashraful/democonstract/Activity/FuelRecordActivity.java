@@ -146,7 +146,7 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         //getListFromWebAndInsertIntoDB();
         ids = db.getAllLabelIds(String.valueOf(pressBTN));
 
-// Posting parameters to insert_check_message url
+        // Posting parameters to insert_check_message url
         Calendar c = Calendar.getInstance();
         String date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
 
@@ -164,7 +164,7 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(FuelRecordActivity.this, "formSubmit clicked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(FuelRecordActivity.this, "formSubmit clicked", Toast.LENGTH_SHORT).show();
                 Log.i("formSubmit", "clicked");
                 submitForm();
             }
@@ -250,8 +250,7 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         String label = parent.getItemAtPosition(position).toString();
 
         // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "You selected: " + spinnerSerial.getSelectedItemPosition(),
-                Toast.LENGTH_LONG).show();
+       //Toast.makeText(parent.getContext(), "You selected: " + spinnerSerial.getSelectedItemPosition(), Toast.LENGTH_LONG).show();
 
     }
 
@@ -371,7 +370,7 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
 
     public void insertFuelRecord(final String forum_id, final String truck_id, final String fuel_type_id, final String department, final String hour_meter, final String time_stamp, final String status) {
         Log.i("formSubmit", forum_id + truck_id + user_id + fuel_type_id + department + shift_id + hour_meter + time_stamp + status);
-        Toast.makeText(FuelRecordActivity.this, "id " + forum_id + " truck:" + truck_id + " op:" + user_id + " fuel:" + fuel_type_id + " dept:" + department + " shift:" + shift_id + " hr:" + hour_meter + " ts:" + time_stamp + " ok:" + status, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(FuelRecordActivity.this, "id " + forum_id + " truck:" + truck_id + " op:" + user_id + " fuel:" + fuel_type_id + " dept:" + department + " shift:" + shift_id + " hr:" + hour_meter + " ts:" + time_stamp + " ok:" + status, Toast.LENGTH_SHORT).show();
 
         //insertion
         String tag_string_req = "req_insert_fuel";

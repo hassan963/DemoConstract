@@ -300,7 +300,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void getListFromWebAndInsertIntoDB() {
-        Toast.makeText(getApplicationContext(), AppConfig.URL_ALL_VEHICLES, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getApplicationContext(), AppConfig.URL_ALL_VEHICLES, Toast.LENGTH_SHORT).show();
         String tag_string_req = "req_get_all_vehicles";
         StringRequest strReq = new StringRequest(Request.Method.GET, AppConfig.URL_ALL_VEHICLES, new Response.Listener<String>() {
             @Override
@@ -315,11 +315,11 @@ public class LoginActivity extends AppCompatActivity {
                         String serial_no = jsonobject.getString("serial_no");
                         String vehicle_type_id = jsonobject.getString("vehicle_type_id");
                         Log.i("serial_model", vehicle_type_id + " - " + vehicle_id + " - " + serial_no);
-                        Toast.makeText(LoginActivity.this, "1st One " + vehicle_type_id + " - " + vehicle_id + " - " + serial_no, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginActivity.this, "1st One " + vehicle_type_id + " - " + vehicle_id + " - " + serial_no, Toast.LENGTH_SHORT).show();
 
                         db.insertLabel(vehicle_type_id, vehicle_id, serial_no);
                         Log.i("labelInsert", vehicle_type_id + " " + vehicle_id + " " + serial_no);
-                        Toast.makeText(LoginActivity.this, "labelInsert " + vehicle_type_id + " - " + vehicle_id + " - " + serial_no, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginActivity.this, "labelInsert " + vehicle_type_id + " - " + vehicle_id + " - " + serial_no, Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

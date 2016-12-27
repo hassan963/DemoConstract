@@ -298,7 +298,7 @@ public class CategoryActivity extends AppCompatActivity {
 
                                                 //if input not null then insert whats typed
                                                 Log.i("AppInfo", String.valueOf(checkoutContent.getText()));
-                                                Toast.makeText(CategoryActivity.this, String.valueOf(checkoutContent.getText()), Toast.LENGTH_SHORT).show();
+                                                //Toast.makeText(CategoryActivity.this, String.valueOf(checkoutContent.getText()), Toast.LENGTH_SHORT).show();
 
                                                 String tag_string_req = "req_check_message";
                                                 //insertion
@@ -328,7 +328,7 @@ public class CategoryActivity extends AppCompatActivity {
                                                                     @Override
                                                                     public void onResponse(String response) {
                                                                         //Log.i("update_shift", "Response: " + response.toString());
-                                                                        Toast.makeText(CategoryActivity.this, "User ID" + user_id + "Shift ID" + shift_id + " " + login_at_time + response.toString(), Toast.LENGTH_SHORT).show();
+                                                                       // Toast.makeText(CategoryActivity.this, "User ID" + user_id + "Shift ID" + shift_id + " " + login_at_time + response.toString(), Toast.LENGTH_SHORT).show();
                                                                         try {
                                                                             JSONObject jObj = new JSONObject(response);
 
