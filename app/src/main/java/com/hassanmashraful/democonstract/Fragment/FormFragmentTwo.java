@@ -66,11 +66,11 @@ public class FormFragmentTwo extends Fragment {
 
     private ArrayList<FormData> getFormData() {
 
-        formDatas.add(new FormData("Accelerator or Direction Control Pedal - Functioning Smoothly",23));
-        formDatas.add(new FormData("Service Brake - Functioning Smoothly",24));
-        formDatas.add(new FormData("Parking Brake - Functioning Smoothly",25));
-        formDatas.add(new FormData("Steering Operation - Functioning Smoothly",26));
-        formDatas.add(new FormData("Drive Control - Forward/Reverse - Functioning Smoothly",27));
+        formDatas.add(new FormData("Accelerator or Direction Control Pedal - Functioning Smoothly",25));
+        formDatas.add(new FormData("Service Brake - Functioning Smoothly",26));
+        formDatas.add(new FormData("Parking Brake - Functioning Smoothly",27));
+        formDatas.add(new FormData("Steering Operation - Functioning Smoothly",28));
+        formDatas.add(new FormData("Drive Control - Forward/Reverse - Functioning Smoothly",29));
 
 
         return formDatas;
@@ -154,7 +154,7 @@ public class FormFragmentTwo extends Fragment {
                 *
                 * */
                 params.put("id","rrrr");
-                params.put("checklist_item_id", 1 + "");
+                params.put("checklist_item_id", String.valueOf(formDatas.get(i).getId()));
                 params.put("truck_id", 3 + "");
                 params.put("shift_id", 2 + "");
                 params.put("status", String.valueOf(formDatas.get(i).getStatus()));

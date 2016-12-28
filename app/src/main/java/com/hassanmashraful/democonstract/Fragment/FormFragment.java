@@ -71,28 +71,28 @@ public class FormFragment extends Fragment {
     private ArrayList<FormData> getFormData() {
         formDatas = new ArrayList<>();
         formDatas.clear();
-        formDatas.add(new FormData("Leaks - Fuel, Hydraulic Oil or Radiator Coolant",1));
-        formDatas.add(new FormData("Tires - Condition and Pressure",2));
-        formDatas.add(new FormData("Fork, Top Clip Retaining Pin and Heel - Check Condition",3));
-        formDatas.add(new FormData("Load Backrest - Securely Attached",4));
-        formDatas.add(new FormData("Hydraulic Hoses, Mast Chains, Cables and Stops - Check Visually",5));
-        formDatas.add(new FormData("Overhead Guard - Attached",6));
-        formDatas.add(new FormData("Finger Guards - Attached",7));
-        formDatas.add(new FormData("Propane Tank(LP Gas Truck) - Rust Corrision, Damage",8));
-        formDatas.add(new FormData("Safety Wanings - Attached(Refer to Parts Manual for Location)",9));
-        formDatas.add(new FormData("Battery - Check Water/Electrolyte LEvel and Change",10));
-        formDatas.add(new FormData("All Engine Belts - Check Visually",11));
-        formDatas.add(new FormData("Hydraulic Fluid Level- Check Level",12));
-        formDatas.add(new FormData("Engine Oil Level - Dipstick",13));
-        formDatas.add(new FormData("Transmission Fluid Level - Dipstick",14));
-        formDatas.add(new FormData("Engine Air Cleaner - Squeeze Rubber Dirt Trap or Check the Restriction Alarm (if equipped)",15));
-        formDatas.add(new FormData("Fuel Sedimentor (Disel)",16));
-        formDatas.add(new FormData("Radiator Coolant - Check Level",17));
-        formDatas.add(new FormData("Operator's Mannual - In Container",18));
-        formDatas.add(new FormData("Nameplate - Attached and Information Matches Model, Serial Number and Attachments",19));
-        formDatas.add(new FormData("Seat Belt - Functioning Smoothly",20));
-        formDatas.add(new FormData("Hood Latch - Adjusted and Securely Fastened",21));
-        formDatas.add(new FormData("Brake Fluid - Check Level",22));
+        formDatas.add(new FormData("Leaks - Fuel, Hydraulic Oil or Radiator Coolant",3));
+        formDatas.add(new FormData("Tires - Condition and Pressure",4));
+        formDatas.add(new FormData("Fork, Top Clip Retaining Pin and Heel - Check Condition",5));
+        formDatas.add(new FormData("Load Backrest - Securely Attached",6));
+        formDatas.add(new FormData("Hydraulic Hoses, Mast Chains, Cables and Stops - Check Visually",7));
+        formDatas.add(new FormData("Overhead Guard - Attached",8));
+        formDatas.add(new FormData("Finger Guards - Attached",9));
+        formDatas.add(new FormData("Propane Tank(LP Gas Truck) - Rust Corrision, Damage",10));
+        formDatas.add(new FormData("Safety Wanings - Attached(Refer to Parts Manual for Location)",11));
+        formDatas.add(new FormData("Battery - Check Water/Electrolyte LEvel and Change",12));
+        formDatas.add(new FormData("All Engine Belts - Check Visually",13));
+        formDatas.add(new FormData("Hydraulic Fluid Level- Check Level",14));
+        formDatas.add(new FormData("Engine Oil Level - Dipstick",15));
+        formDatas.add(new FormData("Transmission Fluid Level - Dipstick",16));
+        formDatas.add(new FormData("Engine Air Cleaner - Squeeze Rubber Dirt Trap or Check the Restriction Alarm (if equipped)",17));
+        formDatas.add(new FormData("Fuel Sedimentor (Disel)",18));
+        formDatas.add(new FormData("Radiator Coolant - Check Level",19));
+        formDatas.add(new FormData("Operator's Mannual - In Container",20));
+        formDatas.add(new FormData("Nameplate - Attached and Information Matches Model, Serial Number and Attachments",21));
+        formDatas.add(new FormData("Seat Belt - Functioning Smoothly",22));
+        formDatas.add(new FormData("Hood Latch - Adjusted and Securely Fastened",23));
+        formDatas.add(new FormData("Brake Fluid - Check Level",24));
 
 
         return formDatas;
@@ -176,7 +176,7 @@ public class FormFragment extends Fragment {
                 *
                 * */
                 params.put("id","rrrr");
-                params.put("checklist_item_id", 1 + "");
+                params.put("checklist_item_id", String.valueOf(formDatas.get(i).getId()));
                 params.put("truck_id", 3 + "");
                 params.put("shift_id", 2 + "");
                 params.put("status", String.valueOf(formDatas.get(i).getStatus()));
