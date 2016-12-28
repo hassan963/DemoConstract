@@ -1,12 +1,14 @@
 package com.hassanmashraful.democonstract.Activity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -95,6 +97,9 @@ public class ProfileActivity extends AppCompatActivity {
         txtEmail.setText("Email: " + email);
         txtLogin.setText("Login At: " + login_at_date + " " + login_at_time);
 
+        TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        String phnID = telephonyManager.getDeviceId();
+        Toast.makeText(this, phnID, Toast.LENGTH_LONG).show();
     }
 
 
@@ -319,6 +324,7 @@ public class ProfileActivity extends AppCompatActivity {
         } else if (id == R.id.category) {
 
             // Launch profile activity
+
             Intent intent = new Intent(ProfileActivity.this, CategoryActivity.class);
             startActivity(intent);
 
