@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.roughike.bottombar.BottomBar
+    <!--<com.roughike.bottombar.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         app:bb_behavior="underNavbar"
-        app:bb_tabXmlResource="@xml/bottombar_tabs" />
+        app:bb_tabXmlResource="@xml/bottombar_tabs" />-->
 
 
     <LinearLayout
@@ -242,6 +242,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="30dp"
             android:orientation="horizontal">
 
@@ -251,7 +253,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textStyle="bold"
-                android:text="@string/modelTV"
+                android:text="Serial"
                 android:textSize="20sp" />
 
             <!-- Spinner Dropdown -->
@@ -299,7 +301,8 @@
             android:background="@color/black" />
 
 
-        <android.support.v4.view.ViewPager xmlns:android="http://schemas.android.com/apk/res/android"
+        <android.support.v4.view.ViewPager
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"

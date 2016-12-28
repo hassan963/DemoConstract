@@ -29,6 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.hassanmashraful.democonstract.Activity.CategoryActivity;
+import com.hassanmashraful.democonstract.Activity.FuelRecordActivity;
 import com.hassanmashraful.democonstract.Activity.LoginActivity;
 import com.hassanmashraful.democonstract.Activity.ProfileActivity;
 import com.hassanmashraful.democonstract.Adapter.PagerAdapter;
@@ -137,7 +138,7 @@ public class MainActivity extends FragmentActivity implements
         /*BackgroundTask backgroundTask = new BackgroundTask(MainActivity.this, pressBTN);
         list = backgroundTask.getList();*/
 
-        BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
+        //BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
 
         // Spinner element
         spinnerModel = (Spinner) findViewById(R.id.spinnerModel);
@@ -189,7 +190,7 @@ public class MainActivity extends FragmentActivity implements
         viewpager.setAdapter(padapter);
 
 
-        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+        /*bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelected(@IdRes int tabId) {
                 if (tabId == R.id.tab_home) {
@@ -211,8 +212,8 @@ public class MainActivity extends FragmentActivity implements
                     // The tab with id R.id.tab_favorites was selected,
                     // change your content accordingly.
                 } else if (tabId == R.id.tab_logout) {
-                    /*formFragment = (FormFragment) padapter.getCurrentFragment();
-                    formFragment.displayDialog();*/
+                    *//*formFragment = (FormFragment) padapter.getCurrentFragment();
+                    formFragment.displayDialog();*//*
 
 
                     //The tab with id R.id.tab_msg was selected,
@@ -224,9 +225,9 @@ public class MainActivity extends FragmentActivity implements
                     builder.setPositiveButton("Checkout", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                            /*Send Checkout message
+                            *//*Send Checkout message
                             and
-                            logout for that day*/
+                            logout for that day*//*
 
                                     AlertDialog.Builder abuilder = new AlertDialog.Builder(MainActivity.this);
 
@@ -261,9 +262,9 @@ public class MainActivity extends FragmentActivity implements
                                                                     if (id != null) {
                                                                         Toast.makeText(MainActivity.this, "Checkout Successfully.", Toast.LENGTH_SHORT).show();
 
-                                                                /*
+                                                                *//*
                                                                 * here comes the pain
-                                                                * */
+                                                                * *//*
 
                                                                         String tag_string_req = "req_update_shift";
                                                                         //insertion
@@ -417,7 +418,7 @@ public class MainActivity extends FragmentActivity implements
 
                 }
             }
-        });
+        });*/
 
 
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -467,7 +468,7 @@ public class MainActivity extends FragmentActivity implements
         });*/
 
         ImageView icon = new ImageView(this); // Create an icon
-        icon.setImageResource(R.drawable.ic_menu);
+        icon.setImageResource(R.drawable.ic_menu_black_24dp);
 
         FloatingActionButton actionButton = new FloatingActionButton.Builder(this)
                 .setContentView(icon)
@@ -475,9 +476,9 @@ public class MainActivity extends FragmentActivity implements
                 .build();
 
         ImageView iconBack = new ImageView(this); // Create an icon
-        iconBack.setImageResource(R.drawable.ic_back);
+        iconBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
         ImageView iconSubmit = new ImageView(this); // Create an icon
-        iconSubmit.setImageResource(R.drawable.ic_send);
+        iconSubmit.setImageResource(R.drawable.ic_add_black_24dp);
 
         SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
         itemBuilder.setBackgroundDrawable(getResources().getDrawable(R.drawable.sub_background_drawable));
@@ -647,10 +648,12 @@ public class MainActivity extends FragmentActivity implements
     @Override
     public void onClick(View v) {
         if (v.getTag().equals(TAG_BACK)) {
-            Toast.makeText(MainActivity.this, "Back ", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MainActivity.this, "Back ", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
+            startActivity(intent);
         }
         if (v.getTag().equals(TAG_SEND)) {
-            Toast.makeText(MainActivity.this, "SEND ", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MainActivity.this, "SEND ", Toast.LENGTH_SHORT).show();
 
         }
     }
