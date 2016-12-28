@@ -20,6 +20,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.hassanmashraful.democonstract.MainActivity;
 import com.hassanmashraful.democonstract.R;
 import com.hassanmashraful.democonstract.app.AppConfig;
 import com.hassanmashraful.democonstract.app.AppController;
@@ -96,6 +97,12 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ProfileActivity.this, CategoryActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

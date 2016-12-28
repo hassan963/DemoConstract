@@ -23,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.hassanmashraful.democonstract.Adapter.CategoryAdapter;
 import com.hassanmashraful.democonstract.Content.CategoryData;
+import com.hassanmashraful.democonstract.MainActivity;
 import com.hassanmashraful.democonstract.R;
 import com.hassanmashraful.democonstract.app.AppConfig;
 import com.hassanmashraful.democonstract.app.AppController;
@@ -328,7 +329,7 @@ public class CategoryActivity extends AppCompatActivity {
                                                                     @Override
                                                                     public void onResponse(String response) {
                                                                         //Log.i("update_shift", "Response: " + response.toString());
-                                                                       // Toast.makeText(CategoryActivity.this, "User ID" + user_id + "Shift ID" + shift_id + " " + login_at_time + response.toString(), Toast.LENGTH_SHORT).show();
+                                                                        // Toast.makeText(CategoryActivity.this, "User ID" + user_id + "Shift ID" + shift_id + " " + login_at_time + response.toString(), Toast.LENGTH_SHORT).show();
                                                                         try {
                                                                             JSONObject jObj = new JSONObject(response);
 
@@ -498,4 +499,14 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        //To EXIT the game
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+        System.exit(0);
+    }
 }

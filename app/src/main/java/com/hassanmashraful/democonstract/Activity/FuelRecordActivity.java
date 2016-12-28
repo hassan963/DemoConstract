@@ -23,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.hassanmashraful.democonstract.Content.SpinnerData;
+import com.hassanmashraful.democonstract.MainActivity;
 import com.hassanmashraful.democonstract.R;
 import com.hassanmashraful.democonstract.app.AppConfig;
 import com.hassanmashraful.democonstract.app.AppController;
@@ -175,6 +176,13 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         Log.i("Serial", ids.toString());
     }
 
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(FuelRecordActivity.this, CategoryActivity.class);
+        startActivity(intent);
+    }
+
     /*public void getListFromWebAndInsertIntoDB() {
         Toast.makeText(getApplicationContext(), AppConfig.URL_TRUCK + pressBTN, Toast.LENGTH_SHORT).show();
         String tag_string_req = "req_category_base_serial_model";
@@ -250,7 +258,7 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         String label = parent.getItemAtPosition(position).toString();
 
         // Showing selected spinner item
-       //Toast.makeText(parent.getContext(), "You selected: " + spinnerSerial.getSelectedItemPosition(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(parent.getContext(), "You selected: " + spinnerSerial.getSelectedItemPosition(), Toast.LENGTH_LONG).show();
 
     }
 

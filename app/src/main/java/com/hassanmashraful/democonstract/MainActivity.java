@@ -472,7 +472,8 @@ public class MainActivity extends FragmentActivity implements
 
         FloatingActionButton actionButton = new FloatingActionButton.Builder(this)
                 .setContentView(icon)
-                .setBackgroundDrawable(R.drawable.selector_button_blue)
+                .setBackgroundDrawable(R.drawable.bg_round)
+                .setPosition(5)
                 .build();
 
         ImageView iconBack = new ImageView(this); // Create an icon
@@ -481,7 +482,7 @@ public class MainActivity extends FragmentActivity implements
         iconSubmit.setImageResource(R.drawable.ic_add_black_24dp);
 
         SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
-        itemBuilder.setBackgroundDrawable(getResources().getDrawable(R.drawable.sub_background_drawable));
+        itemBuilder.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_round));
         SubActionButton buttonBack = itemBuilder.setContentView(iconBack).build();
         SubActionButton buttonSend = itemBuilder.setContentView(iconSubmit).build();
 
@@ -495,6 +496,7 @@ public class MainActivity extends FragmentActivity implements
                 .addSubActionView(buttonBack)
                 .addSubActionView(buttonSend)
                 .attachTo(actionButton)
+                .setEndAngle(2)
                 .build();
 
     }
@@ -644,6 +646,11 @@ public class MainActivity extends FragmentActivity implements
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public void onClick(View v) {
@@ -656,11 +663,11 @@ public class MainActivity extends FragmentActivity implements
         }
         if (v.getTag().equals(TAG_SEND)) {
             //Toast.makeText(MainActivity.this, "SEND ", Toast.LENGTH_SHORT).show();
-            if(viewpager.getCurrentItem() == 0) {
+            if (viewpager.getCurrentItem() == 0) {
                 FormFragment frag1 = (FormFragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
                 frag1.updateList("FFFFFFFFFFFFFFFFFFFFFFF");
                 frag1.postDATA();
-            }else if(viewpager.getCurrentItem() == 1) {
+            } else if (viewpager.getCurrentItem() == 1) {
                 FormFragmentTwo frag2 = (FormFragmentTwo) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
                 //frag2.updateList("SSSSSSSSSSSSSSSSSSSSSSSS");
                 frag2.postDATA();
