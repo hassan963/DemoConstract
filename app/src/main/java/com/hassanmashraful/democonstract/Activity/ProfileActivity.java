@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -97,9 +98,17 @@ public class ProfileActivity extends AppCompatActivity {
         txtEmail.setText("Email: " + email);
         txtLogin.setText("Login At: " + login_at_date + " " + login_at_time);
 
-        TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-        String phnID = telephonyManager.getDeviceId();
-        Toast.makeText(this, phnID, Toast.LENGTH_LONG).show();
+        //TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        //String phnID = telephonyManager.getDeviceId();
+        //Toast.makeText(this, phnID, Toast.LENGTH_LONG).show();
+
+        String identifier = null;
+        TelephonyManager tm = (TelephonyManager)getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+        if (tm != null)
+            identifier = tm.getDeviceId();
+        if (identifier == null || identifier .length() == 0)
+            identifier = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+        Toast.makeText(getApplicationContext(), identifier, Toast.LENGTH_LONG).show();
     }
 
 
