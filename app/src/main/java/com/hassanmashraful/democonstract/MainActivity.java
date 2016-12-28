@@ -87,7 +87,7 @@ public class MainActivity extends FragmentActivity implements
     FormFragmentTwo formFragmentTwo;
     // Spinner element
     Spinner spinnerModel, spinnerSerial;
-
+    //PagerAdapter padapter;
     private static short backStatus = 0;
 
     @Override
@@ -647,6 +647,8 @@ public class MainActivity extends FragmentActivity implements
 
     @Override
     public void onClick(View v) {
+        Toast.makeText(getApplicationContext(), "SHOEBJJHB", Toast.LENGTH_SHORT).show();
+        Log.i("***********************", "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
         if (v.getTag().equals(TAG_BACK)) {
             //Toast.makeText(MainActivity.this, "Back ", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
@@ -654,6 +656,15 @@ public class MainActivity extends FragmentActivity implements
         }
         if (v.getTag().equals(TAG_SEND)) {
             //Toast.makeText(MainActivity.this, "SEND ", Toast.LENGTH_SHORT).show();
+            if(viewpager.getCurrentItem() == 0) {
+                FormFragment frag1 = (FormFragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
+                frag1.updateList("FFFFFFFFFFFFFFFFFFFFFFF");
+                frag1.postDATA();
+            }else if(viewpager.getCurrentItem() == 1) {
+                FormFragmentTwo frag2 = (FormFragmentTwo) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
+                //frag2.updateList("SSSSSSSSSSSSSSSSSSSSSSSS");
+                frag2.postDATA();
+            }
 
         }
     }
