@@ -183,6 +183,7 @@
             android:layout_gravity="top"
             android:layout_weight="1"
             android:gravity="left"
+            android:paddingLeft="5dp"
             android:text="Operator:"
             android:textColor="#595959"
             android:textSize="12sp"
@@ -195,6 +196,7 @@
             android:layout_gravity="top"
             android:layout_weight="1"
             android:gravity="left"
+            android:paddingLeft="5dp"
             android:textColor="#595959"
             android:textStyle="bold" />
 
@@ -247,6 +249,7 @@
             android:layout_gravity="top"
             android:layout_weight="1"
             android:gravity="left"
+            android:paddingLeft="5dp"
             android:text="@string/radiatorTV"
             android:textColor="#595959"
             android:textSize="12sp"
@@ -275,6 +278,7 @@
             android:layout_gravity="top"
             android:layout_weight="1"
             android:gravity="left"
+            android:paddingLeft="5dp"
             android:text="@string/engineOilTV"
             android:textColor="#595959"
             android:textSize="12sp"
@@ -328,6 +332,7 @@
             android:layout_gravity="top"
             android:layout_weight="1"
             android:gravity="left"
+            android:paddingLeft="5dp"
             android:text="@string/hourTV"
             android:textColor="#595959"
             android:textSize="12sp"
@@ -364,6 +369,7 @@
         <CheckBox
             android:id="@+id/hydraulic_check"
             android:layout_width="0dp"
+            android:paddingLeft="5dp"
             android:layout_height="wrap_content"
             android:layout_gravity="top"
             android:layout_weight="1"
