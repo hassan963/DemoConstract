@@ -71,7 +71,7 @@ public class FormFragmentTwo extends Fragment {
         formDatas.add(new FormData("Parking Brake - Functioning Smoothly",25));
         formDatas.add(new FormData("Steering Operation - Functioning Smoothly",26));
         formDatas.add(new FormData("Drive Control - Forward/Reverse - Functioning Smoothly",27));
-        formDatas.add(new FormData("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",28));
+
 
         return formDatas;
     }
@@ -80,7 +80,7 @@ public class FormFragmentTwo extends Fragment {
 
     public void postDATA(){
 
-        for (int i = 0; i<formDatas.size()-1; i++){
+        for (int i = 0; i<formDatas.size(); i++){
             save(i);
         }
 
@@ -153,6 +153,7 @@ public class FormFragmentTwo extends Fragment {
                 *    formDatas.get(0).getComment()
                 *
                 * */
+                params.put("id","rrrr");
                 params.put("checklist_item_id", 1 + "");
                 params.put("truck_id", 3 + "");
                 params.put("shift_id", 2 + "");
@@ -160,6 +161,7 @@ public class FormFragmentTwo extends Fragment {
                 params.put("maintenance", formDatas.get(i).getComment());
                 params.put("timestamp", timestamp);
 
+                //Toast.makeText(getActivity(),formDatas.get(i).getComment(),Toast.LENGTH_SHORT).show();
 
                 return params;
             }
@@ -175,6 +177,7 @@ public class FormFragmentTwo extends Fragment {
 
     }
 
+    public void updateList(String s){Toast.makeText(getActivity(),"Got from two B-)!",Toast.LENGTH_SHORT).show();};
 
 
 
