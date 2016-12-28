@@ -127,7 +127,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 Log.i(TAG, "Login Response: " + response.toString());
                 //Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
-                hideDialog();
 
                 try {
                     char first = response.charAt(0);
@@ -288,23 +287,14 @@ public class LoginActivity extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
-    private void showDialog() {
-        if (!pDialog.isShowing())
-            pDialog.show();
-    }
-
-    private void hideDialog() {
-        if (pDialog.isShowing())
-            pDialog.dismiss();
-    }
-
-
     public void getListFromWebAndInsertIntoDB() {
-       // Toast.makeText(getApplicationContext(), AppConfig.URL_ALL_VEHICLES, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(getApplicationContext(), AppConfig.URL_ALL_VEHICLES, Toast.LENGTH_SHORT).show();
         String tag_string_req = "req_get_all_vehicles";
         StringRequest strReq = new StringRequest(Request.Method.GET, AppConfig.URL_ALL_VEHICLES, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+
+                hideDialog();
                 Log.i("all_vehicles", "Response: " + response.toString());
                 try {
                     JSONArray jsonarray = new JSONArray(response);
@@ -328,11 +318,23 @@ public class LoginActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                hideDialog();
                 error.printStackTrace();
             }
         });
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
+    }
+
+
+    private void showDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
     }
 
 

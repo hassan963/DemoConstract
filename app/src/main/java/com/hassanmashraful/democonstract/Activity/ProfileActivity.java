@@ -97,18 +97,27 @@ public class ProfileActivity extends AppCompatActivity {
         txtName.setText("Name: " + f_name + " " + l_name);
         txtEmail.setText("Email: " + email);
         txtLogin.setText("Login At: " + login_at_date + " " + login_at_time);
-
+/*
+<<<<<<< Updated upstream
         //TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
         //String phnID = telephonyManager.getDeviceId();
         //Toast.makeText(this, phnID, Toast.LENGTH_LONG).show();
 
-        String identifier = null;
-        TelephonyManager tm = (TelephonyManager)getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+
+=======
+        *//*TelephonyManager telephonyManager = (TelephonyManager)getSystemService(this.TELEPHONY_SERVICE);
+        String phnID = telephonyManager.getDeviceId();
+        //Toast.makeText(this, phnID, Toast.LENGTH_LONG).show();
+        Log.i("imei", phnID);*//*
+>>>>>>> Stashed changes*/
+
+        /*String identifier = null;
+        TelephonyManager tm = (TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
         if (tm != null)
             identifier = tm.getDeviceId();
-        if (identifier == null || identifier .length() == 0)
+        if (identifier == null || identifier.length() == 0)
             identifier = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
-        Toast.makeText(getApplicationContext(), identifier, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), identifier, Toast.LENGTH_LONG).show();*/
     }
 
 

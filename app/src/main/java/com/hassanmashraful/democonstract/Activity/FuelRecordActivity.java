@@ -1,5 +1,6 @@
 package com.hassanmashraful.democonstract.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -74,6 +75,7 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
     List<String> ids;
     List<String> lables;
     ArrayList<SpinnerData> spinnerDatas;
+    private ProgressDialog pDialog;
 
 
     @Override
@@ -96,6 +98,9 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         hour_meterbox = (CheckBox) findViewById(R.id.hour_meter);
         hydraulic_checkbox = (CheckBox) findViewById(R.id.hydraulic_check);
 
+        // Progress dialog
+        pDialog = new ProgressDialog(this);
+        pDialog.setCancelable(false);
         // Spinner element
         spinnerSerial = (Spinner) findViewById(R.id.spinnerSerial);
         spinnerDatas = new ArrayList<SpinnerData>();
@@ -374,12 +379,19 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
             String hydraulic_check = "0";
             insertFuelRecord(id, truck_id, "4", deptName, hour_meter, timestamp, hydraulic_check);
         }
+
+        Intent intent = new Intent(FuelRecordActivity.this, CategoryActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void insertFuelRecord(final String forum_id, final String truck_id, final String fuel_type_id, final String department, final String hour_meter, final String time_stamp, final String status) {
         Log.i("formSubmit", forum_id + truck_id + user_id + fuel_type_id + department + shift_id + hour_meter + time_stamp + status);
         //Toast.makeText(FuelRecordActivity.this, "id " + forum_id + " truck:" + truck_id + " op:" + user_id + " fuel:" + fuel_type_id + " dept:" + department + " shift:" + shift_id + " hr:" + hour_meter + " ts:" + time_stamp + " ok:" + status, Toast.LENGTH_SHORT).show();
 
+
+        pDialog.setMessage("Sending ...");
+        showDialog();
         //insertion
         String tag_string_req = "req_insert_fuel";
         StringRequest strReq = new StringRequest(Request.Method.POST,
@@ -389,6 +401,8 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
             public void onResponse(String response) {
                 Log.i("insert_fuel_record", "Response: " + response.toString());
 
+
+                hideDialog();
                 try {
                     JSONObject jObj = new JSONObject(response);
 
@@ -399,9 +413,6 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
 
                         // Fuel record Inserted successfully
                         Toast.makeText(FuelRecordActivity.this, "Fuel Record Sent To Server", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(FuelRecordActivity.this, CategoryActivity.class);
-                        startActivity(intent);
-                        finish();
                     } else {
                         Log.i("insert_shift", "shift was not inserted");
                     }
@@ -445,5 +456,16 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
         //end of insertion
+    }
+
+
+    private void showDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
     }
 }
