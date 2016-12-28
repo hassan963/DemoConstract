@@ -1,6 +1,7 @@
 package com.hassanmashraful.democonstract.Fragment;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -45,9 +46,15 @@ public class FormFragment extends Fragment {
 
     String timestamp;
 
+    private ProgressDialog pDialog;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        // Progress dialog
+        pDialog = new ProgressDialog(getActivity());
+        pDialog.setCancelable(false);
 
         View rootView = inflater.inflate(R.layout.fragment_recycle_form, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycleListView);
@@ -71,52 +78,54 @@ public class FormFragment extends Fragment {
     private ArrayList<FormData> getFormData() {
         formDatas = new ArrayList<>();
         formDatas.clear();
-        formDatas.add(new FormData("Leaks - Fuel, Hydraulic Oil or Radiator Coolant",3));
-        formDatas.add(new FormData("Tires - Condition and Pressure",4));
-        formDatas.add(new FormData("Fork, Top Clip Retaining Pin and Heel - Check Condition",5));
-        formDatas.add(new FormData("Load Backrest - Securely Attached",6));
-        formDatas.add(new FormData("Hydraulic Hoses, Mast Chains, Cables and Stops - Check Visually",7));
-        formDatas.add(new FormData("Overhead Guard - Attached",8));
-        formDatas.add(new FormData("Finger Guards - Attached",9));
-        formDatas.add(new FormData("Propane Tank(LP Gas Truck) - Rust Corrision, Damage",10));
-        formDatas.add(new FormData("Safety Wanings - Attached(Refer to Parts Manual for Location)",11));
-        formDatas.add(new FormData("Battery - Check Water/Electrolyte LEvel and Change",12));
-        formDatas.add(new FormData("All Engine Belts - Check Visually",13));
-        formDatas.add(new FormData("Hydraulic Fluid Level- Check Level",14));
-        formDatas.add(new FormData("Engine Oil Level - Dipstick",15));
-        formDatas.add(new FormData("Transmission Fluid Level - Dipstick",16));
-        formDatas.add(new FormData("Engine Air Cleaner - Squeeze Rubber Dirt Trap or Check the Restriction Alarm (if equipped)",17));
-        formDatas.add(new FormData("Fuel Sedimentor (Disel)",18));
-        formDatas.add(new FormData("Radiator Coolant - Check Level",19));
-        formDatas.add(new FormData("Operator's Mannual - In Container",20));
-        formDatas.add(new FormData("Nameplate - Attached and Information Matches Model, Serial Number and Attachments",21));
-        formDatas.add(new FormData("Seat Belt - Functioning Smoothly",22));
-        formDatas.add(new FormData("Hood Latch - Adjusted and Securely Fastened",23));
-        formDatas.add(new FormData("Brake Fluid - Check Level",24));
+        formDatas.add(new FormData("Leaks - Fuel, Hydraulic Oil or Radiator Coolant", 3));
+        formDatas.add(new FormData("Tires - Condition and Pressure", 4));
+        formDatas.add(new FormData("Fork, Top Clip Retaining Pin and Heel - Check Condition", 5));
+        formDatas.add(new FormData("Load Backrest - Securely Attached", 6));
+        formDatas.add(new FormData("Hydraulic Hoses, Mast Chains, Cables and Stops - Check Visually", 7));
+        formDatas.add(new FormData("Overhead Guard - Attached", 8));
+        formDatas.add(new FormData("Finger Guards - Attached", 9));
+        formDatas.add(new FormData("Propane Tank(LP Gas Truck) - Rust Corrision, Damage", 10));
+        formDatas.add(new FormData("Safety Wanings - Attached(Refer to Parts Manual for Location)", 11));
+        formDatas.add(new FormData("Battery - Check Water/Electrolyte LEvel and Change", 12));
+        formDatas.add(new FormData("All Engine Belts - Check Visually", 13));
+        formDatas.add(new FormData("Hydraulic Fluid Level- Check Level", 14));
+        formDatas.add(new FormData("Engine Oil Level - Dipstick", 15));
+        formDatas.add(new FormData("Transmission Fluid Level - Dipstick", 16));
+        formDatas.add(new FormData("Engine Air Cleaner - Squeeze Rubber Dirt Trap or Check the Restriction Alarm (if equipped)", 17));
+        formDatas.add(new FormData("Fuel Sedimentor (Disel)", 18));
+        formDatas.add(new FormData("Radiator Coolant - Check Level", 19));
+        formDatas.add(new FormData("Operator's Mannual - In Container", 20));
+        formDatas.add(new FormData("Nameplate - Attached and Information Matches Model, Serial Number and Attachments", 21));
+        formDatas.add(new FormData("Seat Belt - Functioning Smoothly", 22));
+        formDatas.add(new FormData("Hood Latch - Adjusted and Securely Fastened", 23));
+        formDatas.add(new FormData("Brake Fluid - Check Level", 24));
 
 
         return formDatas;
     }
 
 
+    public void postDATA() {
 
-    public void postDATA(){
-
-        for (int i = 0; i<formDatas.size(); i++){
+        for (int i = 0; i < formDatas.size(); i++) {
             save(i);
         }
 
     }
 
-
     public void save(final int i) {
 
+        pDialog.setMessage("Sending Data...");
+        showDialog();
         String tag_string_req = "req_operational_check";
         //insertion
         StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.URL_INSERT_OPERATIONAL_CHECK, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
+
+                hideDialog();
                 Log.i("operational_check", "Response: " + response.toString());
 
                 try {
@@ -143,6 +152,7 @@ public class FormFragment extends Fragment {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+                hideDialog();
                 Log.i("checkout_insert", "Insertion Error: " + error.getMessage());
                 Toast.makeText(getContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
@@ -175,7 +185,7 @@ public class FormFragment extends Fragment {
                 *    formDatas.get(0).getComment()
                 *
                 * */
-                params.put("id","rrrr");
+                params.put("id", "rrrr");
                 params.put("checklist_item_id", String.valueOf(formDatas.get(i).getId()));
                 params.put("truck_id", 3 + "");
                 params.put("shift_id", 2 + "");
@@ -193,7 +203,6 @@ public class FormFragment extends Fragment {
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
         //end of insertion
-
 
 
     }
@@ -320,8 +329,21 @@ public class FormFragment extends Fragment {
 
     }
 
-    public void updateList(String s){Toast.makeText(getActivity(),"Got!",Toast.LENGTH_SHORT).show();};
+    public void updateList(String s) {
+        Toast.makeText(getActivity(), "Got!", Toast.LENGTH_SHORT).show();
+    }
 
+
+
+    private void showDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
+    }
 
 
 

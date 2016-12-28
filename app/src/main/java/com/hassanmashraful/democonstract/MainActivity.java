@@ -468,7 +468,7 @@ public class MainActivity extends FragmentActivity implements
         });*/
 
         ImageView icon = new ImageView(this); // Create an icon
-        icon.setImageResource(R.drawable.ic_menu_black_24dp);
+        icon.setImageResource(R.drawable.ic_menu);
 
         FloatingActionButton actionButton = new FloatingActionButton.Builder(this)
                 .setContentView(icon)
@@ -477,12 +477,12 @@ public class MainActivity extends FragmentActivity implements
                 .build();
 
         ImageView iconBack = new ImageView(this); // Create an icon
-        iconBack.setImageResource(R.drawable.ic_arrow_back_black_24dp);
+        iconBack.setImageResource(R.drawable.ic_return);
         ImageView iconSubmit = new ImageView(this); // Create an icon
-        iconSubmit.setImageResource(R.drawable.ic_add_black_24dp);
+        iconSubmit.setImageResource(R.drawable.ic_sent);
 
         SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
-        itemBuilder.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_round));
+        itemBuilder.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_round_small));
         SubActionButton buttonBack = itemBuilder.setContentView(iconBack).build();
         SubActionButton buttonSend = itemBuilder.setContentView(iconSubmit).build();
 

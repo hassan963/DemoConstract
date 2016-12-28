@@ -1,5 +1,6 @@
 package com.hassanmashraful.democonstract.Fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -36,6 +37,7 @@ import java.util.Map;
 public class FormFragmentTwo extends Fragment {
 
 
+    private ProgressDialog pDialog;
     private RecyclerView recyclerView;
     private ArrayList<FormData> formDatas = new ArrayList<>();
     private FormOneAdapter formOneAdapter;
@@ -45,6 +47,10 @@ public class FormFragmentTwo extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        // Progress dialog
+        pDialog = new ProgressDialog(getActivity());
+        pDialog.setCancelable(false);
         View rootView = inflater.inflate(R.layout.fragment_recycle_form, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycleListView);
 
@@ -66,21 +72,20 @@ public class FormFragmentTwo extends Fragment {
 
     private ArrayList<FormData> getFormData() {
 
-        formDatas.add(new FormData("Accelerator or Direction Control Pedal - Functioning Smoothly",25));
-        formDatas.add(new FormData("Service Brake - Functioning Smoothly",26));
-        formDatas.add(new FormData("Parking Brake - Functioning Smoothly",27));
-        formDatas.add(new FormData("Steering Operation - Functioning Smoothly",28));
-        formDatas.add(new FormData("Drive Control - Forward/Reverse - Functioning Smoothly",29));
+        formDatas.add(new FormData("Accelerator or Direction Control Pedal - Functioning Smoothly", 25));
+        formDatas.add(new FormData("Service Brake - Functioning Smoothly", 26));
+        formDatas.add(new FormData("Parking Brake - Functioning Smoothly", 27));
+        formDatas.add(new FormData("Steering Operation - Functioning Smoothly", 28));
+        formDatas.add(new FormData("Drive Control - Forward/Reverse - Functioning Smoothly", 29));
 
 
         return formDatas;
     }
 
 
+    public void postDATA() {
 
-    public void postDATA(){
-
-        for (int i = 0; i<formDatas.size(); i++){
+        for (int i = 0; i < formDatas.size(); i++) {
             save(i);
         }
 
@@ -89,12 +94,17 @@ public class FormFragmentTwo extends Fragment {
 
     public void save(final int i) {
 
+
+        pDialog.setMessage("Sending Data ...");
+        showDialog();
         String tag_string_req = "req_operational_check";
         //insertion
         StringRequest strReq = new StringRequest(Request.Method.POST, AppConfig.URL_INSERT_OPERATIONAL_CHECK, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
+
+                hideDialog();
                 Log.i("operational_check", "Response: " + response.toString());
 
                 try {
@@ -121,6 +131,8 @@ public class FormFragmentTwo extends Fragment {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+
+                hideDialog();
                 Log.i("checkout_insert", "Insertion Error: " + error.getMessage());
                 Toast.makeText(getContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
@@ -153,7 +165,7 @@ public class FormFragmentTwo extends Fragment {
                 *    formDatas.get(0).getComment()
                 *
                 * */
-                params.put("id","rrrr");
+                params.put("id", "rrrr");
                 params.put("checklist_item_id", String.valueOf(formDatas.get(i).getId()));
                 params.put("truck_id", 3 + "");
                 params.put("shift_id", 2 + "");
@@ -174,12 +186,22 @@ public class FormFragmentTwo extends Fragment {
         //end of insertion
 
 
-
     }
 
-    public void updateList(String s){Toast.makeText(getActivity(),"Got from two B-)!",Toast.LENGTH_SHORT).show();};
+    public void updateList(String s) {
+        Toast.makeText(getActivity(), "Got from two B-)!", Toast.LENGTH_SHORT).show();
+    }
 
 
+    private void showDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideDialog() {
+        if (pDialog.isShowing())
+            pDialog.dismiss();
+    }
 
 
 }
