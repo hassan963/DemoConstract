@@ -79,11 +79,11 @@ public class FormFragment extends Fragment {
         formDatas.add(new FormData("Overhead Guard - Attached",6));
         formDatas.add(new FormData("Finger Guards - Attached",7));
         formDatas.add(new FormData("Propane Tank(LP Gas Truck) - Rust Corrision, Damage",8));
-        formDatas.add(new FormData("Safety Wanings - Attached(Refer to PArts Manual for Location)",9));
+        formDatas.add(new FormData("Safety Wanings - Attached(Refer to Parts Manual for Location)",9));
         formDatas.add(new FormData("Battery - Check Water/Electrolyte LEvel and Change",10));
         formDatas.add(new FormData("All Engine Belts - Check Visually",11));
         formDatas.add(new FormData("Hydraulic Fluid Level- Check Level",12));
-        formDatas.add(new FormData("Engine Oil LEvel - Dipstick",13));
+        formDatas.add(new FormData("Engine Oil Level - Dipstick",13));
         formDatas.add(new FormData("Transmission Fluid Level - Dipstick",14));
         formDatas.add(new FormData("Engine Air Cleaner - Squeeze Rubber Dirt Trap or Check the Restriction Alarm (if equipped)",15));
         formDatas.add(new FormData("Fuel Sedimentor (Disel)",16));
