@@ -3,7 +3,9 @@ package com.hassanmashraful.democonstract.Adapter;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.hassanmashraful.democonstract.Fragment.FormFragment;
 import com.hassanmashraful.democonstract.Fragment.FormFragmentTwo;
@@ -15,6 +17,8 @@ import com.hassanmashraful.democonstract.Fragment.FormFragmentTwo;
 public class PagerAdapter extends FragmentPagerAdapter {
 
     private Fragment mCurrentFragment;
+    private FormFragment formFragment;
+    private FormFragmentTwo formFragmentTwo;
 
     public PagerAdapter(FragmentManager fm) {
         super(fm);
@@ -26,12 +30,33 @@ public class PagerAdapter extends FragmentPagerAdapter {
 
 
     @Override
+    public Object instantiateItem(ViewGroup container, int position) {
+        Fragment createdFragment = (Fragment) super.instantiateItem(container, position);
+        // save the appropriate reference depending on position
+        switch (position) {
+            case 0:
+                formFragment = (FormFragment) createdFragment;
+                break;
+            case 1:
+                formFragmentTwo = (FormFragmentTwo) createdFragment;
+                break;
+        }
+        return createdFragment;
+    }
+
+
+
+
+
+    @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
         if (getCurrentFragment() != object) {
             mCurrentFragment = ((Fragment) object);
         }
         super.setPrimaryItem(container, position, object);
     }
+
+
 
     @Override
     public Fragment getItem(int position) {
