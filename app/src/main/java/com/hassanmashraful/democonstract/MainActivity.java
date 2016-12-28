@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +40,9 @@ import com.hassanmashraful.democonstract.app.AppConfig;
 import com.hassanmashraful.democonstract.app.AppController;
 import com.hassanmashraful.democonstract.helper.SQLiteHandler;
 import com.hassanmashraful.democonstract.helper.SessionManager;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 
@@ -52,7 +56,9 @@ import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends FragmentActivity implements
-        AdapterView.OnItemSelectedListener {
+        AdapterView.OnItemSelectedListener, View.OnClickListener {
+    private static final String TAG_BACK = "button_back";
+    private static final String TAG_SEND = "button_send";
 
 
     String f_name;
@@ -459,6 +465,37 @@ public class MainActivity extends FragmentActivity implements
                 Toast.makeText(getApplicationContext(), "CLICKED", Toast.LENGTH_SHORT).show();
             }
         });*/
+
+        ImageView icon = new ImageView(this); // Create an icon
+        icon.setImageResource(R.drawable.ic_menu);
+
+        FloatingActionButton actionButton = new FloatingActionButton.Builder(this)
+                .setContentView(icon)
+                .setBackgroundDrawable(R.drawable.selector_button_blue)
+                .build();
+
+        ImageView iconBack = new ImageView(this); // Create an icon
+        iconBack.setImageResource(R.drawable.ic_back);
+        ImageView iconSubmit = new ImageView(this); // Create an icon
+        iconSubmit.setImageResource(R.drawable.ic_send);
+
+        SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
+        itemBuilder.setBackgroundDrawable(getResources().getDrawable(R.drawable.sub_background_drawable));
+        SubActionButton buttonBack = itemBuilder.setContentView(iconBack).build();
+        SubActionButton buttonSend = itemBuilder.setContentView(iconSubmit).build();
+
+
+        buttonBack.setTag(TAG_BACK);
+        buttonSend.setTag(TAG_SEND);
+        buttonBack.setOnClickListener(this);
+        buttonSend.setOnClickListener(this);
+
+        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this)
+                .addSubActionView(buttonBack)
+                .addSubActionView(buttonSend)
+                .attachTo(actionButton)
+                .build();
+
     }
 
 
@@ -607,4 +644,14 @@ public class MainActivity extends FragmentActivity implements
     }
 
 
+    @Override
+    public void onClick(View v) {
+        if (v.getTag().equals(TAG_BACK)) {
+            Toast.makeText(MainActivity.this, "Back ", Toast.LENGTH_SHORT).show();
+        }
+        if (v.getTag().equals(TAG_SEND)) {
+            Toast.makeText(MainActivity.this, "SEND ", Toast.LENGTH_SHORT).show();
+
+        }
+    }
 }
