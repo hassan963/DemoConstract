@@ -58,7 +58,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends FragmentActivity implements
-        AdapterView.OnItemSelectedListener, View.OnClickListener {
+        AdapterView.OnItemSelectedListener {
 
 
     FloatingActionMenu materialDesignFAM;
@@ -87,7 +87,7 @@ public class MainActivity extends FragmentActivity implements
     List<String> lables;
 
     ArrayList<SpinnerData> spinnerDatas = new ArrayList<>();
-    FloatingActionButton menu1,menu2,menu3 ;
+    FloatingActionButton menu1, menu2, menu3;
     ViewPager viewpager;
     FormFragment formFragment;
     FormFragmentTwo formFragmentTwo;
@@ -506,8 +506,8 @@ public class MainActivity extends FragmentActivity implements
                 .build(); */
 
 
-        menu1 = (FloatingActionButton)findViewById(R.id.subFloatingMenu1) ;
-        menu2 = (FloatingActionButton)findViewById(R.id.subFloatingMenu2) ;
+        menu1 = (FloatingActionButton) findViewById(R.id.subFloatingMenu1);
+        menu2 = (FloatingActionButton) findViewById(R.id.subFloatingMenu2);
         //menu3 = (FloatingActionButton)findViewById(R.id.subFloatingMenu3) ;
 
         menu1.setTag(TAG_SEND);
@@ -518,7 +518,6 @@ public class MainActivity extends FragmentActivity implements
             public void onClick(View v) {
 
 
-
                 //Toast.makeText(MainActivity.this , "BackUp Icon clicked", Toast.LENGTH_LONG).show();
                 if (v.getTag().equals(TAG_SEND)) {
                     //Toast.makeText(MainActivity.this, "SEND ", Toast.LENGTH_SHORT).show();
@@ -526,12 +525,14 @@ public class MainActivity extends FragmentActivity implements
                         FormFragment frag1 = (FormFragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
                         //frag1.updateList("FFFFFFFFFFFFFFFFFFFFFFF");
                         //Toast.makeText(MainActivity.this, "SEND 1", Toast.LENGTH_SHORT).show();
-                        frag1.postDATA();
+                        String truck_id = ids.get(spinnerModel.getSelectedItemPosition());
+                        frag1.postDATA(truck_id, user_id, shift_id);
                     } else if (viewpager.getCurrentItem() == 1) {
                         FormFragmentTwo frag2 = (FormFragmentTwo) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
                         //frag2.updateList("SSSSSSSSSSSSSSSSSSSSSSSS");
                         //Toast.makeText(MainActivity.this, "SEND 2", Toast.LENGTH_SHORT).show();
-                        frag2.postDATA();
+                        String truck_id = ids.get(spinnerModel.getSelectedItemPosition());
+                        frag2.postDATA(truck_id, user_id, shift_id);
                     }
 
                 }
@@ -543,7 +544,7 @@ public class MainActivity extends FragmentActivity implements
         menu2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(v.getTag().equals(TAG_BACK)){
+                if (v.getTag().equals(TAG_BACK)) {
                     //Toast.makeText(MainActivity.this , " Alarm Icon clicked ", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
                     startActivity(intent);
@@ -715,10 +716,10 @@ public class MainActivity extends FragmentActivity implements
         startActivity(intent);
     }
 
-
-   @Override
+/*
+    @Override
     public void onClick(View v) {
-        Toast.makeText(getApplicationContext(), "SHOEBJJHB", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "SHOEBJJHB", Toast.LENGTH_SHORT).show();
         Log.i("***********************", "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
         if (v.getTag().equals(TAG_BACK)) {
             //Toast.makeText(MainActivity.this, "Back ", Toast.LENGTH_SHORT).show();
@@ -738,5 +739,5 @@ public class MainActivity extends FragmentActivity implements
             }
 
         }
-    }
+    }*/
 }

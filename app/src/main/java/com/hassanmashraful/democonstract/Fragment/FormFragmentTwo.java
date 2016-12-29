@@ -21,6 +21,8 @@ import com.hassanmashraful.democonstract.Content.FormData;
 import com.hassanmashraful.democonstract.R;
 import com.hassanmashraful.democonstract.app.AppConfig;
 import com.hassanmashraful.democonstract.app.AppController;
+import com.hassanmashraful.democonstract.helper.SQLiteHandler;
+import com.hassanmashraful.democonstract.helper.SessionManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by Hassan M.Ashraful on 12/23/2016.
@@ -41,8 +44,16 @@ public class FormFragmentTwo extends Fragment {
     private RecyclerView recyclerView;
     private ArrayList<FormData> formDatas = new ArrayList<>();
     private FormOneAdapter formOneAdapter;
-
+    private SQLiteHandler db;
+    private SessionManager session;
     String timestamp;
+    String f_name;
+    String l_name;
+    String user_id;
+    String email;
+    String login_at_date;
+    String login_at_time;
+    String shift_id;
 
     @Nullable
     @Override
@@ -56,11 +67,23 @@ public class FormFragmentTwo extends Fragment {
 
         formOneAdapter = new FormOneAdapter(getFormData(), getActivity());
         recyclerView.setAdapter(formOneAdapter);
-
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
+
+
+        //Getting session
+        db = new SQLiteHandler(getActivity());
+        // Fetching user details from SQLite
+        HashMap<String, String> user = db.getUserDetails();
+        f_name = user.get("f_name");
+        l_name = user.get("l_name");
+        user_id = user.get("id");
+        email = user.get("email");
+        login_at_date = user.get("login_at_date");
+        login_at_time = user.get("login_at_time");
+        shift_id = user.get("shift_id");
 
         return rootView;
     }
@@ -78,21 +101,43 @@ public class FormFragmentTwo extends Fragment {
         formDatas.add(new FormData("Steering Operation - Functioning Smoothly", 28));
         formDatas.add(new FormData("Drive Control - Forward/Reverse - Functioning Smoothly", 29));
 
-
         return formDatas;
     }
 
 
-    public void postDATA() {
+    public void postDATA(String truck_id, String user_id, String shift_id) {
+
+
+        /**
+         * generate unique id for each form
+         * **/
+        Long tsLong = System.currentTimeMillis() / 1000;
+        String idMill = tsLong.toString();
+        char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 20; i++) {
+            char c = chars[random.nextInt(chars.length)];
+            sb.append(c);
+        }
+        String output = sb.toString();
+
+        String id = idMill + output;
+        Log.i("timestamp", "ID : " + id);
+
+
+        /*
+        * get selected spinner
+        * */
+
 
         for (int i = 0; i < formDatas.size(); i++) {
-            save(i);
+            save(i, id, truck_id, user_id, shift_id);
         }
-
     }
 
 
-    public void save(final int i) {
+    public void save(final int i, final String form_id, final String truck_id, final String user_id, final String shift_id) {
 
 
         pDialog.setMessage("Sending Data ...");
@@ -165,10 +210,11 @@ public class FormFragmentTwo extends Fragment {
                 *    formDatas.get(0).getComment()
                 *
                 * */
-                params.put("id", "rrrr");
+                params.put("id", form_id);
                 params.put("checklist_item_id", String.valueOf(formDatas.get(i).getId()));
-                params.put("truck_id", 3 + "");
-                params.put("shift_id", 2 + "");
+                params.put("truck_id", truck_id);
+                params.put("operator_id", user_id);
+                params.put("shift_id", shift_id);
                 params.put("status", String.valueOf(formDatas.get(i).getStatus()));
                 params.put("maintenance", formDatas.get(i).getComment());
                 params.put("timestamp", timestamp);
@@ -189,7 +235,7 @@ public class FormFragmentTwo extends Fragment {
     }
 
     public void updateList(String s) {
-        Toast.makeText(getActivity(), "Got from two B-)!", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "Got from two B-)!", Toast.LENGTH_SHORT).show();
     }
 
 

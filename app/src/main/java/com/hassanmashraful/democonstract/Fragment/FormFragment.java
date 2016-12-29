@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by Hassan M.Ashraful on 11/16/2016.
@@ -106,15 +107,31 @@ public class FormFragment extends Fragment {
     }
 
 
-    public void postDATA() {
+    public void postDATA(String truck_id, String user_id, String shift_id) {
+/**
+ * generate unique id for each form
+ * **/
+        Long tsLong = System.currentTimeMillis() / 1000;
+        String idMill = tsLong.toString();
+        char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 20; i++) {
+            char c = chars[random.nextInt(chars.length)];
+            sb.append(c);
+        }
+        String output = sb.toString();
+
+        String id = idMill + output;
+        Log.i("timestamp", "ID : " + id);
 
         for (int i = 0; i < formDatas.size(); i++) {
-            save(i);
+            save(i, id, truck_id, user_id, shift_id);
         }
 
     }
 
-    public void save(final int i) {
+    public void save(final int i, final String form_id, final String truck_id, final String user_id, final String shift_id) {
 
         pDialog.setMessage("Sending Data...");
         showDialog();
@@ -185,10 +202,11 @@ public class FormFragment extends Fragment {
                 *    formDatas.get(0).getComment()
                 *
                 * */
-                params.put("id", "rrrr");
+                params.put("id", form_id);
                 params.put("checklist_item_id", String.valueOf(formDatas.get(i).getId()));
-                params.put("truck_id", 3 + "");
-                params.put("shift_id", 2 + "");
+                params.put("truck_id", truck_id);
+                params.put("operator_id", user_id);
+                params.put("shift_id", shift_id);
                 params.put("status", String.valueOf(formDatas.get(i).getStatus()));
                 params.put("maintenance", formDatas.get(i).getComment());
                 params.put("timestamp", timestamp);
@@ -334,7 +352,6 @@ public class FormFragment extends Fragment {
     }
 
 
-
     private void showDialog() {
         if (!pDialog.isShowing())
             pDialog.show();
@@ -344,7 +361,6 @@ public class FormFragment extends Fragment {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
-
 
 
 }

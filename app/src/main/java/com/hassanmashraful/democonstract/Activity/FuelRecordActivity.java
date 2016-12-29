@@ -342,10 +342,10 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         * get hour meter
         * */
         if (fuel_checkbox.isChecked()) {
-            String fuel_check = "1";
+            String fuel_check = "t";
             insertFuelRecord(id, truck_id, "1", deptName, hour_meter, timestamp, fuel_check);
         } else {
-            String fuel_check = "0";
+            String fuel_check = "f";
             insertFuelRecord(id, truck_id, "1", deptName, hour_meter, timestamp, fuel_check);
         }
 
@@ -353,30 +353,30 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         * get hour meter
         * */
         if (engineOil_checkbox.isChecked()) {
-            String engineOil_check = "1";
+            String engineOil_check = "t";
             insertFuelRecord(id, truck_id, "2", deptName, hour_meter, timestamp, engineOil_check);
         } else {
-            String engineOil_check = "0";
+            String engineOil_check = "f";
             insertFuelRecord(id, truck_id, "2", deptName, hour_meter, timestamp, engineOil_check);
         }
         /*
         * get hour meter
         * */
         if (radiator_checkbox.isChecked()) {
-            String radiator_check = "1";
+            String radiator_check = "t";
             insertFuelRecord(id, truck_id, "3", deptName, hour_meter, timestamp, radiator_check);
         } else {
-            String radiator_check = "0";
+            String radiator_check = "f";
             insertFuelRecord(id, truck_id, "3", deptName, hour_meter, timestamp, radiator_check);
         }
         /*
         * get hour meter
         * */
         if (hydraulic_checkbox.isChecked()) {
-            String hydraulic_check = "1";
+            String hydraulic_check = "t";
             insertFuelRecord(id, truck_id, "4", deptName, hour_meter, timestamp, hydraulic_check);
         } else {
-            String hydraulic_check = "0";
+            String hydraulic_check = "f";
             insertFuelRecord(id, truck_id, "4", deptName, hour_meter, timestamp, hydraulic_check);
         }
 
