@@ -134,8 +134,8 @@ public class FormFragmentTwo extends Fragment {
 
                 hideDialog();
                 Log.i("checkout_insert", "Insertion Error: " + error.getMessage());
-                Toast.makeText(getContext(),
-                        error.getMessage(), Toast.LENGTH_LONG).show();
+                /*Toast.makeText(getContext(),
+                        error.getMessage(), Toast.LENGTH_LONG).show();*/
             }
         }) {
 

@@ -382,7 +382,6 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
 
         Intent intent = new Intent(FuelRecordActivity.this, CategoryActivity.class);
         startActivity(intent);
-        finish();
     }
 
     public void insertFuelRecord(final String forum_id, final String truck_id, final String fuel_type_id, final String department, final String hour_meter, final String time_stamp, final String status) {

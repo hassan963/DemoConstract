@@ -125,7 +125,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
             //builder.show();
-            Toast.makeText(context, "CLICKED: " + android.getrecyclerViewTitleText(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "CLICKED: " + android.getrecyclerViewTitleText(), Toast.LENGTH_SHORT).show();
         }
     }
 
