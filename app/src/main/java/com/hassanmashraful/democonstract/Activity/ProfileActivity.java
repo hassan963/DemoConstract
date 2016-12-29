@@ -67,11 +67,6 @@ public class ProfileActivity extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.primary_dark));
         }
-
-        txtName = (TextView) findViewById(R.id.name);
-        txtEmail = (TextView) findViewById(R.id.email);
-        txtLogin = (TextView) findViewById(R.id.loginAt);
-
         // SqLite database handler
         db = new SQLiteHandler(getApplicationContext());
 
@@ -81,6 +76,11 @@ public class ProfileActivity extends AppCompatActivity {
         if (!session.isLoggedIn()) {
             logoutUser();
         }
+
+        txtName = (TextView) findViewById(R.id.name);
+        txtEmail = (TextView) findViewById(R.id.email);
+        txtLogin = (TextView) findViewById(R.id.loginAt);
+
 
         // Fetching user details from SQLite
         HashMap<String, String> user = db.getUserDetails();
@@ -125,6 +125,7 @@ public class ProfileActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(ProfileActivity.this, CategoryActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override
@@ -345,7 +346,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             Intent intent = new Intent(ProfileActivity.this, CategoryActivity.class);
             startActivity(intent);
-
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -358,6 +359,7 @@ public class ProfileActivity extends AppCompatActivity {
         session.setLogin(false);
 
         db.deleteUsers();
+        db.deleteLabels();
 
         // Launching the login activity
         Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);

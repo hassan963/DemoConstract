@@ -84,6 +84,15 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         setContentView(R.layout.activity_fuel_record);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //Getting session
+        db = new SQLiteHandler(getApplicationContext());
+        dbOne = new SQLiteHandler(getApplicationContext());
+        // session manager
+        session = new SessionManager(getApplicationContext());
+
+        if (!session.isLoggedIn()) {
+            logoutUser();
+        }
 
         vehicle_json_id = new ArrayList<>();
         list = new ArrayList<>();
@@ -130,11 +139,7 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         Log.i("timestamp", "UUID Two: " + idTwo);*/
 
 
-        //Getting session
-        db = new SQLiteHandler(getApplicationContext());
-        dbOne = new SQLiteHandler(getApplicationContext());
-        // session manager
-        session = new SessionManager(getApplicationContext());
+
 
         // Fetching user details from SQLite
         HashMap<String, String> user = db.getUserDetails();
@@ -181,11 +186,11 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         Log.i("Serial", ids.toString());
     }
 
-
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(FuelRecordActivity.this, CategoryActivity.class);
         startActivity(intent);
+        finish();
     }
 
     /*public void getListFromWebAndInsertIntoDB() {
@@ -466,5 +471,23 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
     private void hideDialog() {
         if (pDialog.isShowing())
             pDialog.dismiss();
+    }
+
+
+    /**
+     * Logging out the user. Will set isLoggedIn flag to false in shared
+     * preferences Clears the user data from sqlite users table
+     */
+
+    private void logoutUser() {
+        session.setLogin(false);
+
+        db.deleteUsers();
+        db.deleteLabels();
+
+        // Launching the login activity
+        Intent intent = new Intent(FuelRecordActivity.this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

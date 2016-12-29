@@ -475,7 +475,7 @@ public class CategoryActivity extends AppCompatActivity {
             // Launch profile activity
             Intent intent = new Intent(CategoryActivity.this, ProfileActivity.class);
             startActivity(intent);
-
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -497,7 +497,6 @@ public class CategoryActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
 
     @Override
     public void onBackPressed() {

@@ -548,6 +548,7 @@ public class MainActivity extends FragmentActivity implements
                     //Toast.makeText(MainActivity.this , " Alarm Icon clicked ", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
                     startActivity(intent);
+                    finish();
                 }
 
 
@@ -609,6 +610,7 @@ public class MainActivity extends FragmentActivity implements
         session.setLogin(false);
 
         db.deleteUsers();
+        db.deleteLabels();
 
         // Launching the login activity
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -708,12 +710,14 @@ public class MainActivity extends FragmentActivity implements
             Toast.makeText(getApplicationContext(), spinnerDatas.get(0).getModel(), Toast.LENGTH_SHORT).show();
         }
 
-    }
+ }
+
 
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
         startActivity(intent);
+        finish();
     }
 
 /*

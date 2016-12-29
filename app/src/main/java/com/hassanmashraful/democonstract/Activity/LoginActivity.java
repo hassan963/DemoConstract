@@ -125,6 +125,8 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(String response) {
+
+                hideDialog();
                 Log.i(TAG, "Login Response: " + response.toString());
                 //Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
 
@@ -161,13 +163,14 @@ public class LoginActivity extends AppCompatActivity {
                             //insert data into shift table
                             String tag_string_req = "req_insert_shift";
                             //insertion
+                            showDialog();
                             StringRequest strReq = new StringRequest(Request.Method.POST,
                                     AppConfig.URL_INSERT_SHIFT, new Response.Listener<String>() {
 
                                 @Override
                                 public void onResponse(String response) {
                                     Log.i("insert_shift", "Response: " + response.toString());
-
+                                    hideDialog();
                                     try {
                                         JSONObject jObj = new JSONObject(response);
 
@@ -211,6 +214,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
+                                    hideDialog();
                                     Log.i("insert_shift", "insert_shift Error: " + error.getMessage());
                                     Toast.makeText(getApplicationContext(),
                                             error.getMessage(), Toast.LENGTH_LONG).show();
@@ -265,6 +269,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+                hideDialog();
                 Log.i(TAG, "Login Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
                 hideDialog();
@@ -289,6 +294,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void getListFromWebAndInsertIntoDB() {
         // Toast.makeText(getApplicationContext(), AppConfig.URL_ALL_VEHICLES, Toast.LENGTH_SHORT).show();
+        showDialog();
         String tag_string_req = "req_get_all_vehicles";
         StringRequest strReq = new StringRequest(Request.Method.GET, AppConfig.URL_ALL_VEHICLES, new Response.Listener<String>() {
             @Override
@@ -338,4 +344,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onBackPressed() {
+        //To EXIT the game
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+        System.exit(0);
+    }
 }
