@@ -158,7 +158,11 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         // Posting parameters to insert_check_message url
         Calendar c = Calendar.getInstance();
         String date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
-        String time = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE);
+        String hour = c.get(Calendar.HOUR) + "";
+        if (hour.equals("0")) {
+            hour = "00";
+        }
+        String time = hour + ":" + c.get(Calendar.MINUTE);
         String date_time = date + " " + time;
         //int ampm= c.get(Calendar.AM_PM);
         int am_pm = c.get(Calendar.AM_PM);
