@@ -1,66 +1,41 @@
 package com.hassanmashraful.democonstract;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.hassanmashraful.democonstract.Activity.CategoryActivity;
-import com.hassanmashraful.democonstract.Activity.FuelRecordActivity;
 import com.hassanmashraful.democonstract.Activity.LoginActivity;
-import com.hassanmashraful.democonstract.Activity.ProfileActivity;
 import com.hassanmashraful.democonstract.Adapter.PagerAdapter;
 import com.hassanmashraful.democonstract.Content.SpinnerData;
 import com.hassanmashraful.democonstract.Fragment.FormFragment;
 import com.hassanmashraful.democonstract.Fragment.FormFragmentTwo;
-import com.hassanmashraful.democonstract.Task.BackgroundTask;
-import com.hassanmashraful.democonstract.app.AppConfig;
-import com.hassanmashraful.democonstract.app.AppController;
 import com.hassanmashraful.democonstract.helper.SQLiteHandler;
 import com.hassanmashraful.democonstract.helper.SessionManager;
 
-import com.roughike.bottombar.BottomBar;
-import com.roughike.bottombar.OnTabSelectListener;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.github.clans.fab.FloatingActionButton;
-import com.github.clans.fab.FloatingActionMenu;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends FragmentActivity implements
         AdapterView.OnItemSelectedListener {
 
 
+    String TRUCK_ID_SELECTED = "";
     FloatingActionMenu materialDesignFAM;
     FloatingActionButton floatingActionButton1, floatingActionButton2;
 
@@ -525,14 +500,14 @@ public class MainActivity extends FragmentActivity implements
                         FormFragment frag1 = (FormFragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
                         //frag1.updateList("FFFFFFFFFFFFFFFFFFFFFFF");
                         //Toast.makeText(MainActivity.this, "SEND 1", Toast.LENGTH_SHORT).show();
-                        String truck_id = ids.get(spinnerModel.getSelectedItemPosition());
-                        frag1.postDATA(truck_id, user_id, shift_id);
+                        //String truck_id = ids.get(spinnerModel.getSelectedItemPosition());
+                        frag1.postDATA(TRUCK_ID_SELECTED, user_id, shift_id);
                     } else if (viewpager.getCurrentItem() == 1) {
                         FormFragmentTwo frag2 = (FormFragmentTwo) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
                         //frag2.updateList("SSSSSSSSSSSSSSSSSSSSSSSS");
                         //Toast.makeText(MainActivity.this, "SEND 2", Toast.LENGTH_SHORT).show();
-                        String truck_id = ids.get(spinnerModel.getSelectedItemPosition());
-                        frag2.postDATA(truck_id, user_id, shift_id);
+                        //String truck_id = ids.get(spinnerModel.getSelectedItemPosition());
+                        frag2.postDATA(TRUCK_ID_SELECTED, user_id, shift_id);
                     }
 
                 }
@@ -593,7 +568,7 @@ public class MainActivity extends FragmentActivity implements
                                long id) {
         // On selecting a spinner item
         String label = parent.getItemAtPosition(position).toString();
-
+        TRUCK_ID_SELECTED = ids.get(position);
         // Showing selected spinner item
         //Toast.makeText(parent.getContext(), "You selected: " + label,Toast.LENGTH_LONG).show();
 
