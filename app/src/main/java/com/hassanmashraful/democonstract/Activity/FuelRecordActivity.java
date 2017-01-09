@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -24,7 +22,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.hassanmashraful.democonstract.Content.SpinnerData;
-import com.hassanmashraful.democonstract.MainActivity;
 import com.hassanmashraful.democonstract.R;
 import com.hassanmashraful.democonstract.app.AppConfig;
 import com.hassanmashraful.democonstract.app.AppController;
@@ -40,7 +37,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.UUID;
 
 public class FuelRecordActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     TextView dateSW;
@@ -63,6 +59,8 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
     String login_at_date;
     String login_at_time;
     String shift_id;
+    String TRUCK_ID_SELECTED="";
+
 
     private SQLiteHandler db;
     SQLiteHandler dbOne;
@@ -279,8 +277,12 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         // On selecting a spinner item
         String label = parent.getItemAtPosition(position).toString();
 
+         /*
+        * get selected vehicle serial
+        * */
+        TRUCK_ID_SELECTED = ids.get(position);
         // Showing selected spinner item
-        //Toast.makeText(parent.getContext(), "You selected: " + spinnerSerial.getSelectedItemPosition(), Toast.LENGTH_LONG).show();
+
 
     }
 
@@ -343,10 +345,7 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         Log.i("time", date + " " + time);
 
 
-        /*
-        * get selected vehicle serial
-        * */
-        String truck_id = ids.get(spinnerSerial.getSelectedItemPosition());
+
 
         /*
         * get department name from editText
@@ -360,10 +359,10 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         * */
         if (fuel_checkbox.isChecked()) {
             String fuel_check = "t";
-            insertFuelRecord(id, truck_id, "1", deptName, hour_meter, timestamp, fuel_check);
+            insertFuelRecord(id, TRUCK_ID_SELECTED, "1", deptName, hour_meter, timestamp, fuel_check);
         } else {
             String fuel_check = "f";
-            insertFuelRecord(id, truck_id, "1", deptName, hour_meter, timestamp, fuel_check);
+            insertFuelRecord(id, TRUCK_ID_SELECTED, "1", deptName, hour_meter, timestamp, fuel_check);
         }
 
         /*
@@ -371,30 +370,30 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         * */
         if (engineOil_checkbox.isChecked()) {
             String engineOil_check = "t";
-            insertFuelRecord(id, truck_id, "2", deptName, hour_meter, timestamp, engineOil_check);
+            insertFuelRecord(id, TRUCK_ID_SELECTED, "2", deptName, hour_meter, timestamp, engineOil_check);
         } else {
             String engineOil_check = "f";
-            insertFuelRecord(id, truck_id, "2", deptName, hour_meter, timestamp, engineOil_check);
+            insertFuelRecord(id, TRUCK_ID_SELECTED, "2", deptName, hour_meter, timestamp, engineOil_check);
         }
         /*
         * get hour meter
         * */
         if (radiator_checkbox.isChecked()) {
             String radiator_check = "t";
-            insertFuelRecord(id, truck_id, "3", deptName, hour_meter, timestamp, radiator_check);
+            insertFuelRecord(id, TRUCK_ID_SELECTED, "3", deptName, hour_meter, timestamp, radiator_check);
         } else {
             String radiator_check = "f";
-            insertFuelRecord(id, truck_id, "3", deptName, hour_meter, timestamp, radiator_check);
+            insertFuelRecord(id, TRUCK_ID_SELECTED, "3", deptName, hour_meter, timestamp, radiator_check);
         }
         /*
         * get hour meter
         * */
         if (hydraulic_checkbox.isChecked()) {
             String hydraulic_check = "t";
-            insertFuelRecord(id, truck_id, "4", deptName, hour_meter, timestamp, hydraulic_check);
+            insertFuelRecord(id, TRUCK_ID_SELECTED, "4", deptName, hour_meter, timestamp, hydraulic_check);
         } else {
             String hydraulic_check = "f";
-            insertFuelRecord(id, truck_id, "4", deptName, hour_meter, timestamp, hydraulic_check);
+            insertFuelRecord(id, TRUCK_ID_SELECTED, "4", deptName, hour_meter, timestamp, hydraulic_check);
         }
 
         Intent intent = new Intent(FuelRecordActivity.this, CategoryActivity.class);
