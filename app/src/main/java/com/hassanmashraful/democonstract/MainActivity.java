@@ -567,7 +567,7 @@ public class MainActivity extends FragmentActivity implements
     public void onItemSelected(AdapterView<?> parent, View view, int position,
                                long id) {
         // On selecting a spinner item
-        String label = parent.getItemAtPosition(position).toString();
+        //String label = parent.getItemAtPosition(position).toString();
         TRUCK_ID_SELECTED = ids.get(position);
         // Showing selected spinner item
         //Toast.makeText(parent.getContext(), "You selected: " + label,Toast.LENGTH_LONG).show();
