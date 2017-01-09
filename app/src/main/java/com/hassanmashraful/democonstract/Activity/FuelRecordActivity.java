@@ -139,8 +139,6 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         Log.i("timestamp", "UUID Two: " + idTwo);*/
 
 
-
-
         // Fetching user details from SQLite
         HashMap<String, String> user = db.getUserDetails();
         f_name = user.get("f_name");
@@ -160,8 +158,18 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         // Posting parameters to insert_check_message url
         Calendar c = Calendar.getInstance();
         String date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
+        String time = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE);
+        String date_time = date + " " + time;
+        //int ampm= c.get(Calendar.AM_PM);
+        int am_pm = c.get(Calendar.AM_PM);
+        //String ampm;
+        if (am_pm == 1) {
+            date_time = date_time + " PM";
+        } else {
+            date_time = date_time + " AM";
+        }
 
-        dateSW.setText(date);
+        dateSW.setText(date_time);
         truckSW.setText(pressCAT);
         operatorTextView.setText(f_name);
         // Spinner click listener
@@ -296,9 +304,9 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         * */
         String hour_meter;
         if (hour_meterbox.isChecked()) {
-            hour_meter = "1";
+            hour_meter = "t";
         } else {
-            hour_meter = "0";
+            hour_meter = "f";
         }
 
 

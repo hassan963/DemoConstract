@@ -1,13 +1,18 @@
 package com.hassanmashraful.democonstract.Activity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -53,6 +58,9 @@ public class ProfileActivity extends AppCompatActivity {
     String login_at_date;
     String login_at_time;
     String shift_id;
+    private static final int REQUEST_PHONE_STATE = 1;
+    private static final int PERMISSIONS_REQUEST_READ_PHONE_STATE = 999;
+    private TelephonyManager mTelephonyManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +105,11 @@ public class ProfileActivity extends AppCompatActivity {
         txtName.setText("Name: " + f_name + " " + l_name);
         txtEmail.setText("Email: " + email);
         txtLogin.setText("Login At: " + login_at_date + " " + login_at_time);
+
+        /*TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        String phnID = telephonyManager.getDeviceId();
+        Toast.makeText(this, phnID, Toast.LENGTH_LONG).show();
+        Log.i("imei", phnID);*/
 /*
 <<<<<<< Updated upstream
         //TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
@@ -118,6 +131,106 @@ public class ProfileActivity extends AppCompatActivity {
         if (identifier == null || identifier.length() == 0)
             identifier = Settings.Secure.getString(getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         Toast.makeText(getApplicationContext(), identifier, Toast.LENGTH_LONG).show();*/
+
+
+        //check for imei
+        //checkForPhoneStatePermission();
+        //checkForPhoneStatePermission();
+
+    }
+
+    private void checkForPhoneStatePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (ContextCompat.checkSelfPermission(ProfileActivity.this,
+                    Manifest.permission.READ_PHONE_STATE)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                // Should we show an explanation?
+                if (ActivityCompat.shouldShowRequestPermissionRationale(ProfileActivity.this,
+                        Manifest.permission.READ_PHONE_STATE)) {
+
+                    // Show an explanation to the user *asynchronously* -- don't block
+                    // this thread waiting for the user's response! After the user
+                    // sees the explanation, try again to request the permission.
+
+                    showPermissionMessage();
+
+                } else {
+
+                    // No explanation needed, we can request the permission.
+                    ActivityCompat.requestPermissions(ProfileActivity.this,
+                            new String[]{Manifest.permission.READ_PHONE_STATE},
+                            REQUEST_PHONE_STATE);
+                }
+
+            } else {
+                //... Permission has already been granted, obtain the UUID
+                getDeviceUuId(ProfileActivity.this);
+            }
+
+        } else {
+            //... No need to request permission, obtain the UUID
+            getDeviceUuId(ProfileActivity.this);
+        }
+    }
+
+
+    private void showPermissionMessage() {
+        new AlertDialog.Builder(this)
+                .setTitle("Read phone state")
+                .setMessage("This app requires the permission to read phone state to continue")
+                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ActivityCompat.requestPermissions(ProfileActivity.this,
+                                new String[]{Manifest.permission.READ_PHONE_STATE},
+                                REQUEST_PHONE_STATE);
+                    }
+                }).create().show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case REQUEST_PHONE_STATE:
+
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // .. Can now obtain the UUID
+                    getDeviceUuId(ProfileActivity.this);
+                } else {
+                    Toast.makeText(ProfileActivity.this, "Unable to continue without granting permission", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+    }
+
+    public void getDeviceUuId(Activity context) {
+        TelephonyManager telephonyManager = (TelephonyManager) context.getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
+        String phnID = telephonyManager.getDeviceId();
+        Toast.makeText(this, phnID, Toast.LENGTH_LONG).show();
+        Log.i("imei", phnID);
+
+        /*Str
+        String UUID = "";
+        String android_id = Settings.Secure.getString(context.getApplicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
+
+        final TelephonyManager tm = (TelephonyManager) context.getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
+
+        if (tm != null) {
+            final String tmDevice, tmSerial, androidId;
+            tmDevice = "" + tm.getDeviceId();
+            tmSerial = "" + tm.getSimSerialNumber();
+            androidId = "" + Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+
+            UUID deviceUuid = new UUID(androidId.hashCode(), ((long) tmDevice.hashCode() << 32) | tmSerial.hashCode());
+            UUID = deviceUuid.toString();
+            return UUID;
+        }*/
+        //return UUID;
     }
 
 
@@ -138,7 +251,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         final int id = item.getItemId();
-        if (id == R.id.checkout_msg) {
+        /*if (id == R.id.checkout_msg) {
 
             //The tab with id R.id.tab_msg was selected,
             //Ask employee to leave checkout message and checkout for that day
@@ -149,9 +262,9 @@ public class ProfileActivity extends AppCompatActivity {
             builder.setPositiveButton("Checkout", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            /*Send Checkout message
+                            *//*Send Checkout message
                             and
-                            logout for that day*/
+                            logout for that day*//*
 
                             AlertDialog.Builder abuilder = new AlertDialog.Builder(ProfileActivity.this);
 
@@ -186,9 +299,9 @@ public class ProfileActivity extends AppCompatActivity {
                                                             if (id != null) {
                                                                 Toast.makeText(ProfileActivity.this, "Checkout Successfully.", Toast.LENGTH_SHORT).show();
 
-                                                                /*
+                                                                *//*
                                                                 * here comes the pain
-                                                                * */
+                                                                * *//*
 
                                                                 String tag_string_req = "req_update_shift";
                                                                 //insertion
@@ -340,7 +453,8 @@ public class ProfileActivity extends AppCompatActivity {
             builder.show();
 
 
-        } else if (id == R.id.category) {
+        } else */
+        if (id == R.id.category) {
 
             // Launch profile activity
 

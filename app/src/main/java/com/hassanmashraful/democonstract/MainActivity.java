@@ -138,7 +138,7 @@ public class MainActivity extends FragmentActivity implements
         } else {
             pressBTN = (Integer) savedInstanceState.getSerializable("CATEGORY");
         }
-
+        Log.i("clicked", pressBTN + "");
         ids = db.getAllLabelIds(String.valueOf(pressBTN));
 
         /*BackgroundTask backgroundTask = new BackgroundTask(MainActivity.this, pressBTN);
@@ -710,7 +710,7 @@ public class MainActivity extends FragmentActivity implements
             Toast.makeText(getApplicationContext(), spinnerDatas.get(0).getModel(), Toast.LENGTH_SHORT).show();
         }
 
- }
+    }
 
 
     @Override

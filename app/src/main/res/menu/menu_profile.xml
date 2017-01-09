@@ -8,10 +8,10 @@
         android:orderInCategory="100"
         android:title="category"
         app:showAsAction="always" />
-    <item
+    <!--<item
         android:id="@+id/checkout_msg"
         android:icon="@drawable/logout"
         android:orderInCategory="100"
         android:title="Check Out"
-        app:showAsAction="always" />
+        app:showAsAction="always" />-->
 </menu>

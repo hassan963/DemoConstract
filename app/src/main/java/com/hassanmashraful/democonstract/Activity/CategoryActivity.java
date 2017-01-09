@@ -62,11 +62,13 @@ public class CategoryActivity extends AppCompatActivity {
             "Dump Truck",
             "Excavator",
             "Flatbed Truck",
-            "Front & back hoe Truck",
-            "Front loader Truck",
+            "Front & back hoe",
+            "Front loader",
             "Fuel Truck",
             "Road Roller",
-            "Skid Steer Truck"
+            "Skid Steer",
+            "Crusher",
+            "Screener"
     };
 
     private final int recyclerViewImages[] = {
@@ -80,7 +82,9 @@ public class CategoryActivity extends AppCompatActivity {
             R.drawable.frontloader,
             R.drawable.fuel,
             R.drawable.roadroller,
-            R.drawable.skidsteertruck
+            R.drawable.skidsteertruck,
+            R.drawable.crusher,
+            R.drawable.screener
 
     };
 

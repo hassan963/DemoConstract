@@ -1,10 +1,19 @@
 package com.hassanmashraful.democonstract.Activity;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -44,6 +53,7 @@ public class LoginActivity extends AppCompatActivity {
     String login_at_date;
     String login_at_time;
     String shift_id;
+    private static final int REQUEST_PHONE_STATE = 1;
 
     private static final String TAG = LoginActivity.class.getSimpleName();
     private Button btnLogin;
@@ -97,6 +107,8 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Check for empty data in the form
                 if (!email.isEmpty() && !password.isEmpty()) {
+
+                    //checkForPhoneStatePermission();
                     // login user
                     checkLogin(email, password);
                 } else {
@@ -110,6 +122,94 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
+
+
+    private void checkForPhoneStatePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            if (ContextCompat.checkSelfPermission(LoginActivity.this,
+                    Manifest.permission.READ_PHONE_STATE)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                // Should we show an explanation?
+                if (ActivityCompat.shouldShowRequestPermissionRationale(LoginActivity.this,
+                        Manifest.permission.READ_PHONE_STATE)) {
+
+                    // Show an explanation to the user *asynchronously* -- don't block
+                    // this thread waiting for the user's response! After the user
+                    // sees the explanation, try again to request the permission.
+
+                    showPermissionMessage();
+
+                } else {
+
+                    // No explanation needed, we can request the permission.
+                    ActivityCompat.requestPermissions(LoginActivity.this,
+                            new String[]{Manifest.permission.READ_PHONE_STATE},
+                            REQUEST_PHONE_STATE);
+                }
+
+            } else {
+                //... Permission has already been granted, obtain the UUID
+                getDeviceUuId(LoginActivity.this);
+            }
+
+        } else {
+            //... No need to request permission, obtain the UUID
+            getDeviceUuId(LoginActivity.this);
+        }
+    }
+
+
+    private void showPermissionMessage() {
+        new AlertDialog.Builder(this)
+                .setTitle("Read phone state")
+                .setMessage("This app requires the permission to read phone state to continue")
+                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        ActivityCompat.requestPermissions(LoginActivity.this,
+                                new String[]{Manifest.permission.READ_PHONE_STATE},
+                                REQUEST_PHONE_STATE);
+                    }
+                }).create().show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case REQUEST_PHONE_STATE:
+
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // .. Can now obtain the UUID
+                    getDeviceUuId(LoginActivity.this);
+                } else {
+                    Toast.makeText(LoginActivity.this, "Unable to continue without granting permission", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+    }
+
+    public void getDeviceUuId(Activity context) {
+        TelephonyManager telephonyManager = (TelephonyManager) context.getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
+        String phnID = telephonyManager.getDeviceId();
+        //Toast.makeText(this, phnID, Toast.LENGTH_LONG).show();
+        //Log.i("imei", phnID);
+
+        if (phnID.equals("357743070485838")) {
+            String email = inputEmail.getText().toString().trim();
+            String password = inputPassword.getText().toString().trim();
+            Toast.makeText(context, " IMEI Matched", Toast.LENGTH_SHORT).show();
+            checkLogin(email, password);
+        } else {
+            Toast.makeText(context, "Sorry...IMEI Number Did Not Matched!!! ", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
 
     /**
      * function to verify login details in mysql db

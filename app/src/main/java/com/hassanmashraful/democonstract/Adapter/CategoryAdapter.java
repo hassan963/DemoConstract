@@ -1,5 +1,6 @@
 package com.hassanmashraful.democonstract.Adapter;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -95,7 +96,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         public void onClick(View v) {
             final int position = getAdapterPosition();
             final CategoryData android = this.android.get(position);
-            Toast.makeText(context, "CLICKED: " + android.getrecyclerViewTitleText(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "CLICKED: " + android.getrecyclerViewTitleText() + " " + position, Toast.LENGTH_SHORT).show();
 
             //show dialog
             AlertDialog.Builder builder = new AlertDialog.Builder(itemView.getContext());
@@ -106,10 +107,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent = new Intent(context, FuelRecordActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.putExtra("CATEGORY", position);
+                            intent.putExtra("CATEGORY", position+1);
                             intent.putExtra("CATEGORY_NAME", android.getrecyclerViewTitleText());
                             context.startActivity(intent);
-
+                            //((CategoryActivity) context).finish();
                         }
                     }
             );
@@ -118,8 +119,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent = new Intent(context, MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.putExtra("CATEGORY", position);
+                            intent.putExtra("CATEGORY", position+1);
                             context.startActivity(intent);
+                            //((CategoryActivity) context).finish();
+
                         }
                     }
             );
