@@ -273,9 +273,9 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        ((TextView) parent.getChildAt(0)).setTextColor(Color.BLUE);
+        ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
         // On selecting a spinner item
-        String label = parent.getItemAtPosition(position).toString();
+        //String label = parent.getItemAtPosition(position).toString();
 
          /*
         * get selected vehicle serial
