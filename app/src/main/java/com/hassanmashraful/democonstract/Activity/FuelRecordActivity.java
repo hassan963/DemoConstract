@@ -59,7 +59,7 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
     String login_at_date;
     String login_at_time;
     String shift_id;
-    String TRUCK_ID_SELECTED="";
+    String TRUCK_ID_SELECTED = "";
 
 
     private SQLiteHandler db;
@@ -75,6 +75,14 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
     ArrayList<SpinnerData> spinnerDatas;
     private ProgressDialog pDialog;
 
+
+    Calendar c;
+    String date;
+    int hour;
+    String hr;
+    String time;
+    String date_time;
+    int month;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,14 +136,6 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
             pressCAT = (String) savedInstanceState.getSerializable("CATEGORY_NAME");
         }
 
-        /*Long tsLong = System.currentTimeMillis();
-        String ts = tsLong.toString();
-        Log.i("timestamp", ts);*/
-        /*UUID idOne = UUID.randomUUID();
-        UUID idTwo = UUID.randomUUID();
-        Log.i("timestamp", "UUID One: " + idOne);
-        Log.i("timestamp", "UUID Two: " + idTwo);*/
-
 
         // Fetching user details from SQLite
         HashMap<String, String> user = db.getUserDetails();
@@ -154,22 +154,25 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         ids = db.getAllLabelIds(String.valueOf(pressBTN));
 
         // Posting parameters to insert_check_message url
-        Calendar c = Calendar.getInstance();
-        String date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
-        String hour = c.get(Calendar.HOUR) + "";
-        if (hour.equals("0")) {
-            hour = "00";
+        c = Calendar.getInstance();
+        month = c.get(Calendar.MONTH) + 1;
+        date = c.get(Calendar.YEAR) + "-" + month + "-" + c.get(Calendar.DATE);
+        hour = c.get(Calendar.HOUR);
+        if (hour >= 0 && hour <= 9) {
+            hr = "0" + hour;
+        } else {
+            hr = hour + "";
         }
-        String time = hour + ":" + c.get(Calendar.MINUTE);
-        String date_time = date + " " + time;
+        time = hr + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
+        date_time = date + " " + time;
         //int ampm= c.get(Calendar.AM_PM);
-        int am_pm = c.get(Calendar.AM_PM);
+        //int am_pm = c.get(Calendar.AM_PM);
         //String ampm;
-        if (am_pm == 1) {
+        /*if (am_pm == 1) {
             date_time = date_time + " PM";
         } else {
             date_time = date_time + " AM";
-        }
+        }*/
 
         dateSW.setText(date_time);
         truckSW.setText(pressCAT);
@@ -320,7 +323,7 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
          * generate unique id for each form
          * **/
 
-        Long tsLong = System.currentTimeMillis() / 1000;
+        Long tsLong = System.currentTimeMillis() % 10000;
         String idMill = tsLong.toString();
         char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
         StringBuilder sb = new StringBuilder();
@@ -331,18 +334,18 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         }
         String output = sb.toString();
 
-        String id = idMill + output;
-        Log.i("timestamp", "ID : " + id);
+        String id = c.get(Calendar.YEAR) + "_" + month + "_" + c.get(Calendar.DATE) + "_" + idMill + output;
+        Log.i("form_id", "ID : " + id);
 
         /*
         * get date
         * */
-        Calendar c = Calendar.getInstance();
+        /*Calendar c = Calendar.getInstance();
         String date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
         String time = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
         //int ampm= c.get(Calendar.AM_PM);
         String timestamp = date + " " + time;
-        Log.i("time", date + " " + time);
+        Log.i("time", date + " " + time);*/
 
 
 
@@ -359,10 +362,10 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         * */
         if (fuel_checkbox.isChecked()) {
             String fuel_check = "t";
-            insertFuelRecord(id, TRUCK_ID_SELECTED, "1", deptName, hour_meter, timestamp, fuel_check);
+            insertFuelRecord(id, TRUCK_ID_SELECTED, "1", deptName, hour_meter, date_time, fuel_check);
         } else {
             String fuel_check = "f";
-            insertFuelRecord(id, TRUCK_ID_SELECTED, "1", deptName, hour_meter, timestamp, fuel_check);
+            insertFuelRecord(id, TRUCK_ID_SELECTED, "1", deptName, hour_meter, date_time, fuel_check);
         }
 
         /*
@@ -370,30 +373,30 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         * */
         if (engineOil_checkbox.isChecked()) {
             String engineOil_check = "t";
-            insertFuelRecord(id, TRUCK_ID_SELECTED, "2", deptName, hour_meter, timestamp, engineOil_check);
+            insertFuelRecord(id, TRUCK_ID_SELECTED, "2", deptName, hour_meter, date_time, engineOil_check);
         } else {
             String engineOil_check = "f";
-            insertFuelRecord(id, TRUCK_ID_SELECTED, "2", deptName, hour_meter, timestamp, engineOil_check);
+            insertFuelRecord(id, TRUCK_ID_SELECTED, "2", deptName, hour_meter, date_time, engineOil_check);
         }
         /*
         * get hour meter
         * */
         if (radiator_checkbox.isChecked()) {
             String radiator_check = "t";
-            insertFuelRecord(id, TRUCK_ID_SELECTED, "3", deptName, hour_meter, timestamp, radiator_check);
+            insertFuelRecord(id, TRUCK_ID_SELECTED, "3", deptName, hour_meter, date_time, radiator_check);
         } else {
             String radiator_check = "f";
-            insertFuelRecord(id, TRUCK_ID_SELECTED, "3", deptName, hour_meter, timestamp, radiator_check);
+            insertFuelRecord(id, TRUCK_ID_SELECTED, "3", deptName, hour_meter, date_time, radiator_check);
         }
         /*
         * get hour meter
         * */
         if (hydraulic_checkbox.isChecked()) {
             String hydraulic_check = "t";
-            insertFuelRecord(id, TRUCK_ID_SELECTED, "4", deptName, hour_meter, timestamp, hydraulic_check);
+            insertFuelRecord(id, TRUCK_ID_SELECTED, "4", deptName, hour_meter, date_time, hydraulic_check);
         } else {
             String hydraulic_check = "f";
-            insertFuelRecord(id, TRUCK_ID_SELECTED, "4", deptName, hour_meter, timestamp, hydraulic_check);
+            insertFuelRecord(id, TRUCK_ID_SELECTED, "4", deptName, hour_meter, date_time, hydraulic_check);
         }
 
         Intent intent = new Intent(FuelRecordActivity.this, CategoryActivity.class);
