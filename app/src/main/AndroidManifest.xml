@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.hassanmashraful.democonstract">
+    package="com.constructefile.democonstract">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
-        android:name=".app.AppController"
+        android:name="com.constructefile.democonstract.app.AppController"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activity.LoginActivity"
+            android:name="com.constructefile.democonstract.Activity.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -23,24 +23,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.CategoryActivity"
+            android:name="com.constructefile.democonstract.Activity.CategoryActivity"
             android:label="Categories" />
         <activity
-            android:name=".MainActivity"
-            android:parentActivityName=".Activity.CategoryActivity"
+            android:name="com.constructefile.democonstract.MainActivity"
+            android:parentActivityName="com.constructefile.democonstract.Activity.CategoryActivity"
             android:theme="@style/AppTheme.TransNav"
             android:windowSoftInputMode="adjustPan"></activity>
         <activity
-            android:name=".Activity.ProfileActivity"
+            android:name="com.constructefile.democonstract.Activity.ProfileActivity"
             android:label="Profile" />
         <activity
-            android:name=".Activity.FuelRecordActivity"
+            android:name="com.constructefile.democonstract.Activity.FuelRecordActivity"
             android:label="Fuel Record"
-            android:parentActivityName=".Activity.CategoryActivity"
+            android:parentActivityName="com.constructefile.democonstract.Activity.CategoryActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.hassanmashraful.democonstract.Activity.CategoryActivity" />
+                android:value="com.constructefile.democonstract.Activity.CategoryActivity" />
         </activity>
     </application>
 
