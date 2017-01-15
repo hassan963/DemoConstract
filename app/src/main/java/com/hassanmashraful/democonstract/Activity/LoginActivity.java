@@ -326,16 +326,41 @@ public class LoginActivity extends AppCompatActivity {
 
                                     // Posting parameters to insert_check_message url
                                     Calendar c = Calendar.getInstance();
-                                    login_at_date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
-                                    login_at_time = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
+                                    int month = c.get(Calendar.MONTH) + 1;
+                                    int hour = c.get(Calendar.HOUR);
+                                    int minute = c.get(Calendar.MINUTE);
+                                    int second = c.get(Calendar.SECOND);
+                                    String hr;
+                                    String min;
+                                    String sec;
+
+
+                                    if (hour >= 0 && hour <= 9) {
+                                        hr = "0" + hour;
+                                    } else {
+                                        hr = hour + "";
+                                    }
+                                    if (minute >= 0 && minute <= 9) {
+                                        min = "0" + minute;
+                                    } else {
+                                        min = minute + "";
+                                    }
+                                    if (second >= 0 && second <= 9) {
+                                        sec = "0" + second;
+                                    } else {
+                                        sec = second + "";
+                                    }
+
+                                    login_at_date = c.get(Calendar.YEAR) + "-" + month + "-" + c.get(Calendar.DATE);
+                                    login_at_time = hr + ":" + min + ":" + sec;
                                     //int ampm= c.get(Calendar.AM_PM);
                                     int am_pm = c.get(Calendar.AM_PM);
                                     //String ampm;
-                                    if (am_pm == 1) {
+                                    /*if (am_pm == 1) {
                                         login_at_time = login_at_time + " PM";
                                     } else {
                                         login_at_time = login_at_time + " AM";
-                                    }
+                                    }*/
 
                                     /*String timestamp = date + " " + time;
                                     Log.i("time", date + " " + time);*/

@@ -189,8 +189,31 @@ public class FormFragmentTwo extends Fragment {
 
                 // Posting parameters to insert_check_message url
                 Calendar c = Calendar.getInstance();
-                String date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
-                String time = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
+                int month = c.get(Calendar.MONTH) + 1;
+                int hour = c.get(Calendar.HOUR);
+                int minute = c.get(Calendar.MINUTE);
+                int second = c.get(Calendar.SECOND);
+                String hr;
+                String min;
+                String sec;
+
+                if (hour >= 0 && hour <= 9) {
+                    hr = "0" + hour;
+                } else {
+                    hr = hour + "";
+                }
+                if (minute >= 0 && minute <= 9) {
+                    min = "0" + minute;
+                } else {
+                    min = minute + "";
+                }
+                if (second >= 0 && second <= 9) {
+                    sec = "0" + second;
+                } else {
+                    sec = second + "";
+                }
+                String date = c.get(Calendar.YEAR) + "-" + month + "-" + c.get(Calendar.DATE);
+                String time = hr + ":" + min + ":" + sec;
                 //int ampm= c.get(Calendar.AM_PM);
 
                 String timestamp = date + " " + time;
