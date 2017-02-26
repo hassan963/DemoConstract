@@ -25,7 +25,6 @@ import java.util.List;
 
 public class BackgroundTask {
 
-
     Context context;
     int pressBTN;
     ArrayList<SpinnerData> spinnerDatas = new ArrayList<>();
@@ -60,11 +59,6 @@ public class BackgroundTask {
                         vehicle_json_id.add(vehicle_id);
                         Log.i("model_serial", vehicle_id + " " + serial_no + " " + model);
                     }
-                        /*JSONObject jsonObject = response.getJSONObject(count);
-                        SpinnerData spinnerData = new SpinnerData(jsonObject.getString("model"), jsonObject.getString("serial_no"));
-                        spinnerDatas.add(spinnerData);
-                        count++;*/
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
