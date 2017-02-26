@@ -100,7 +100,6 @@ public class CategoryActivity extends AppCompatActivity {
         session = new SessionManager(getApplicationContext());
 
         //db.deleteLabels();
-
         if (!session.isLoggedIn()) {
             logoutUser();
         }
@@ -115,92 +114,6 @@ public class CategoryActivity extends AppCompatActivity {
         login_at_time = user.get("login_at_time");
         shift_id = user.get("shift_id");
 
-        /*BottomBar bottomBar = (BottomBar) findViewById(R.id.bottomBar);
-
-        bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
-            @Override
-            public void onTabSelected(@IdRes int tabId) {
-                if (tabId == R.id.tab_cat) {
-                    // The tab with id R.id.tab_cat was selected,
-                    // change your content to CategoryActivity.
-                    // Launch Category activity
-                    Intent intent = new Intent(CategoryActivity.this, CategoryActivity.class);
-                    startActivity(intent);
-                } else if (tabId == R.id.tab_msg) {
-
-                    //The tab with id R.id.tab_msg was selected,
-                    //Ask employee to leave checkout message and checkout for that day
-                    AlertDialog.Builder builder = new AlertDialog.Builder(CategoryActivity.this);
-
-                    builder.setTitle("Checking Out? Leave A Message");
-                    builder.setMessage("By chosing this option you are going to leave a message to the authority and also CHECKOUT for today...");
-
-                    builder.setPositiveButton("Checkout", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            *//*Send Checkout message
-                            and
-                            logout for that day*//*
-
-                            AlertDialog.Builder abuilder = new AlertDialog.Builder(CategoryActivity.this);
-
-                            abuilder.setTitle("Checkout Message");
-                            final EditText checkoutContent = new EditText(CategoryActivity.this);
-                            abuilder.setView(checkoutContent);
-
-                            abuilder.setPositiveButton("Send and Checkout", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                    Log.i("AppInfo", String.valueOf(checkoutContent.getText()));
-                                    Toast.makeText(CategoryActivity.this, String.valueOf(checkoutContent.getText()), Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                            abuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.cancel();
-                                }
-                            });
-                            abuilder.show();
-                        }
-                    });
-
-                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-                    builder.show();
-
-                } else if (tabId == R.id.tab_logout) {
-
-                    // Logout
-                    AlertDialog.Builder builder = new AlertDialog.Builder(CategoryActivity.this);
-
-                    builder.setTitle("Logout");
-                    builder.setMessage("Do you want to logout?");
-                    builder.setPositiveButton("Logout", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            logoutUser();
-                        }
-                    });
-
-                    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });
-                    builder.show();
-
-                }
-            }
-        });
-*/
-
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
                 .getColor(R.color.primary)));
 
@@ -211,25 +124,6 @@ public class CategoryActivity extends AppCompatActivity {
         }
 
     }
-
-
-
-
-
-
-/*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-
-    }*/
-
 
     /*
     * getting recyclerview ready in this method calling by oncreate()
@@ -412,14 +306,11 @@ public class CategoryActivity extends AppCompatActivity {
 
                                                                         return params;
                                                                     }
-
                                                                 };
 
                                                                 // Adding request to request queue
                                                                 AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-
                                                                 //end of insertion
-
                                                             } else {
                                                                 Toast.makeText(CategoryActivity.this, "Unexpected Error! Try again later.", Toast.LENGTH_SHORT).show();
                                                             }
@@ -482,17 +373,13 @@ public class CategoryActivity extends AppCompatActivity {
 
                                                         return params;
                                                     }
-
                                                 };
-
                                                 // Adding request to request queue
                                                 AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-
                                                 //end of insertion
                                             }
                                         }
                                     }
-
                             );
                             abuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                         @Override
@@ -504,21 +391,16 @@ public class CategoryActivity extends AppCompatActivity {
                             abuilder.show();
                         }
                     }
-
             );
 
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
-
-                    {
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();
                         }
                     }
-
             );
             builder.show();
-
         } else if (id == R.id.profile) {
 
             // Launch profile activity
