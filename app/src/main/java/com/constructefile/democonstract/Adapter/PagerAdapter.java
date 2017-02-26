@@ -42,10 +42,6 @@ public class PagerAdapter extends FragmentPagerAdapter {
         return createdFragment;
     }
 
-
-
-
-
     @Override
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
         if (getCurrentFragment() != object) {
@@ -53,8 +49,6 @@ public class PagerAdapter extends FragmentPagerAdapter {
         }
         super.setPrimaryItem(container, position, object);
     }
-
-
 
     @Override
     public Fragment getItem(int position) {
