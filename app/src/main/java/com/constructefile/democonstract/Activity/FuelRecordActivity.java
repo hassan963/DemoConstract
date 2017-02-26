@@ -165,14 +165,6 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         }
         time = hr + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
         date_time = date + " " + time;
-        //int ampm= c.get(Calendar.AM_PM);
-        //int am_pm = c.get(Calendar.AM_PM);
-        //String ampm;
-        /*if (am_pm == 1) {
-            date_time = date_time + " PM";
-        } else {
-            date_time = date_time + " AM";
-        }*/
 
         dateSW.setText(date_time);
         truckSW.setText(pressCAT);
@@ -184,7 +176,7 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         loadSpinnerData();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        //fab.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.ic_full_sad));
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -205,52 +197,6 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         startActivity(intent);
         finish();
     }
-
-    /*public void getListFromWebAndInsertIntoDB() {
-        Toast.makeText(getApplicationContext(), AppConfig.URL_TRUCK + pressBTN, Toast.LENGTH_SHORT).show();
-        String tag_string_req = "req_category_base_serial_model";
-        StringRequest strReq = new StringRequest(Request.Method.GET,
-                AppConfig.URL_TRUCK + pressBTN, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Log.i("serial_model", "Response: " + response.toString());
-                try {
-                    JSONArray jsonarray = new JSONArray(response);
-                    for (int i = 0; i < jsonarray.length(); i++) {
-                        JSONObject jsonobject = jsonarray.getJSONObject(i);
-                        String vehicle_id = jsonobject.getString("id");
-                        String model = jsonobject.getString("model");
-                        String serial_no = jsonobject.getString("serial_no");
-                        Log.i("serial_model", String.valueOf(pressBTN) + " - " + vehicle_id + " - " + serial_no);
-                        Toast.makeText(FuelRecordActivity.this, "1st One " + String.valueOf(pressBTN) + " - " + vehicle_id + " - " + serial_no, Toast.LENGTH_SHORT).show();
-
-
-                        db.insertLabel(Integer.toString(pressBTN), vehicle_id, serial_no);
-                        Log.i("labelInsert", String.valueOf(pressBTN) + " " + vehicle_id + " " + serial_no);
-                        Toast.makeText(FuelRecordActivity.this, "2nd One " + String.valueOf(pressBTN) + " - " + vehicle_id + " - " + serial_no, Toast.LENGTH_SHORT).show();
-
-                        *//*SpinnerData spin = new SpinnerData(vehicle_id, model, serial_no);
-                        spinnerDatas.add(spin);
-                        *//**//**//**//*SpinnerData spinnerData = new SpinnerData(vehicle_id, model, serial_no);
-                        spinnerDatas.add(spinnerData);
-                        list.add(serial_no);
-                        vehicle_json_id.add(vehicle_id);*//**//**//**//*
-                        Log.i("model_serial", vehicle_id + " " + serial_no + " " + model);*//*
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-
-    }*/
 
     /**
      * Function to load the spinner data from SQLite database
@@ -277,16 +223,11 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
-        // On selecting a spinner item
-        //String label = parent.getItemAtPosition(position).toString();
-
          /*
         * get selected vehicle serial
         * */
         TRUCK_ID_SELECTED = ids.get(position);
         // Showing selected spinner item
-
-
     }
 
     @Override
@@ -298,15 +239,14 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
     public void submitForm() {
 
         //id - generate a unique_id for whole form
-        //date//
-        //truck id from truck serial - selectedSerial//
-        //department input//
-        //shift//
-        //operator//
-        //hour meter//
-        //fuel type//
+        //date
+        //truck id from truck serial - selectedSerial
+        //department input
+        //shift
+        //operator
+        //hour meter
+        //fuel type
         //status 0/1 means checked or unchecked
-
 
         /*
         * get hour meter
@@ -318,11 +258,9 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
             hour_meter = "f";
         }
 
-
         /**
          * generate unique id for each form
          * **/
-
         Long tsLong = System.currentTimeMillis() % 10000;
         String idMill = tsLong.toString();
         char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
@@ -338,24 +276,9 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         Log.i("form_id", "ID : " + id);
 
         /*
-        * get date
-        * */
-        /*Calendar c = Calendar.getInstance();
-        String date = c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DATE);
-        String time = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
-        //int ampm= c.get(Calendar.AM_PM);
-        String timestamp = date + " " + time;
-        Log.i("time", date + " " + time);*/
-
-
-
-
-        /*
         * get department name from editText
         * */
         String deptName = deptSW.getText().toString();
-
-
 
         /*
         * get hour meter
@@ -407,7 +330,6 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         Log.i("formSubmit", forum_id + truck_id + user_id + fuel_type_id + department + shift_id + hour_meter + time_stamp + status);
         //Toast.makeText(FuelRecordActivity.this, "id " + forum_id + " truck:" + truck_id + " op:" + user_id + " fuel:" + fuel_type_id + " dept:" + department + " shift:" + shift_id + " hr:" + hour_meter + " ts:" + time_stamp + " ok:" + status, Toast.LENGTH_SHORT).show();
 
-
         pDialog.setMessage("Sending ...");
         showDialog();
         //insertion
@@ -418,7 +340,6 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
             @Override
             public void onResponse(String response) {
                 Log.i("insert_fuel_record", "Response: " + response.toString());
-
 
                 hideDialog();
                 try {
