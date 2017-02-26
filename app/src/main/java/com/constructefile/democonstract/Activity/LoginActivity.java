@@ -73,11 +73,9 @@ public class LoginActivity extends AppCompatActivity {
             window.setStatusBarColor(getResources().getColor(R.color.primary_dark));
         }
 
-
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
         btnLogin = (Button) findViewById(R.id.btn_login);
-        //btnLinkToRegister = (Button) findViewById(R.id.btnLinkToRegisterScreen);
 
         // Progress dialog
         pDialog = new ProgressDialog(this);
@@ -117,9 +115,7 @@ public class LoginActivity extends AppCompatActivity {
                             .show();
                 }
             }
-
         });
-
     }
 
 
@@ -258,7 +254,6 @@ public class LoginActivity extends AppCompatActivity {
                             l_name = object.getString("last_name");
                             user_email = object.getString("email");
 
-
                             //insert data into shift table
                             String tag_string_req = "req_insert_shift";
                             //insertion
@@ -282,8 +277,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
                                             Calendar c = Calendar.getInstance();
-                                            /*String date = c.get(Calendar.YEAR) + ":" + c.get(Calendar.MONTH) + ":" + c.get(Calendar.DATE) + " ";
-                                            String time = c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);*/
                                             int am_pm = c.get(Calendar.AM_PM);
                                             String ampm;
                                             if (am_pm == 1) {
@@ -307,7 +300,6 @@ public class LoginActivity extends AppCompatActivity {
                                         e.printStackTrace();
                                         Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                                     }
-
                                 }
                             }, new Response.ErrorListener() {
 
@@ -352,42 +344,25 @@ public class LoginActivity extends AppCompatActivity {
 
                                     login_at_date = c.get(Calendar.YEAR) + "-" + month + "-" + c.get(Calendar.DATE);
                                     login_at_time = hr + ":" + min + ":" + sec;
-                                    //int ampm= c.get(Calendar.AM_PM);
                                     int am_pm = c.get(Calendar.AM_PM);
-                                    //String ampm;
-                                    /*if (am_pm == 1) {
-                                        login_at_time = login_at_time + " PM";
-                                    } else {
-                                        login_at_time = login_at_time + " AM";
-                                    }*/
-
-                                    /*String timestamp = date + " " + time;
-                                    Log.i("time", date + " " + time);*/
                                     Map<String, String> params = new HashMap<String, String>();
                                     params.put("operator_id", id);
                                     params.put("start_time", login_at_time);
                                     params.put("end_time", login_at_time);
                                     params.put("shift_date", login_at_date);
-
                                     return params;
                                 }
-
                             };
-
                             // Adding request to request queue
                             AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-
                             //end of insertion
                         }
                     }
-
-
                 } catch (JSONException e) {
                     // JSON error
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                 }
-
             }
         }, new Response.ErrorListener() {
 
@@ -406,10 +381,8 @@ public class LoginActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("email", email);
                 params.put("password", password);
-
                 return params;
             }
-
         };
 
         // Adding request to request queue
@@ -423,7 +396,6 @@ public class LoginActivity extends AppCompatActivity {
         StringRequest strReq = new StringRequest(Request.Method.GET, AppConfig.URL_ALL_VEHICLES, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
                 hideDialog();
                 Log.i("all_vehicles", "Response: " + response.toString());
                 try {
@@ -436,7 +408,6 @@ public class LoginActivity extends AppCompatActivity {
                         String vehicle_type_id = jsonobject.getString("vehicle_type_id");
                         Log.i("serial_model", vehicle_type_id + " - " + vehicle_id + " - " + serial_no);
                         //Toast.makeText(LoginActivity.this, "1st One " + vehicle_type_id + " - " + vehicle_id + " - " + serial_no, Toast.LENGTH_SHORT).show();
-
                         db.insertLabel(vehicle_type_id, vehicle_id, serial_no);
                         Log.i("labelInsert", vehicle_type_id + " " + vehicle_id + " " + serial_no);
                         //Toast.makeText(LoginActivity.this, "labelInsert " + vehicle_type_id + " - " + vehicle_id + " - " + serial_no, Toast.LENGTH_SHORT).show();
