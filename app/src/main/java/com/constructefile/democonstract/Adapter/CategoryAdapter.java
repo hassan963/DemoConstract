@@ -25,16 +25,13 @@ import java.util.ArrayList;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
-
     private ArrayList<CategoryData> categoryDatas;
     private Context mcontext;
-
 
     public CategoryAdapter(Context context, ArrayList<CategoryData> categoryDatas) {
         this.categoryDatas = categoryDatas;
         this.mcontext = context;
     }
-
 
     @Override
     public CategoryAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -47,7 +44,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public void onBindViewHolder(CategoryAdapter.ViewHolder holder, int position) {
         holder.textView.setText(categoryDatas.get(position).getrecyclerViewTitleText());
-        //holder.imageView.setImageResource(arrayList.get(position).getrecyclerViewImage());
         Picasso.with(mcontext).load(categoryDatas.get(position).getrecyclerViewImage()).resize(240, 180).into(holder.imageView);
     }
 
@@ -90,7 +86,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                             intent.putExtra("CATEGORY", position+1);
                             intent.putExtra("CATEGORY_NAME", android.getrecyclerViewTitleText());
                             context.startActivity(intent);
-                            //((CategoryActivity) context).finish();
                         }
                     }
             );
@@ -101,14 +96,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.putExtra("CATEGORY", position+1);
                             context.startActivity(intent);
-                            //((CategoryActivity) context).finish();
-
                         }
                     }
             );
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
-            //builder.show();
             //Toast.makeText(context, "CLICKED: " + android.getrecyclerViewTitleText(), Toast.LENGTH_SHORT).show();
         }
     }
