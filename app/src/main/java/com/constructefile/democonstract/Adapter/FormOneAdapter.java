@@ -27,8 +27,6 @@ public class FormOneAdapter extends RecyclerView.Adapter<FormOneAdapter.MyViewHo
     private Context context;
     private ArrayList<FormData> formDatas;
 
-
-
     public FormOneAdapter(ArrayList<FormData> formDatas, Context context) {
         inflater = LayoutInflater.from(context);
         this.context = context;
@@ -48,33 +46,21 @@ public class FormOneAdapter extends RecyclerView.Adapter<FormOneAdapter.MyViewHo
     public void onBindViewHolder(MyViewHolder holder, final int position) {
 
         holder.firstTV.setText(formDatas.get(position).getTitle());
-        //this.formDatas.get(position).setStatus(Boolean.valueOf(holder.checkbox_ok.toString()));
-
-
-
         holder.commentET.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 formDatas.get(position).setComment(s.toString());
-
-
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                Log.v("%%%$$ "+position, formDatas.get(position).getComment());
+                Log.v("%%%$$ " + position, formDatas.get(position).getComment());
             }
         });
-
-
-
-
     }
 
     @Override
@@ -95,7 +81,6 @@ public class FormOneAdapter extends RecyclerView.Adapter<FormOneAdapter.MyViewHo
         ArrayList<FormData> formDataMyView;
         Context context;
 
-
         MyViewHolder(View itemView, Context context, ArrayList<FormData> formDatas) {
             super(itemView);
             this.context = context;
@@ -104,11 +89,7 @@ public class FormOneAdapter extends RecyclerView.Adapter<FormOneAdapter.MyViewHo
             firstTV = (TextView) itemView.findViewById(R.id.firstTV);
             checkbox_ok = (CheckBox) itemView.findViewById(R.id.checkbox_ok);
             commentET = (EditText) itemView.findViewById(R.id.commentET);
-
-
             checkbox_ok.setOnClickListener(this);
-            //commentET.setOnClickListener(this);
-
         }
 
 
@@ -118,35 +99,16 @@ public class FormOneAdapter extends RecyclerView.Adapter<FormOneAdapter.MyViewHo
             int position = getAdapterPosition();
 
             FormData formDatas = this.formDataMyView.get(position);
-/*
-            if (v.getId() == commentET.getId()) {
-                //formDataMyView.setComment(commentET.getText().toString());
-                //saveDATA(commentET.getText().toString(), false, position);
-                Log.v(formDataMyView.getTitle(), formDataMyView.getComment() + "");
-
-            }*/
-
-
-
             if (v.getId() == checkbox_ok.getId()) {
                 boolean checked = ((CheckBox) v).isChecked();
                 if (checked) {
                     formDatas.setStatus(true);
-                    //formDataMyView.setComment(commentET.getText().toString());
-                    //saveDATA(commentET.getText().toString(), true, position);
                     Log.v(formDatas.getTitle(), formDatas.getStatus() + "");
                 } else {
                     formDatas.setStatus(false);
-                    //formDataMyView.setComment(commentET.getText().toString());
-                    //saveDATA(commentET.getText().toString(), false, position);
                     Log.v(formDatas.getTitle(), formDatas.getStatus() + "");
                 }
-
             }
-
-
         }
-
-
     }
 }
