@@ -5,9 +5,9 @@ package com.constructefile.democonstract.app;
  */
 
 public class AppConfig {
+
     // Server user login url
     public static String URL_LOGIN = "http://constructefile.com/v1/operators/login";
-
 
     // Server insert shift url
     public static String URL_INSERT_SHIFT = "http://constructefile.com/v1/shifts";
