@@ -210,21 +210,8 @@ public class FormFragment extends Fragment {
 
                 String timestamp = date + " " + time;
                 Log.i("time", date + " " + time);
-               /* Map<String, String> params = new HashMap<String, String>();
-                params.put("operator_id", String.valueOf(8));
-                params.put("body", String.valueOf(checkoutContent.getText()));
-                params.put("timestamp", timestamp);*/
-
 
                 Map<String, String> params = new HashMap<String, String>();
-                /*
-                * String.valueOf(20)
-                *  String.valueOf(8)
-                *   String.valueOf(7)
-                *   String.valueOf(formDatas.get(0).getStatus())
-                *    formDatas.get(0).getComment()
-                *
-                * */
                 params.put("id", form_id);
                 params.put("checklist_item_id", String.valueOf(formDatas.get(i).getId()));
                 params.put("truck_id", truck_id);
@@ -244,13 +231,9 @@ public class FormFragment extends Fragment {
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
         //end of insertion
-
-
     }
 
-
     public void displayDialog() {
-
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
@@ -291,15 +274,11 @@ public class FormFragment extends Fragment {
 
                                                     try {
                                                         JSONObject jObj = new JSONObject(response);
-
-
                                                     } catch (JSONException e) {
                                                         // JSON error
                                                         e.printStackTrace();
                                                         //Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                                                     }
-
-
                                                 }
                                             }, new Response.ErrorListener() {
 
@@ -326,8 +305,6 @@ public class FormFragment extends Fragment {
                                                     params.put("operator_id", String.valueOf(8));
                                                     params.put("body", String.valueOf(checkoutContent.getText()));
                                                     params.put("timestamp", timestamp);
-
-
                                                     return params;
                                                 }
 
@@ -335,12 +312,10 @@ public class FormFragment extends Fragment {
 
                                             // Adding request to request queue
                                             AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-
                                             //end of insertion
                                         }
                                     }
                                 }
-
                         );
                         abuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                     @Override
@@ -352,7 +327,6 @@ public class FormFragment extends Fragment {
                         abuilder.show();
                     }
                 }
-
         );
 
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
@@ -363,11 +337,8 @@ public class FormFragment extends Fragment {
                         dialog.cancel();
                     }
                 }
-
         );
         builder.show();
-
-
     }
 
     public void updateList(String s) {
