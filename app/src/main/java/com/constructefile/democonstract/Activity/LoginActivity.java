@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
             // User is already logged in. Take him to main activity
-            Intent intent = new Intent(LoginActivity.this, CategoryActivity.class);
+            Intent intent = new Intent(LoginActivity.this, MainMenu.class);
             startActivity(intent);
             finish();
         }
@@ -288,7 +288,7 @@ public class LoginActivity extends AppCompatActivity {
                                             // Inserting row in users table
                                             db.addUser(f_name, l_name, user_email, id, login_at_date, login_at_time, shift_id);
                                             getListFromWebAndInsertIntoDB();
-                                            Intent intent = new Intent(LoginActivity.this, CategoryActivity.class);
+                                            Intent intent = new Intent(LoginActivity.this, MainMenu.class);
                                             startActivity(intent);
                                             finish();
                                         } else {

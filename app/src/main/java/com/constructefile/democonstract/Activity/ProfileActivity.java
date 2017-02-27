@@ -96,7 +96,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(ProfileActivity.this, CategoryActivity.class);
+        Intent intent = new Intent(ProfileActivity.this, MainMenu.class);
         startActivity(intent);
         finish();
     }
@@ -115,7 +115,7 @@ public class ProfileActivity extends AppCompatActivity {
 
             // Launch profile activity
 
-            Intent intent = new Intent(ProfileActivity.this, CategoryActivity.class);
+            Intent intent = new Intent(ProfileActivity.this, MainMenu.class);
             startActivity(intent);
             finish();
         }
