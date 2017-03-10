@@ -2,6 +2,7 @@
     <string name="app_name">Constructefile</string>
     <string name="action_settings">Settings</string>
 
+
     <string name="firstTV">text</string>
     <string name="checkbox_ok">OK</string>
     <string name="commentET"> :add comment</string>
@@ -28,6 +29,74 @@
 
     <string name="spinner">Spinner</string>
     <string name="title_activity_fuel_record">FuelRecordActivity</string>
+
+
+
+<!--for nav drawer navigating-->
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="openDrawer">open_drawer</string>
+    <string name="closeDrawer">close_drawer</string>
+
+    <!-- Navigation Drawer menu labels -->
+    <string name="nav_profile">Profile</string>
+    <string name="nav_o_safely">Operate Safely</string>
+    <string name="nav_a_t">Approaching Task</string>
+    <string name="nav_o_safety">Operation Safety</string>
+    <string name="nav_dos">Do And Dont</string>
+    <string name="nav_ohns_laws">OHNS Laws</string>
+    <string name="nav_trench_excavating">Trench Excavating</string>
+    <string name="nav_trench_footing">Trench Footing</string>
+    <string name="nav_basement_excavation">Basement Excavation</string>
+    <string name="nav_backfill">Backfill</string>
+    <string name="nav_excavating_backfill">Excavating Backfill</string>
+    <string name="nav_grade_from_run_to_slop">Run to Slop Grade</string>
+    <string name="nav_grade_from_slope_length">Slope Length Grade</string>
+    <string name="nav_converter">Converter</string>
+    <string name="nav_daily_task">Daily Task</string>
+    <string name="nav_tailgate_meeting">Tailgate Meeting</string>
+    <string name="nav_hazard_assesment">Hazard Assesment</string>
+    <string name="nav_injury_report">Injury Report</string>
+    <string name="nav_near_miss">Near Miss</string>
+    <string name="nav_excavator">Excavator</string>
+    <string name="nav_loader">Loader</string>
+    <string name="nav_dozer">Dozer</string>
+    <string name="nav_backhoe">Backhoe</string>
+    <string name="nav_skid_steer">Skid Steer</string>
+    <string name="nav_road_roller">Road Roller</string>
+    <string name="nav_company_truck">Company Truck</string>
+    <string name="nav_truck">Truck</string>
+    <string name="nav_crusher">Crusher</string>
+    <string name="nav_screener">Screener</string>
+    <string name="nav_houres">Employee Hours</string>
+
+    <string name="nav_checklist">Check List</string>
+    <string name="nav_notifications">Paper Work</string>
+    <string name="nav_settings">Dirt Management</string>
+    <string name="nav_about_us">How To</string>
+
+    <!-- Toolbar titles when navigation menu item is selected -->
+    <string-array name="nav_item_activity_titles">
+        <item>Profile</item>
+        <item>Operate Safely</item>
+        <item>Approaches Task</item>
+        <item>Operation Safety</item>
+        <item>Do and Dont</item>
+        <item>HNS Laws</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="nav_timesheet">Time Sheet</string>
+
+
+    <string name="activity_title_about_us">How To</string>
+    <string name="activity_title_privacy_policy">Privacy Policy</string>
+    <string name="action_clear_all">Clear All</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_mark_all_read">Mark All as Read</string>
+    <string name="privacy_policy">Privacy Policy</string>
 
 
 </resources>

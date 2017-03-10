@@ -42,7 +42,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.constructefile.democonstract.Activity.CategoryActivity" />
         </activity>
-        <activity android:name=".Activity.MainMenu"></activity>
+        <activity android:name=".Activity.MainMenu"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".Activity.TimeSheet" />
+        <activity android:name=".Activity.Excavator"></activity>
     </application>
 
 </manifest>

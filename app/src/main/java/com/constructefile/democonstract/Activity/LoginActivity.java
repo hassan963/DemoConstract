@@ -254,10 +254,16 @@ public class LoginActivity extends AppCompatActivity {
                             l_name = object.getString("last_name");
                             user_email = object.getString("email");
 
+                            Intent intent = new Intent(LoginActivity.this, MainMenu.class);
+                            startActivity(intent);
+                            finish();
+                            /*
                             //insert data into shift table
                             String tag_string_req = "req_insert_shift";
                             //insertion
                             showDialog();
+
+
                             StringRequest strReq = new StringRequest(Request.Method.POST,
                                     AppConfig.URL_INSERT_SHIFT, new Response.Listener<String>() {
 
@@ -355,7 +361,7 @@ public class LoginActivity extends AppCompatActivity {
                             };
                             // Adding request to request queue
                             AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-                            //end of insertion
+                            //end of shift insertion*/
                         }
                     }
                 } catch (JSONException e) {

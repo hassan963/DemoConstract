@@ -7,7 +7,7 @@ package com.constructefile.democonstract.app;
 public class AppConfig {
 
     // Server user login url
-    public static String URL_LOGIN = "http://constructefile.com/v1/operators/login";
+    public static String URL_LOGIN = "http://23.235.211.194/~tecnot5/dev/construction/v1/operators/login";
 
     // Server insert shift url
     public static String URL_INSERT_SHIFT = "http://constructefile.com/v1/shifts";

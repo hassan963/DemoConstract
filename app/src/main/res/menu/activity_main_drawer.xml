@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:title="@string/nav_profile" />
+    </group>
+
+    <item android:title="How To">
+        <menu>
+            <item
+                android:id="@+id/nav_o_safely"
+                android:title="@string/nav_o_safely" />
+            <item
+                android:id="@+id/nav_a_t"
+                android:title="@string/nav_a_t" />
+            <item
+                android:id="@+id/nav_o_safety"
+                android:title="@string/nav_o_safety" />
+            <item
+                android:id="@+id/nav_dos"
+                android:title="@string/nav_dos" />
+            <item
+                android:id="@+id/nav_ohns_laws"
+                android:title="@string/nav_ohns_laws" />
+        </menu>
+    </item>
+    <item android:title="Employee Hour">
+        <menu>
+            <item
+                android:id="@+id/nav_timesheet"
+                android:title="@string/nav_timesheet" />
+        </menu>
+    </item>
+
+    <item android:title="Equipment Checklist">
+        <menu>
+            <item
+                android:id="@+id/nav_excavator"
+                android:title="@string/nav_excavator" />
+            <item
+                android:id="@+id/nav_loader"
+                android:title="@string/nav_loader" />
+            <item
+                android:id="@+id/nav_dozer"
+                android:title="@string/nav_dozer" />
+            <item
+                android:id="@+id/nav_backhoe"
+                android:title="@string/nav_backhoe" />
+            <item
+                android:id="@+id/nav_skid_steer"
+                android:title="@string/nav_skid_steer" />
+            <item
+                android:id="@+id/nav_road_roller"
+                android:title="@string/nav_road_roller" />
+            <item
+                android:id="@+id/nav_company_truck"
+                android:title="@string/nav_company_truck" />
+            <item
+                android:id="@+id/nav_truck"
+                android:title="@string/nav_truck" />
+            <item
+                android:id="@+id/nav_crusher"
+                android:title="@string/nav_crusher" />
+            <item
+                android:id="@+id/nav_screener"
+                android:title="@string/nav_screener" />
+        </menu>
+    </item>
+
+    <item android:title="PaperWork">
+        <menu>
+            <item
+                android:id="@+id/nav_daily_task"
+                android:title="@string/nav_daily_task" />
+            <item
+                android:id="@+id/nav_tailgate_meeting"
+                android:title="@string/nav_tailgate_meeting" />
+            <item
+                android:id="@+id/nav_hazard_assesment"
+                android:title="@string/nav_hazard_assesment" />
+            <item
+                android:id="@+id/nav_injury_report"
+                android:title="@string/nav_injury_report" />
+            <item
+                android:id="@+id/nav_near_miss"
+                android:title="@string/nav_near_miss" />
+        </menu>
+    </item>
+
+
+    <item android:title="Dirt Management">
+        <menu>
+            <item
+                android:id="@+id/nav_trench_excavating"
+                android:title="@string/nav_trench_excavating" />
+            <item
+                android:id="@+id/nav_trench_footing"
+                android:title="@string/nav_trench_footing" />
+            <item
+                android:id="@+id/nav_basement_excavation"
+                android:title="@string/nav_basement_excavation" />
+            <item
+                android:id="@+id/nav_backfill"
+                android:title="@string/nav_backfill" />
+            <item
+                android:id="@+id/nav_excavating_backfill"
+                android:title="@string/nav_excavating_backfill" />
+            <item
+                android:id="@+id/nav_grade_from_run_to_slop"
+                android:title="@string/nav_grade_from_run_to_slop" />
+            <item
+                android:id="@+id/nav_grade_from_slope_length"
+                android:title="@string/nav_grade_from_slope_length" />
+            <item
+                android:id="@+id/nav_converter"
+                android:title="@string/nav_converter" />
+        </menu>
+    </item>
+
+    <item android:title="Other">
+        <menu>
+            <item
+                android:id="@+id/nav_about_us"
+                android:title="@string/nav_about_us" />
+            <item
+                android:id="@+id/nav_privacy_policy"
+                android:title="@string/privacy_policy" />
+        </menu>
+    </item>
+
+</menu>
