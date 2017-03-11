@@ -24,8 +24,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.constructefile.democonstract.R;
@@ -33,14 +38,20 @@ import com.constructefile.democonstract.R;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 
-public class NearMiss_Activity extends AppCompatActivity {
+public class NearMiss_Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     Toolbar toolbar;
     Button btn_get_sign, mClear, mGetSign, mCancel;
+
+    TextView dateNear;
+    Spinner typeNear, typeConcern;
+    EditText eventET;
 
     File file;
     Dialog dialog;
@@ -58,8 +69,35 @@ public class NearMiss_Activity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearmiss);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.primary)));
+
+
+        typeNear = (Spinner) findViewById(R.id.typeNear);
+        typeConcern = (Spinner) findViewById(R.id.typeConcern);
+
+        typeNear.setOnItemSelectedListener(this);
+        typeConcern.setOnItemSelectedListener(this);
+
+        List<String> categories = new ArrayList<String>();
+        categories.add("Automobile");
+        categories.add("Business Services");
+        categories.add("Computers");
+        categories.add("Education");
+        categories.add("Personal");
+        categories.add("Travel");
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        typeNear.setAdapter(dataAdapter);
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> data = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+        data.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeConcern.setAdapter(data);
 
         // Setting ToolBar as ActionBar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -83,6 +121,9 @@ public class NearMiss_Activity extends AppCompatActivity {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.sign_dialog_signature);
         dialog.setCancelable(true);
+
+
+
 
         btn_get_sign.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,6 +201,16 @@ public class NearMiss_Activity extends AppCompatActivity {
             }
         });
         dialog.show();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 
     public class signature extends View {
