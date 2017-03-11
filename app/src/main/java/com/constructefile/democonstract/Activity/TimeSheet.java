@@ -1,8 +1,12 @@
 package com.constructefile.democonstract.Activity;
 
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.constructefile.democonstract.R;
 
@@ -11,25 +15,26 @@ public class TimeSheet extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_how_to);
+        setContentView(R.layout.activity_time_sheet);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    }
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
+                .getColor(R.color.primary)));
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.primary_dark));
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        int id = item.getItemId();
         if (id == android.R.id.home) {
-            // finish the activity
             onBackPressed();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

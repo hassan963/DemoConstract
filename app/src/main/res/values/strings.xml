@@ -31,8 +31,7 @@
     <string name="title_activity_fuel_record">FuelRecordActivity</string>
 
 
-
-<!--for nav drawer navigating-->
+    <!--for nav drawer navigating-->
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
