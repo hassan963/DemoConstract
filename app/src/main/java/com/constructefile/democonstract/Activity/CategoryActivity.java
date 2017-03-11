@@ -116,6 +116,7 @@ public class CategoryActivity extends AppCompatActivity {
 
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
                 .getColor(R.color.primary)));
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
@@ -166,6 +167,9 @@ public class CategoryActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         final int id = item.getItemId();
+
+
+
         if (id == R.id.checkout_msg) {
 
             //The tab with id R.id.tab_msg was selected,
@@ -408,6 +412,14 @@ public class CategoryActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+
+        //noinspection SimplifiableIfStatement
+        else if (id == android.R.id.home) {
+            // finish the activity
+            onBackPressed();
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 

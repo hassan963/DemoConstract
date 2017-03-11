@@ -1,6 +1,7 @@
 package com.constructefile.democonstract.Activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -11,13 +12,11 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 
 import com.constructefile.democonstract.Fragment.HowToApproachingTasks;
 import com.constructefile.democonstract.Fragment.HowToDosAndDonts;
@@ -25,7 +24,6 @@ import com.constructefile.democonstract.Fragment.HowToOHNSLaws;
 import com.constructefile.democonstract.Fragment.HowToOperateSafely;
 import com.constructefile.democonstract.Fragment.HowToOperationSafety;
 import com.constructefile.democonstract.Fragment.ProfileFragment;
-import com.constructefile.democonstract.MainActivity;
 import com.constructefile.democonstract.R;
 import com.constructefile.democonstract.helper.SQLiteHandler;
 import com.constructefile.democonstract.helper.SessionManager;
@@ -269,9 +267,19 @@ public class MainMenu extends AppCompatActivity {
                         startActivity(new Intent(MainMenu.this, TimeSheet.class));
                         drawer.closeDrawers();
                         return true;
-                    case R.id.nav_excavator:
+                    case R.id.nav_category:
                         // launch new intent instead of loading fragment
-                        startActivity(new Intent(MainMenu.this, Excavator.class));
+                        startActivity(new Intent(MainMenu.this, CategoryActivity.class));
+                        drawer.closeDrawers();
+                        return true;
+                    case R.id.nav_injury_report:
+                        // launch new intent instead of loading fragment
+                        startActivity(new Intent(MainMenu.this, Injury_Report_Activity.class));
+                        drawer.closeDrawers();
+                        return true;
+                    case R.id.nav_near_miss:
+                        // launch new intent instead of loading fragment
+                        startActivity(new Intent(MainMenu.this, NearMiss_Activity.class));
                         drawer.closeDrawers();
                         return true;
 
