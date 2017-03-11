@@ -77,16 +77,21 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
         typeNear.setOnItemSelectedListener(this);
         typeConcern.setOnItemSelectedListener(this);
 
-        List<String> categories = new ArrayList<String>();
-        categories.add("Automobile");
-        categories.add("Business Services");
-        categories.add("Computers");
-        categories.add("Education");
-        categories.add("Personal");
-        categories.add("Travel");
+        List<String> typeOfMiss = new ArrayList<String>();
+        typeOfMiss.add("Near Miss");
+        typeOfMiss.add("Safety Concern");
+        typeOfMiss.add("Safety Suggestion");
+        typeOfMiss.add("Other");
+
+        List<String> typeOfConcern = new ArrayList<String>();
+        typeOfConcern.add("Unsafe act");
+        typeOfConcern.add("Unsafe Equipment");
+        typeOfConcern.add("Unsafe use of equipment");
+        typeOfConcern.add("Unsafe condition");
+        typeOfConcern.add("Other");
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeOfMiss);
 
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -95,7 +100,7 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
         typeNear.setAdapter(dataAdapter);
 
         // Creating adapter for spinner
-        ArrayAdapter<String> data = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+        ArrayAdapter<String> data = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeOfConcern);
         data.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         typeConcern.setAdapter(data);
 
