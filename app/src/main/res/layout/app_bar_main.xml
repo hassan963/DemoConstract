@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="#f2f2f2"
     tools:context="com.constructefile.democonstract.Activity.MainMenu">
 
     <android.support.design.widget.AppBarLayout
@@ -36,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@color/colorPrimary"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:backgroundTint="#DA4336"
+        app:srcCompat="@drawable/post" />
 
 </android.support.design.widget.CoordinatorLayout>

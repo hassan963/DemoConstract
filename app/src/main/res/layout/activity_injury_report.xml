@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.constructefile.democonstract.Activity.Injury_Report_Activity">
+
+    <RelativeLayout
+        android:id="@+id/mainscreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/report"
+            android:text="This is a report of a: "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Spinner Element -->
+        <Spinner
+            android:id="@+id/spinnerReport"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/report"
+            android:prompt="@string/spinner_title" />
+
+        <EditText
+            android:id="@+id/dateIncident"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Date of incident"
+            android:layout_below="@id/spinnerReport"/>
+
+        <TextView
+            android:id="@+id/reportMadeBy"
+            android:text="This report si made by: "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/dateIncident"/>
+
+        <!-- Spinner Element -->
+        <Spinner
+            android:id="@+id/spinnerReportMade"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/reportMadeBy"
+            android:prompt="@string/spinner_title" />
+
+
+        <Button
+            android:id="@+id/stepOne"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="STEP 1"
+            android:layout_below="@id/spinnerReportMade"
+            />
+
+        <Button
+            android:id="@+id/stepTwo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/stepOne"
+            android:layout_marginTop="4dp"
+            android:text="STEP 2"
+            />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/mainscreen">
+
+
+
+
+        <RelativeLayout
+            android:id="@+id/stepOneLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/scroll"
+            android:background="@drawable/round_layout"
+            android:visibility="gone"
+            >
+
+            <EditText
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name"/>
+
+            <EditText
+                android:id="@+id/department"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/name"
+                android:hint="@string/department"/>
+
+            <RadioGroup
+                android:id="@+id/radioSex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_below="@id/department"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/male"
+                    android:onClick="onRadioButtonClicked"/>
+
+                <RadioButton
+                    android:id="@+id/radioFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/female"
+                    android:onClick="onRadioButtonClicked"/>
+
+            </RadioGroup>
+
+            <EditText
+                android:id="@+id/age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/radioSex"
+                android:hint="@string/age"/>
+            <EditText
+                android:id="@+id/jobTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/age"
+                android:hint="@string/jobTitle"/>
+            <TextView
+                android:id="@+id/nature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/jobTitle"
+                android:text="@string/nature"/>
+            <!-- Spinner Element -->
+            <Spinner
+                android:id="@+id/spinnerNature"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/nature"
+                android:prompt="@string/spinner_title"
+                />
+            <TextView
+                android:id="@+id/employeeWorks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spinnerNature"
+                android:text="@string/employeeWorks"/>
+            <!-- Spinner Element -->
+            <Spinner
+                android:id="@+id/spinneremployeeWorks"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/employeeWorks"
+                android:prompt="@string/spinner_title"
+                />
+            <EditText
+                android:id="@+id/monthsEmploee"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/spinneremployeeWorks"
+                android:hint="@string/monthsEmploee"/>
+            <EditText
+                android:id="@+id/monthsJob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/monthsEmploee"
+                android:hint="@string/monthsJob"/>
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+    <RelativeLayout
+        android:id="@+id/stepTwoLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mainscreen"
+        android:background="@drawable/round_layout"
+        android:visibility="gone"
+        >
+
+        <EditText
+            android:id="@+id/location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/location"
+            />
+
+        <EditText
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/location"
+            android:hint="@string/time"
+            />
+
+        <TextView
+            android:id="@+id/workday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/workday"
+            android:layout_below="@+id/time"
+            />
+        <!-- Spinner Element -->
+        <Spinner
+            android:id="@+id/spinnerworkday"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/workday"
+            android:prompt="@string/spinner_title" />
+        <EditText
+            android:id="@+id/witness"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinnerworkday"
+            android:hint="@string/witness"
+            />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
