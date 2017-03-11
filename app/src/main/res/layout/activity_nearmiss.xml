@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="@android:color/white">
+    android:background="#6990de">
 
     <include layout="@layout/sign_activity_toolbar" />
 
@@ -13,12 +13,79 @@
         android:orientation="vertical"
         android:gravity="center">
 
+        <TextView
+            android:id="@+id/dateNear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="12.03.2017"
+            android:textSize="34sp"
+            android:textColor="#000"
+            android:gravity="center"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Job: "
+                android:textColor="#000"
+                android:textSize="24sp"/>
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:hint="type your job title" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <!-- Spinner Element -->
+            <Spinner
+                android:id="@+id/typeNear"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:prompt="@string/spinner_title" />
+
+            <!-- Spinner Element -->
+            <Spinner
+                android:id="@+id/typeConcern"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:prompt="@string/spinner_title" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/eventET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="describe the event"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/round_layout"/>
+
+
         <Button
             android:id="@+id/signature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/hint_sign"
             android:padding="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:background="@color/colorPrimary" />
     </LinearLayout>
 
