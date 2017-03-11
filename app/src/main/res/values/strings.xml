@@ -59,7 +59,7 @@
     <string name="nav_hazard_assesment">Hazard Assesment</string>
     <string name="nav_injury_report">Injury Report</string>
     <string name="nav_near_miss">Near Miss</string>
-    <string name="nav_excavator">Excavator</string>
+    <string name="nav_category">Category</string>
     <string name="nav_loader">Loader</string>
     <string name="nav_dozer">Dozer</string>
     <string name="nav_backhoe">Backhoe</string>
@@ -97,6 +97,34 @@
     <string name="action_logout">Logout</string>
     <string name="action_mark_all_read">Mark All as Read</string>
     <string name="privacy_policy">Privacy Policy</string>
+
+
+    <string name="StepOneTitle">Step 1:  </string>
+    <string name="name">Name </string>
+    <string name="department">Department </string>
+    <string name="sex">Sex: </string>
+    <string name="male">male</string>
+    <string name="female">female</string>
+    <string name="nature">Nature of injury: </string>
+    <string name="employeeWorks">This employee works: </string>
+    <string name="monthsEmploee">Months with this employer </string>
+    <string name="monthsJob">Months doing this job </string>
+    <string name="jobTitle">Job title at time of incident </string>
+    <string name="age">Age </string>
+
+    <string name="spinner_title">Select Category</string>
+
+    <string name="location">Exact location of the incident </string>
+    <string name="workday">What part of employee workday </string>
+    <string name="time">Exact time </string>
+    <string name="witness">Names of witnesses </string>
+
+
+    <string name="hint_sign">Get Signature</string>
+    <string name="dialog_title">SIGN HERE</string>
+    <string name="hint_cancel">Cancel</string>
+    <string name="hint_clear">Clear</string>
+    <string name="hint_save">Save</string>
 
 
 </resources>
