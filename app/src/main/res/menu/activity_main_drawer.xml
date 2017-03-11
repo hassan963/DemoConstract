@@ -37,8 +37,8 @@
     <item android:title="Equipment Checklist">
         <menu>
             <item
-                android:id="@+id/nav_excavator"
-                android:title="@string/nav_excavator" />
+                android:id="@+id/nav_category"
+                android:title="@string/nav_category" />
             <item
                 android:id="@+id/nav_loader"
                 android:title="@string/nav_loader" />
