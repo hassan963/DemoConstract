@@ -55,15 +55,15 @@ public class CategoryActivity extends AppCompatActivity {
     String shift_id;
 
     private final String recyclerViewTitleText[] = {
-            "Bulldozer",
-            "Concretemixer",
-            "Crane",
-            "Dump Truck",
+            "Dozer",
+            //"Concretemixer",
+            //"Crane",
+            //"Dump Truck",
             "Excavator",
-            "Flatbed Truck",
-            "Front & back hoe",
-            "Front loader",
-            "Fuel Truck",
+            "Truck",
+            "Back hoe",
+            "Loader",
+            "Company Truck",
             "Road Roller",
             "Skid Steer",
             "Crusher",
@@ -72,9 +72,9 @@ public class CategoryActivity extends AppCompatActivity {
 
     private final int recyclerViewImages[] = {
             R.drawable.bulldozer,
-            R.drawable.concretemixer,
-            R.drawable.crane,
-            R.drawable.dumptruck,
+           // R.drawable.concretemixer,
+            //R.drawable.crane,
+           // R.drawable.dumptruck,
             R.drawable.excavator,
             R.drawable.flatbed,
             R.drawable.frontbackhoe,
@@ -114,9 +114,9 @@ public class CategoryActivity extends AppCompatActivity {
         login_at_time = user.get("login_at_time");
         shift_id = user.get("shift_id");
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
                 .getColor(R.color.primary)));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
@@ -157,12 +157,12 @@ public class CategoryActivity extends AppCompatActivity {
     }
 
 
-    @Override
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_category, menu);
         return true;
-    }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -170,7 +170,7 @@ public class CategoryActivity extends AppCompatActivity {
 
 
 
-        if (id == R.id.checkout_msg) {
+        /*if (id == R.id.checkout_msg) {
 
             //The tab with id R.id.tab_msg was selected,
             //Ask employee to leave checkout message and checkout for that day
@@ -181,9 +181,9 @@ public class CategoryActivity extends AppCompatActivity {
             builder.setPositiveButton("Checkout", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            /*Send Checkout message
+                            *//*Send Checkout message
                             and
-                            logout for that day*/
+                            logout for that day*//*
 
                             AlertDialog.Builder abuilder = new AlertDialog.Builder(CategoryActivity.this);
 
@@ -218,9 +218,9 @@ public class CategoryActivity extends AppCompatActivity {
                                                             if (id != null) {
                                                                 Toast.makeText(CategoryActivity.this, "Checkout Successfully.", Toast.LENGTH_SHORT).show();
 
-                                                                /*
+                                                                *//*
                                                                 * here comes the pain
-                                                                * */
+                                                                * *//*
 
                                                                 String tag_string_req = "req_update_shift";
                                                                 //insertion
@@ -294,11 +294,11 @@ public class CategoryActivity extends AppCompatActivity {
                                                                         //int ampm= c.get(Calendar.AM_PM);
                                                                         int am_pm = c.get(Calendar.AM_PM);
                                                                         //String ampm;
-                                                                        /*if (am_pm == 1) {
+                                                                        *//*if (am_pm == 1) {
                                                                             time = time + " PM";
                                                                         } else {
                                                                             time = time + " AM";
-                                                                        }*/
+                                                                        }*//*
                                                                         String timestamp = date + " " + time;
                                                                         Log.i("time", date + " " + time);
                                                                         Map<String, String> params = new HashMap<String, String>();
@@ -411,11 +411,10 @@ public class CategoryActivity extends AppCompatActivity {
             Intent intent = new Intent(CategoryActivity.this, ProfileActivity.class);
             startActivity(intent);
             finish();
-        }
+        }*/
 
         //noinspection SimplifiableIfStatement
-        else if (id == android.R.id.home) {
-            // finish the activity
+        if (id == android.R.id.home) {
             onBackPressed();
             return true;
         }
@@ -441,7 +440,7 @@ public class CategoryActivity extends AppCompatActivity {
         finish();
     }
 
-    @Override
+   /* @Override
     public void onBackPressed() {
         //To EXIT the game
         Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -450,5 +449,5 @@ public class CategoryActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
         System.exit(0);
-    }
+    }*/
 }

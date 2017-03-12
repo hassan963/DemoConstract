@@ -210,7 +210,7 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
+        ((TextView) adapterView.getChildAt(0)).setTextColor(Color.BLUE);
     }
 
     @Override

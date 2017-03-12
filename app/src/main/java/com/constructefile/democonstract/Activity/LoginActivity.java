@@ -244,6 +244,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         // Create login session
                         session.setLogin(true);
+                        Log.i("login_status", String.valueOf(session.isLoggedIn()));
 
                         for (int n = 0; n < jArray.length(); n++) {
                             JSONObject object = jArray.getJSONObject(n);

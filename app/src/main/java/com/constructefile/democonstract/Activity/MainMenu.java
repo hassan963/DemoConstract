@@ -282,6 +282,10 @@ public class MainMenu extends AppCompatActivity {
                         startActivity(new Intent(MainMenu.this, NearMiss_Activity.class));
                         drawer.closeDrawers();
                         return true;
+                    case R.id.nav_logout:
+                        logoutUser();
+                        drawer.closeDrawers();
+                        return true;
 
                     default:
                         navItemIndex = 0;
@@ -403,8 +407,8 @@ public class MainMenu extends AppCompatActivity {
     private void logoutUser() {
         session.setLogin(false);
 
-        db.deleteUsers();
-        db.deleteLabels();
+        /*db.deleteUsers();
+        db.deleteLabels();*/
 
         // Launching the login activity
         Intent intent = new Intent(MainMenu.this, LoginActivity.class);
