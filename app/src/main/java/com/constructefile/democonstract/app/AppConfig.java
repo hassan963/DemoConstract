@@ -30,4 +30,16 @@ public class AppConfig {
     //Server get all vehicles available in database
     public static String URL_INSERT_FUEL_RECORD = "http://constructefile.com/v1/fuel_record";
 
+    //Server INJURY REPORT POST
+    public static String URL_INSERT_INJURY_REPORT = "http://23.235.211.194/~tecnot5/dev/construction/v1/incident_report";
+
+    //Server  NEAR MISS POST
+    public static String URL_INSERT_NEAR_MISS = "http://23.235.211.194/~tecnot5/dev/construction/v1/nearmiss";
+
+    //Server  UNSAFE WORK NOTIFY
+    public static String URL_INSERT_UNSAFE_WORK = "http://23.235.211.194/~tecnot5/dev/construction/v1/unsafe_work_notification";
+
+    //Server  UNSAFE WORK NOTIFY
+    public static String URL_GET_SUPERVISOR = "http://23.235.211.194/~tecnot5/dev/construction/v1/supervisors";
+
 }
