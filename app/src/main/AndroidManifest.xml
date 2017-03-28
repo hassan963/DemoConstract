@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".app.AppController"
@@ -43,16 +43,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.constructefile.democonstract.Activity.CategoryActivity" />
         </activity>
+        <activity android:name=".Activity.MainMenu"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".Activity.TimeSheet" ></activity>
+        <activity android:name=".Activity.Excavator"></activity>
+        <activity android:name=".Activity.Injury_Report_Activity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
-            android:name=".Activity.MainMenu"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".Activity.Excavator" />
-        <activity android:name=".Activity.Injury_Report_Activity" />
-        <activity
+            android:theme="@style/AppThemeSigm"
             android:name=".Activity.NearMiss_Activity"
-            android:label="Sign"
-            android:theme="@style/AppThemeSigm"></activity>
-        <activity android:name=".Activity.TimeSheet"></activity>
+            android:label="Near Miss"
+            android:windowSoftInputMode="adjustPan">
+        </activity>
     </application>
 
 </manifest>
