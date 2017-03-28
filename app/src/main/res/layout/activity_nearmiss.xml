@@ -54,7 +54,7 @@
                 android:textSize="20sp"/>
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/jobET"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#000"
@@ -87,13 +87,20 @@
 
         </LinearLayout>
 
+        <TextView
+            android:layout_marginTop="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="..Describe the event.."
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
         <EditText
             android:id="@+id/eventET"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="describe the event"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/round_layout"/>
+            android:layout_marginTop="16dp"/>
 
 
         <Button
@@ -107,7 +114,21 @@
             android:layout_marginRight="8dp"
             android:textColor="#e6e6e6"
             android:background="@color/colorPrimary" />
+
+        <Button
+            android:id="@+id/sendBTN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SEND"
+            android:padding="5dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:textColor="#e6e6e6"
+            android:background="@color/colorPrimary" />
+
     </LinearLayout>
+
 
 
 
