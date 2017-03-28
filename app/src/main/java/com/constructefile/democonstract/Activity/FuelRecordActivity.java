@@ -276,7 +276,7 @@ public class FuelRecordActivity extends AppCompatActivity implements AdapterView
         Log.i("form_id", "ID : " + id);
 
         /*
-        * get department name from editText
+        * get department nameET from editText
         * */
         String deptName = deptSW.getText().toString();
 

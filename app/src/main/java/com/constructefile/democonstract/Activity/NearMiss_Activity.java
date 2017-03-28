@@ -15,6 +15,7 @@ import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
@@ -33,15 +34,25 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.constructefile.democonstract.R;
+import com.constructefile.democonstract.app.AppConfig;
+import com.constructefile.democonstract.app.AppController;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 
 public class NearMiss_Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -51,7 +62,11 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
 
     TextView dateNear;
     Spinner typeNear, typeConcern;
-    EditText eventET;
+    EditText eventET, jobET;
+
+    Button sendBTN;
+
+    private String sOne, sTwo, timestamp, date;
 
     File file;
     Dialog dialog;
@@ -73,6 +88,10 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
 
         typeNear = (Spinner) findViewById(R.id.typeNear);
         typeConcern = (Spinner) findViewById(R.id.typeConcern);
+        sendBTN = (Button) findViewById(R.id.sendBTN);
+        jobET = (EditText) findViewById(R.id.jobET);
+        eventET = (EditText) findViewById(R.id.eventET);
+        dateNear = (TextView) findViewById(R.id.dateNear);
 
         typeNear.setOnItemSelectedListener(this);
         typeConcern.setOnItemSelectedListener(this);
@@ -91,17 +110,17 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
         typeOfConcern.add("Other");
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeOfMiss);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item_text, typeOfMiss);
 
         // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter.setDropDownViewResource(R.layout.spinner_drop_down);
 
         // attaching data adapter to spinner
         typeNear.setAdapter(dataAdapter);
 
         // Creating adapter for spinner
-        ArrayAdapter<String> data = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, typeOfConcern);
-        data.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> data = new ArrayAdapter<String>(this, R.layout.spinner_item_text, typeOfConcern);
+        data.setDropDownViewResource(R.layout.spinner_drop_down);
         typeConcern.setAdapter(data);
 
         // Setting ToolBar as ActionBar
@@ -127,7 +146,7 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
         dialog.setContentView(R.layout.sign_dialog_signature);
         dialog.setCancelable(true);
 
-
+        getDateTime(); dateNear.setText(date);
 
 
         btn_get_sign.setOnClickListener(new View.OnClickListener() {
@@ -135,6 +154,17 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
             public void onClick(View v) {
                 // Function call for Digital Signature
                 dialog_action();
+
+            }
+        });
+
+        sendBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                saveData(jobET.getText().toString(), sOne, sTwo, eventET.getText().toString());
+                Snackbar.make(view, "Sending data to server", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
 
             }
         });
@@ -209,14 +239,100 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        ((TextView) adapterView.getChildAt(0)).setTextColor(Color.BLUE);
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+
+        switch(adapterView.getId()) {
+
+            case R.id.typeNear:
+                // On selecting a spinner item
+                sOne = adapterView.getItemAtPosition(position).toString();
+                break;
+
+            case R.id.typeConcern:
+                // On selecting a spinner item
+                sTwo = adapterView.getItemAtPosition(position).toString();
+                break;
+
+            default:
+                sOne = adapterView.getItemAtPosition(position).toString();
+                sTwo = adapterView.getItemAtPosition(position).toString();
+                break;
+
+        }
+        Toast.makeText(getApplicationContext(), sOne+sTwo, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
     }
+
+    private void getDateTime(){
+        Calendar c = Calendar.getInstance();
+        int month = c.get(Calendar.MONTH) + 1;
+        int hour = c.get(Calendar.HOUR);
+        int minute = c.get(Calendar.MINUTE);
+        int second = c.get(Calendar.SECOND);
+        String hr;
+        String min;
+        String sec;
+
+        if (hour >= 0 && hour <= 9) {
+            hr = "0" + hour;
+        } else {
+            hr = hour + "";
+        }
+        if (minute >= 0 && minute <= 9) {
+            min = "0" + minute;
+        } else {
+            min = minute + "";
+        }
+        if (second >= 0 && second <= 9) {
+            sec = "0" + second;
+        } else {
+            sec = second + "";
+        }
+        date = c.get(Calendar.YEAR) + "-" + month + "-" + c.get(Calendar.DATE);
+        String time = hr + ":" + min + ":" + sec;
+
+        timestamp = date + " " + time;
+    }
+
+    // sending response to server NEAR MISS API
+    public void saveData(final String job, final String nearmiss_type, final String concern_type, final String description){
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfig.URL_INSERT_NEAR_MISS, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("job", job);
+                params.put("nearmiss_type", nearmiss_type);
+                params.put("concern_type", concern_type);
+                params.put("date", timestamp);
+                params.put("description", description);
+                params.put("employee_id", "1"); // will implement later
+                params.put("signature", "");  // not done yet
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(stringRequest);
+
+    }
+
 
     public class signature extends View {
 
