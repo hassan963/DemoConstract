@@ -7,18 +7,9 @@
     <string name="checkbox_ok">OK</string>
     <string name="commentET"> :add comment</string>
 
-    <string name="headerTwo">Engine On Checks-Unusual Noises Must Be Investigated Immediately</string>
-    <string name="ok">OK</string>
-    <string name="maint">Maintenance</string>
-
-    <string name="headerOne">Engine Off Checks</string>
-
     <string name="dateTV">" Date: "</string>
     <string name="truckTV">" truck: "</string>
     <string name="deptTV">" Dept: "</string>
-    <string name="shiftTV">" Shift: "</string>
-    <string name="optTV">"  Operator: "</string>
-    <string name="modelTV">"  Model: "</string>
     <string name="serialTV">"  Serial: "</string>
     <string name="hourTV">"  Hour Meter: "</string>
     <string name="fuelTV">"  Fuel: "</string>
@@ -28,13 +19,10 @@
 
 
     <string name="spinner">Spinner</string>
-    <string name="title_activity_fuel_record">FuelRecordActivity</string>
 
 
     <!--for nav drawer navigating-->
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="openDrawer">open_drawer</string>
     <string name="closeDrawer">close_drawer</string>
 
@@ -68,11 +56,7 @@
     <string name="nav_truck">Truck</string>
     <string name="nav_crusher">Crusher</string>
     <string name="nav_screener">Screener</string>
-    <string name="nav_houres">Employee Hours</string>
 
-    <string name="nav_checklist">Check List</string>
-    <string name="nav_notifications">Paper Work</string>
-    <string name="nav_settings">Dirt Management</string>
     <string name="nav_about_us">How To</string>
 
     <!-- Toolbar titles when navigation menu item is selected -->
@@ -83,25 +67,19 @@
         <item>Operation Safety</item>
         <item>Do and Dont</item>
         <item>HNS Laws</item>
+        <item>Unsafe work</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nav_timesheet">Time Sheet</string>
+    <string name="nav_unsafe">Unsafe work</string>
 
-
-    <string name="activity_title_about_us">How To</string>
-    <string name="activity_title_privacy_policy">Privacy Policy</string>
-    <string name="action_clear_all">Clear All</string>
-    <string name="action_logout">Logout</string>
-    <string name="action_mark_all_read">Mark All as Read</string>
     <string name="privacy_policy">Privacy Policy</string>
 
 
-    <string name="StepOneTitle">Step 1:  </string>
     <string name="name">Name </string>
     <string name="department">Department </string>
-    <string name="sex">Sex: </string>
     <string name="male">male</string>
     <string name="female">female</string>
     <string name="nature">Nature of injury: </string>
