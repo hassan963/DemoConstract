@@ -21,7 +21,6 @@
             android:textColor="#282828" />
 
         <TextView
-            android:id="@+id/emp_name"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="left"
@@ -46,7 +45,6 @@
             android:textColor="#282828" />
 
         <TextView
-            android:id="@+id/date"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="left"
@@ -71,7 +69,6 @@
             android:textColor="#282828" />
 
         <EditText
-            android:id="@+id/eq_serial"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -97,7 +94,6 @@
             android:textColor="#282828" />
 
         <EditText
-            android:id="@+id/eq_hour"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="15sp"
@@ -120,7 +116,6 @@
             android:textColor="#282828" />
 
         <EditText
-            android:id="@+id/job_serial"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -144,7 +139,6 @@
             android:textColor="#282828" />
 
         <Spinner
-            android:id="@+id/emp_shift"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"></Spinner>
@@ -195,7 +189,6 @@
         android:text="Description Of Work :"/>
 
     <EditText
-        android:id="@+id/description_of_work"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="5dp"
@@ -209,7 +202,6 @@
         android:textColor="#282828"
         android:text="Remarks :"/>
     <EditText
-        android:id="@+id/remarks"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="5dp"
