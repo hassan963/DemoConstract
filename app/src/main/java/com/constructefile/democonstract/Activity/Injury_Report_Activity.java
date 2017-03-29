@@ -1,37 +1,58 @@
 package com.constructefile.democonstract.Activity;
 
+import android.app.Dialog;
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.RectF;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
+import android.util.Base64;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.constructefile.democonstract.R;
-import com.constructefile.democonstract.Task.VolleySingleton;
 import com.constructefile.democonstract.app.AppConfig;
 import com.constructefile.democonstract.app.AppController;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import static com.constructefile.democonstract.R.id.dateIncident;
@@ -47,29 +68,38 @@ public class Injury_Report_Activity extends AppCompatActivity implements Adapter
     boolean isSettingsClicked = false;
     private FloatingActionButton fabInjury;
 
-    private static Injury_Report_Activity sInstance;
-    private VolleySingleton volleySingleton;
-    private RequestQueue requestQueue;
 
-    private String sOne, sTwo, sThree, sFour, sFive, gender;
+    private File file;
+    private Dialog dialog;
+    private LinearLayout mContent;
+    private View view;
+    private signature mSignature;
+    private Bitmap bitmap;
+
+    private Toolbar toolbar;
+    private Button signatureInjury, mClear, mGetSign, mCancel;
+    private RadioGroup radioSexGroup;
+
+    // Creating Separate Directory for saving Generated Images
+    private String DIRECTORY = Environment.getExternalStorageDirectory().getPath() + "/ConstructeFile/";
+    private String pic_name = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+    private String StoredPath = DIRECTORY + pic_name + ".JPG";
+
+    private SharedPreferences sharedpreferences;
+
+    public static final String MyPREFERENCES = "MySign" ;
+
+    private String sOne = "", sTwo = "", sThree = "", sFour = "", sFive = "", gender="male";
     EditText dateIncidentET, nameET, departmentET, ageET, jobTitleET, monthsEmploeeET, monthsJobET, locationET, timeET, witnessET;
 
-    public static Context getAppContext() {
-        return sInstance.getApplicationContext();
-    }
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_injury_report);
 
-        if (getSupportActionBar()!=null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
-                    .getColor(R.color.primary)));
-        }
-
-        sInstance = this;
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
         fabInjury = (FloatingActionButton) findViewById(R.id.fabInjury);
         dateIncidentET = (EditText) findViewById(dateIncident); nameET = (EditText) findViewById(R.id.name);
@@ -84,6 +114,8 @@ public class Injury_Report_Activity extends AppCompatActivity implements Adapter
 
         stepOneLayout = (RelativeLayout) findViewById(R.id.stepOneLayout);
         stepTwoLayout = (RelativeLayout) findViewById(R.id.stepTwoLayout);
+
+        radioSexGroup = (RadioGroup)findViewById(R.id.radioSex);
 
 
         // Spinner element
@@ -150,34 +182,65 @@ public class Injury_Report_Activity extends AppCompatActivity implements Adapter
 
 
         // Creating adapter for spinner
-        ArrayAdapter<String> reprotSpinner = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, reportList);
+        ArrayAdapter<String> reprotSpinner = new ArrayAdapter<String>(this, R.layout.spinner_item_text, reportList);
 
         // Drop down layout style - list view with radio button
-        reprotSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        reprotSpinner.setDropDownViewResource(R.layout.spinner_drop_down);
 
         // attaching data adapter to spinner
         spinnerReport.setAdapter(reprotSpinner);
 
 
         // Creating adapter for spinner
-        ArrayAdapter<String> reportMadeSpinner = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, reportMade);
-        reportMadeSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> reportMadeSpinner = new ArrayAdapter<String>(this, R.layout.spinner_item_text, reportMade);
+        reportMadeSpinner.setDropDownViewResource(R.layout.spinner_drop_down);
         spinnerReportMade.setAdapter(reportMadeSpinner);
 
         // Creating adapter for spinner
-        ArrayAdapter<String> injuryNatureSpinner = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, injuryNature);
-        injuryNatureSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> injuryNatureSpinner = new ArrayAdapter<String>(this, R.layout.spinner_item_text, injuryNature);
+        injuryNatureSpinner.setDropDownViewResource(R.layout.spinner_drop_down);
         spinnerNature.setAdapter(injuryNatureSpinner);
 
         // Creating adapter for spinner
-        ArrayAdapter<String> employeeWorksSpinner = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, employeeWorks);
-        employeeWorksSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> employeeWorksSpinner = new ArrayAdapter<String>(this, R.layout.spinner_item_text, employeeWorks);
+        employeeWorksSpinner.setDropDownViewResource(R.layout.spinner_drop_down);
         spinneremployeeWorks.setAdapter(employeeWorksSpinner);
 
         // Creating adapter for spinner
-        ArrayAdapter<String> workdaySpinner = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, workday);
-        workdaySpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> workdaySpinner = new ArrayAdapter<String>(this, R.layout.spinner_item_text, workday);
+        workdaySpinner.setDropDownViewResource(R.layout.spinner_drop_down);
         spinnerworkday.setAdapter(workdaySpinner);
+
+        // Setting ToolBar as ActionBar
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.drawable.back);
+        toolbar.setBackgroundColor(Color.parseColor("#e1660f"));
+
+        // Button to open signature panel
+        signatureInjury = (Button) findViewById(R.id.signatureInjury);
+
+        // Method to create Directory, if the Directory doesn't exists
+        file = new File(DIRECTORY);
+        if (!file.exists()) {
+            file.mkdir();
+        }
+
+        // Dialog Function
+        dialog = new Dialog(Injury_Report_Activity.this);
+        // Removing the features of Normal Dialogs
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.sign_dialog_signature);
+        dialog.setCancelable(true);
+
+        signatureInjury.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Function call for Digital Signature
+                dialog_action();
+
+            }
+        });
 
 
         stepOne.setOnClickListener(new View.OnClickListener() {
@@ -225,18 +288,49 @@ public class Injury_Report_Activity extends AppCompatActivity implements Adapter
             @Override
             public void onClick(View view) {
 
-                String report = sOne, date = dateIncidentET.getText().toString(), made_by = sTwo, name = nameET.getText().toString(),
-                        department_id = departmentET.getText().toString(), sex = gender, age = ageET.getText().toString(),
-                        job_title = jobTitleET.getText().toString(), injury = sThree, work_time = sFour, employe_month = monthsEmploeeET.getText().toString(),
-                        employe_month_job = monthsJobET.getText().toString(), location = locationET.getText().toString(), employe_work = sFive,
-                        time = timeET.getText().toString(), witness_name = witnessET.getText().toString();
+                //String report = sOne;
+                String date = dateIncidentET.getText().toString();
+                //String made_by = sTwo;
+                String name = nameET.getText().toString();
+                String department_id = departmentET.getText().toString();
+                String  age = ageET.getText().toString();
+                String job_title = jobTitleET.getText().toString();
+                //String  injury = sThree; String work_time = sFour;
+                String employe_month = monthsEmploeeET.getText().toString();
+                String employe_month_job = monthsJobET.getText().toString(); String location = locationET.getText().toString(); //String employe_work = sFive;
+                String time = timeET.getText().toString(); String witness_name = witnessET.getText().toString();
 
-                saveData(report, date, made_by, name, sex, age, department_id, job_title, location, time, work_time, witness_name, injury, employe_work, employe_month, employe_month_job);
+                String sign = "";
+
+                if (sharedpreferences.contains("signInjury")) {
+                    sign = sharedpreferences.getString("signInjury", "");
+                    Log.v("$$^%%^&%&^% SIGN", sign);
+
+                    String sex = sharedpreferences.getString("sex", "");
+                    String report = sharedpreferences.getString("sONE","");
+                    String made_by = sharedpreferences.getString("sTWO","");
+                    String injury = sharedpreferences.getString("sTHREE","");
+                    String work_time = sharedpreferences.getString("sFOUR","");
+                    String employe_work = sharedpreferences.getString("sFIVE","");
+
+                            saveData(report, date, made_by, name, age, sex, department_id, job_title, location, time, work_time, witness_name, injury, employe_work, employe_month, employe_month_job, sign);
+
+                    Snackbar.make(view, "Sending data to server..", Snackbar.LENGTH_SHORT)
+                            .setAction("Action", null).show();
+                    dateIncidentET.setText(""); dateIncidentET.setText(""); nameET.setText(""); departmentET.setText(""); ageET.setText(""); jobTitleET.setText(""); monthsEmploeeET.setText("");
+                    monthsJobET.setText(""); locationET.setText("");
+                    sharedpreferences.edit().clear().apply(); timeET.setText(""); witnessET.setText("");
+
+                }
+
+                if (sign.equals("")){
+                    Snackbar.make(view, "Please sign the form", Snackbar.LENGTH_SHORT)
+                            .setAction("Action", null).show();
+                }
 
 
 
-                Snackbar.make(view, "Sending data to server", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
             }
         });
 
@@ -263,27 +357,31 @@ public class Injury_Report_Activity extends AppCompatActivity implements Adapter
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
 
+        SharedPreferences.Editor editor = sharedpreferences.edit();
         // Check which radio button was clicked
         switch(view.getId()) {
             case R.id.radioMale:
                 if (checked)
                     // Pirates are the best
-                    gender = "male";
+                editor.putString("sex", "male");
+                editor.apply();
                 break;
             case R.id.radioFemale:
                 if (checked)
                     // Ninjas rule
-                    gender = "female";
+                 editor.putString("sex", "female");
+                editor.apply();
                 break;
             default:
-                gender = "unisex";
+                editor.putString("sex", "unisex");
+                editor.apply();
                 break;
         }
     }
 
     // sending response to server INJURY REPORT API
-    public void saveData(final String report, final String date, final String made_by, final String name, final String sex, final String age, final String department_id, final String job_title
-            , final String location, final String time, final String work_time, final String witness_name, final String injury, final String employe_work, final String employe_month, final String employe_month_job){
+    public void saveData(final String report, final String date, final String made_by, final String name, final String age, final String sex, final String department_id, final String job_title
+            , final String location, final String time, final String work_time, final String witness_name, final String injury, final String employe_work, final String employe_month, final String employe_month_job, final String sign){
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfig.URL_INSERT_INJURY_REPORT, new Response.Listener<String>() {
             @Override
@@ -318,7 +416,17 @@ public class Injury_Report_Activity extends AppCompatActivity implements Adapter
                 params.put("employe_work", employe_work);
                 params.put("employe_month", employe_month);
                 params.put("employe_month_job", employe_month_job);
-                return params;
+                params.put("image", sign);
+                return checkParams(params);
+            }
+
+            private Map<String, String> checkParams(Map<String, String> map){
+                for (Map.Entry<String, String> pairs : map.entrySet()) {
+                    if (pairs.getValue() == null) {
+                        map.put(pairs.getKey(), "");
+                    }
+                }
+                return map;
             }
         };
 
@@ -332,35 +440,44 @@ public class Injury_Report_Activity extends AppCompatActivity implements Adapter
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
 
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+
         switch(adapterView.getId()) {
 
             case R.id.spinnerReport:
                 // On selecting a spinner item
-                sOne = adapterView.getItemAtPosition(position).toString();
+                editor.putString("sONE", adapterView.getItemAtPosition(position).toString());
+                editor.apply();
                 break;
 
             case R.id.spinnerReportMade:
                 // On selecting a spinner item
-                sTwo = adapterView.getItemAtPosition(position).toString();
+                editor.putString("sTWO", adapterView.getItemAtPosition(position).toString());
+                editor.apply();
                 break;
 
             case R.id.spinnerNature:
-                sThree = adapterView.getItemAtPosition(position).toString();
+                editor.putString("sTHREE", adapterView.getItemAtPosition(position).toString());
+                editor.apply();
                 break;
 
             case R.id.spinneremployeeWorks:
-                sFour = adapterView.getItemAtPosition(position).toString();
+                editor.putString("sFOUR", adapterView.getItemAtPosition(position).toString());
+                editor.apply();
                 break;
 
             case R.id.spinnerworkday:
-                sFive = adapterView.getItemAtPosition(position).toString();
+                editor.putString("sFIVE", adapterView.getItemAtPosition(position).toString());
+                editor.apply();
                 break;
             default:
-                sOne = adapterView.getItemAtPosition(position).toString();
-                sTwo = adapterView.getItemAtPosition(position).toString();
-                sThree = adapterView.getItemAtPosition(position).toString();
-                sFour = adapterView.getItemAtPosition(position).toString();
-                sFive = adapterView.getItemAtPosition(position).toString();
+                editor.putString("sONE", adapterView.getItemAtPosition(position).toString());
+                editor.putString("sTWO", adapterView.getItemAtPosition(position).toString());
+                editor.putString("sTHREE", adapterView.getItemAtPosition(position).toString());
+                editor.putString("sFOUR", adapterView.getItemAtPosition(position).toString());
+                editor.putString("sFIVE", adapterView.getItemAtPosition(position).toString());
+                editor.apply();
+                break;
 
         }
 
@@ -373,5 +490,194 @@ public class Injury_Report_Activity extends AppCompatActivity implements Adapter
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+
     }
+
+    // Function for Digital Signature
+    public void dialog_action() {
+
+        mContent = (LinearLayout) dialog.findViewById(R.id.linearLayout);
+        mSignature = new signature(getApplicationContext(), null);
+        mSignature.setBackgroundColor(Color.WHITE);
+        // Dynamically generating Layout through java code
+        mContent.addView(mSignature, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        mClear = (Button) dialog.findViewById(R.id.clear);
+        mGetSign = (Button) dialog.findViewById(R.id.getsign);
+        mGetSign.setEnabled(false);
+        mCancel = (Button) dialog.findViewById(R.id.cancel);
+        view = mContent;
+
+        mClear.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.v("log_tag", "Panel Cleared");
+                mSignature.clear();
+                mGetSign.setEnabled(false);
+            }
+        });
+
+        mGetSign.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+
+                Log.v("log_tag", "Panel Saved");
+                view.setDrawingCacheEnabled(true);
+                mSignature.save(view, StoredPath);
+                dialog.dismiss();
+                Toast.makeText(getApplicationContext(), "Successfully Saved", Toast.LENGTH_SHORT).show();
+                // Calling the same class
+                recreate();
+
+            }
+        });
+
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.v("log_tag", "Panel Canceled");
+                dialog.dismiss();
+                // Calling the same class
+                recreate();
+            }
+        });
+        dialog.show();
+    }
+
+
+    public class signature extends View {
+
+        private static final float STROKE_WIDTH = 5f;
+        private static final float HALF_STROKE_WIDTH = STROKE_WIDTH / 2;
+        private Paint paint = new Paint();
+        private Path path = new Path();
+
+        private float lastTouchX;
+        private float lastTouchY;
+        private final RectF dirtyRect = new RectF();
+
+        public signature(Context context, AttributeSet attrs) {
+            super(context, attrs);
+            paint.setAntiAlias(true);
+            paint.setColor(Color.BLACK);
+            paint.setStyle(Paint.Style.STROKE);
+            paint.setStrokeJoin(Paint.Join.ROUND);
+            paint.setStrokeWidth(STROKE_WIDTH);
+        }
+
+        public void save(View v, String StoredPath) {
+            Log.v("log_tag", "Width: " + v.getWidth());
+            Log.v("log_tag", "Height: " + v.getHeight());
+            if (bitmap == null) {
+                bitmap = Bitmap.createBitmap(mContent.getWidth(), mContent.getHeight(), Bitmap.Config.RGB_565);
+            }
+            Canvas canvas = new Canvas(bitmap);
+            try {
+                // Output the file
+                FileOutputStream mFileOutStream = new FileOutputStream(StoredPath);
+                v.draw(canvas);
+
+
+                // Convert the output file to Image such as .jpeg
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                byte[] imgBytes = byteArrayOutputStream.toByteArray();
+                String signString = Base64.encodeToString(imgBytes, Base64.DEFAULT);
+
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+
+                editor.putString("signInjury", signString);
+                editor.apply();
+
+                // Convert the output file to Image such as .jpeg
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, mFileOutStream);
+                mFileOutStream.flush();
+                mFileOutStream.close();
+
+            } catch (Exception e) {
+                Log.v("log_tag", e.toString());
+            }
+
+        }
+
+        public void clear() {
+            path.reset();
+            invalidate();
+        }
+
+        @Override
+        protected void onDraw(Canvas canvas) {
+            canvas.drawPath(path, paint);
+        }
+
+        @Override
+        public boolean onTouchEvent(MotionEvent event) {
+            float eventX = event.getX();
+            float eventY = event.getY();
+            mGetSign.setEnabled(true);
+
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    path.moveTo(eventX, eventY);
+                    lastTouchX = eventX;
+                    lastTouchY = eventY;
+                    return true;
+
+                case MotionEvent.ACTION_MOVE:
+
+                case MotionEvent.ACTION_UP:
+
+                    resetDirtyRect(eventX, eventY);
+                    int historySize = event.getHistorySize();
+                    for (int i = 0; i < historySize; i++) {
+                        float historicalX = event.getHistoricalX(i);
+                        float historicalY = event.getHistoricalY(i);
+                        expandDirtyRect(historicalX, historicalY);
+                        path.lineTo(historicalX, historicalY);
+                    }
+                    path.lineTo(eventX, eventY);
+                    break;
+
+                default:
+                    debug("Ignored touch event: " + event.toString());
+                    return false;
+            }
+
+            invalidate((int) (dirtyRect.left - HALF_STROKE_WIDTH),
+                    (int) (dirtyRect.top - HALF_STROKE_WIDTH),
+                    (int) (dirtyRect.right + HALF_STROKE_WIDTH),
+                    (int) (dirtyRect.bottom + HALF_STROKE_WIDTH));
+
+            lastTouchX = eventX;
+            lastTouchY = eventY;
+
+            return true;
+        }
+
+        private void debug(String string) {
+
+            Log.v("log_tag", string);
+
+        }
+
+        private void expandDirtyRect(float historicalX, float historicalY) {
+            if (historicalX < dirtyRect.left) {
+                dirtyRect.left = historicalX;
+            } else if (historicalX > dirtyRect.right) {
+                dirtyRect.right = historicalX;
+            }
+
+            if (historicalY < dirtyRect.top) {
+                dirtyRect.top = historicalY;
+            } else if (historicalY > dirtyRect.bottom) {
+                dirtyRect.bottom = historicalY;
+            }
+        }
+
+        private void resetDirtyRect(float eventX, float eventY) {
+            dirtyRect.left = Math.min(lastTouchX, eventX);
+            dirtyRect.right = Math.max(lastTouchX, eventX);
+            dirtyRect.top = Math.min(lastTouchY, eventY);
+            dirtyRect.bottom = Math.max(lastTouchY, eventY);
+        }
+    }
+
+
 }

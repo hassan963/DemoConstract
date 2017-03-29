@@ -6,6 +6,7 @@ package com.constructefile.democonstract.Activity;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -19,6 +20,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
+import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -43,6 +45,7 @@ import com.constructefile.democonstract.R;
 import com.constructefile.democonstract.app.AppConfig;
 import com.constructefile.democonstract.app.AppController;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
@@ -57,33 +60,39 @@ import java.util.Map;
 
 public class NearMiss_Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    Toolbar toolbar;
-    Button btn_get_sign, mClear, mGetSign, mCancel;
+    private Toolbar toolbar;
+    private Button btn_get_sign, mClear, mGetSign, mCancel;
 
-    TextView dateNear;
-    Spinner typeNear, typeConcern;
-    EditText eventET, jobET;
+    private TextView dateNear;
+    private Spinner typeNear, typeConcern;
+    private EditText eventET, jobET;
 
-    Button sendBTN;
+    private Button sendBTN;
 
     private String sOne, sTwo, timestamp, date;
 
-    File file;
-    Dialog dialog;
-    LinearLayout mContent;
-    View view;
-    signature mSignature;
-    Bitmap bitmap;
+    private File file;
+    private Dialog dialog;
+    private LinearLayout mContent;
+    private View view;
+    private signature mSignature;
+    private Bitmap bitmap;
 
     // Creating Separate Directory for saving Generated Images
-    String DIRECTORY = Environment.getExternalStorageDirectory().getPath() + "/DigitSign/";
-    String pic_name = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-    String StoredPath = DIRECTORY + pic_name + ".png";
+    private String DIRECTORY = Environment.getExternalStorageDirectory().getPath() + "/ConstructeFile/";
+    private String pic_name = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+    private String StoredPath = DIRECTORY + pic_name + ".JPG";
+
+    private SharedPreferences sharedpreferences;
+
+    public static final String MyPREFERENCES = "MySign" ;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearmiss);
+
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
 
         typeNear = (Spinner) findViewById(R.id.typeNear);
@@ -162,14 +171,32 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
             @Override
             public void onClick(View view) {
 
-                saveData(jobET.getText().toString(), sOne, sTwo, eventET.getText().toString());
-                Snackbar.make(view, "Sending data to server", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                String sign = "";
+
+                if (sharedpreferences.contains("signNear")) {
+                    sign = sharedpreferences.getString("signNear", "");
+                    Log.v("$$^%%^&%&^% SIGN", sign);
+                }
+
+                if (sign.equals("")){
+                    Snackbar.make(view, "Please sign the form", Snackbar.LENGTH_SHORT)
+                            .setAction("Action", null).show();
+                }else {
+                    saveData(jobET.getText().toString(), sOne, sTwo, eventET.getText().toString(), sign);
+
+                    Snackbar.make(view, "Sending data to server..", Snackbar.LENGTH_SHORT)
+                            .setAction("Action", null).show();
+                    jobET.setText("");
+                    eventET.setText("");
+                    sharedpreferences.edit().clear().apply();
+                }
+
 
             }
         });
 
     }
+
 
    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -299,7 +326,7 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
     }
 
     // sending response to server NEAR MISS API
-    public void saveData(final String job, final String nearmiss_type, final String concern_type, final String description){
+    public void saveData(final String job, final String nearmiss_type, final String concern_type, final String description, final String sign){
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfig.URL_INSERT_NEAR_MISS, new Response.Listener<String>() {
             @Override
@@ -324,7 +351,8 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
                 params.put("date", timestamp);
                 params.put("description", description);
                 params.put("employee_id", "1"); // will implement later
-                params.put("signature", "");  // not done yet
+                params.put("signature", sign);  // not done yet
+                params.put("image", sign);
                 return params;
             }
         };
@@ -366,8 +394,20 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
                 FileOutputStream mFileOutStream = new FileOutputStream(StoredPath);
                 v.draw(canvas);
 
-                // Convert the output file to Image such as .png
-                bitmap.compress(Bitmap.CompressFormat.PNG, 90, mFileOutStream);
+
+                // Convert the output file to Image such as .jpeg
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                byte[] imgBytes = byteArrayOutputStream.toByteArray();
+                String signString = Base64.encodeToString(imgBytes, Base64.DEFAULT);
+
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+
+                editor.putString("signNear", signString);
+                editor.apply();
+
+                // Convert the output file to Image such as .jpeg
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, mFileOutStream);
                 mFileOutStream.flush();
                 mFileOutStream.close();
 
