@@ -48,7 +48,9 @@
         </activity>
         <activity android:name=".Activity.TimeSheet" ></activity>
         <activity android:name=".Activity.Excavator"></activity>
-        <activity android:name=".Activity.Injury_Report_Activity"
+        <activity
+            android:theme="@style/AppThemeSigm"
+            android:name=".Activity.Injury_Report_Activity"
             android:windowSoftInputMode="adjustPan"/>
         <activity
             android:theme="@style/AppThemeSigm"
