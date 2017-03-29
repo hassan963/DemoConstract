@@ -47,17 +47,6 @@
     <string name="nav_injury_report">Injury Report</string>
     <string name="nav_near_miss">Near Miss</string>
     <string name="nav_category">Category</string>
-    <string name="nav_loader">Loader</string>
-    <string name="nav_dozer">Dozer</string>
-    <string name="nav_backhoe">Backhoe</string>
-    <string name="nav_skid_steer">Skid Steer</string>
-    <string name="nav_road_roller">Road Roller</string>
-    <string name="nav_company_truck">Company Truck</string>
-    <string name="nav_truck">Truck</string>
-    <string name="nav_crusher">Crusher</string>
-    <string name="nav_screener">Screener</string>
-
-    <string name="nav_about_us">How To</string>
 
     <!-- Toolbar titles when navigation menu item is selected -->
     <string-array name="nav_item_activity_titles">
@@ -74,8 +63,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="nav_timesheet">Time Sheet</string>
     <string name="nav_unsafe">Unsafe work</string>
-
-    <string name="privacy_policy">Privacy Policy</string>
 
 
     <string name="name">Name </string>
