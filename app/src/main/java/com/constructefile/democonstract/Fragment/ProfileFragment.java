@@ -7,8 +7,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.constructefile.democonstract.R;
+import com.constructefile.democonstract.helper.SQLiteHandler;
+import com.constructefile.democonstract.helper.SessionManager;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +24,14 @@ import com.constructefile.democonstract.R;
  * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment {
+
+
+    private SQLiteHandler db;
+    private SessionManager session;
+    TextView txtid, txtName, txtEmail, txtdateStarted;
+    String f_name, l_name, user_id, email, date_started;
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -64,8 +77,32 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+
+        db = new SQLiteHandler(getContext());
+        txtid = (TextView) view.findViewById(R.id.operator_id);
+        txtName = (TextView) view.findViewById(R.id.name);
+        txtEmail = (TextView) view.findViewById(R.id.email);
+        txtdateStarted = (TextView) view.findViewById(R.id.dateStarted);
+
+
+        // Fetching user details from SQLite
+        HashMap<String, String> user = db.getUserDetails();
+
+        f_name = user.get("f_name");
+        l_name = user.get("l_name");
+        user_id = user.get("id");
+        email = user.get("email");
+        date_started = user.get("date_started");
+
+        // Displaying the user details on the screen
+        txtid.setText("Operator ID: " + user_id);
+        txtName.setText("Name: " + f_name + " " + l_name);
+        txtEmail.setText("Email: " + email);
+        txtdateStarted.setText("Date Started: " + date_started);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -46,9 +46,11 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
     String id;
+    String server_user_id;
     String f_name;
     String l_name;
     String user_email;
+    String date_started;
     String login_at_date;
     String login_at_time;
     String shift_id;
@@ -62,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressDialog pDialog;
     private SessionManager session;
     private SQLiteHandler db;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -250,11 +253,45 @@ public class LoginActivity extends AppCompatActivity {
                             JSONObject object = jArray.getJSONObject(n);
 
                             // Now store the user in SQLite
-                            id = object.getString("id");
+                            server_user_id = object.getString("id");
+                            id = object.getString("operator_no");
                             f_name = object.getString("first_name");
                             l_name = object.getString("last_name");
                             user_email = object.getString("email");
+                            date_started = object.getString("date_started");
 
+
+                            // Inserting row in users table
+                            Calendar c = Calendar.getInstance();
+                            int month = c.get(Calendar.MONTH) + 1;
+                            int hour = c.get(Calendar.HOUR);
+                            int minute = c.get(Calendar.MINUTE);
+                            int second = c.get(Calendar.SECOND);
+                            String hr;
+                            String min;
+                            String sec;
+
+
+                            if (hour >= 0 && hour <= 9) {
+                                hr = "0" + hour;
+                            } else {
+                                hr = hour + "";
+                            }
+                            if (minute >= 0 && minute <= 9) {
+                                min = "0" + minute;
+                            } else {
+                                min = minute + "";
+                            }
+                            if (second >= 0 && second <= 9) {
+                                sec = "0" + second;
+                            } else {
+                                sec = second + "";
+                            }
+
+                            login_at_date = c.get(Calendar.YEAR) + "-" + month + "-" + c.get(Calendar.DATE);
+                            login_at_time = hr + ":" + min + ":" + sec;
+                            db.addUser(server_user_id, f_name, l_name, user_email, id, login_at_date, login_at_time, date_started);
+                            getEquipmentFromWebAndInsertIntoDB();
                             Intent intent = new Intent(LoginActivity.this, MainMenu.class);
                             startActivity(intent);
                             finish();
@@ -394,6 +431,42 @@ public class LoginActivity extends AppCompatActivity {
 
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    public void getEquipmentFromWebAndInsertIntoDB() {
+        // Toast.makeText(getApplicationContext(), AppConfig.URL_ALL_VEHICLES, Toast.LENGTH_SHORT).show();
+        showDialog();
+        String tag_string_req = "req_get_all_equipments";
+        StringRequest strReq = new StringRequest(Request.Method.GET, AppConfig.URL_ALL_EQUIPMENTS, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                hideDialog();
+                Log.i("all_equipments", "Response: " + response.toString());
+                try {
+                    JSONArray jsonarray = new JSONArray(response);
+                    for (int i = 0; i < jsonarray.length(); i++) {
+                        JSONObject jsonobject = jsonarray.getJSONObject(i);
+                        String equipment_server_id = jsonobject.getString("id");
+                        String name = jsonobject.getString("name");
+                        Log.i("serial_equipment", equipment_server_id + " - " + name);
+                        //Toast.makeText(LoginActivity.this, "1st One " + vehicle_type_id + " - " + vehicle_id + " - " + serial_no, Toast.LENGTH_SHORT).show();
+                        db.insertEquipment(equipment_server_id, name);
+                        Log.i("labelInsert", equipment_server_id + " " + name);
+                        //Toast.makeText(LoginActivity.this, "labelInsert " + vehicle_type_id + " - " + vehicle_id + " - " + serial_no, Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                hideDialog();
+                error.printStackTrace();
+            }
+        });
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+
     }
 
     public void getListFromWebAndInsertIntoDB() {

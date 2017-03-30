@@ -5,53 +5,6 @@
     android:orientation="vertical"
     android:padding="10dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="5dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="left"
-            android:layout_weight="1"
-            android:text="Name"
-            android:textColor="#282828" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="left"
-            android:layout_weight="1"
-            android:text="Name will be shown here"
-            android:textColor="#363636" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="5dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="left"
-            android:layout_weight="1"
-            android:text="Date"
-            android:textColor="#282828" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="left"
-            android:layout_weight="1"
-            android:text="Date will be shown here"
-            android:textColor="#363636" />
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -63,22 +16,21 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_gravity="left"
+            android:gravity="center"
             android:layout_weight="1"
             android:text="Equipment"
+            android:textSize="20sp"
             android:textColor="#282828" />
 
-        <EditText
+        <Spinner
+            android:id="@+id/equipmentSerial"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="15sp"
-            android:textColor="#282828"
-            android:inputType="number"></EditText>
+            android:layout_height="match_parent"
+            android:layout_weight="2" />
     </LinearLayout>
 
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="5dp"
@@ -94,12 +46,14 @@
             android:textColor="#282828" />
 
         <EditText
+            android:id="@+id/eq_hour"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
+            android:layout_weight="1"
             android:textColor="#282828"
-            android:layout_weight="1"></EditText>
-    </LinearLayout>
+            android:textSize="15sp"></EditText>
+    </LinearLayout>-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -110,19 +64,21 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_gravity="left"
+            android:gravity="center"
+            android:textSize="20sp"
             android:layout_weight="1"
             android:text="Job"
             android:textColor="#282828" />
 
         <EditText
+            android:id="@+id/job"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="15sp"
+            android:layout_weight="3"
             android:textColor="#282828"
-            android:inputType="number"></EditText>
+            android:textSize="15sp" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -139,79 +95,105 @@
             android:textColor="#282828" />
 
         <Spinner
+            android:id="@+id/spinner_shift"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"></Spinner>
+            android:layout_weight="1" />
     </LinearLayout>
-
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="7"
         android:layout_marginBottom="5dp"
-        android:layout_weight="2"
         android:orientation="horizontal">
 
         <TimePicker
             android:id="@+id/timePicker1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
             android:layout_weight="1"
-            android:timePickerMode="spinner"
-            android:layout_centerHorizontal="true"
-            android:background="@color/colorPrimary"/>
+            android:background="#dfdfdf"
+            android:timePickerMode="spinner" />
 
         <TimePicker
             android:id="@+id/timePicker2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
             android:layout_weight="1"
-            android:timePickerMode="spinner"
-            android:layout_centerHorizontal="true"
-            android:background="@color/colorPrimary"/>
+            android:background="#dfdfdf"
+            android:timePickerMode="spinner" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="horizontal">
 
         <TextView
-            android:gravity="center"
             android:id="@+id/total_time"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:textSize="24sp"
-            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:textColor="#e1660f"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_show_total"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="0dp"
+            android:layout_weight="1"
+            android:background="#e1660f"
+            android:padding="0dp"
+            android:text="show total hour"
             android:textColor="#e6e6e6" />
     </LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:textColor="#282828"
-        android:text="Description Of Work :"/>
+        android:text="Description Of Work :"
+        android:textColor="#282828" />
 
     <EditText
+        android:id="@+id/description_of_work"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="5dp"
-        android:layout_weight="3"
+        android:layout_weight="2"
         android:padding="5dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:textColor="#282828"
-        android:text="Remarks :"/>
+        android:text="Remarks :"
+        android:textColor="#282828" />
+
     <EditText
+        android:id="@+id/remarks"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="5dp"
-        android:layout_weight="3"
+        android:layout_weight="2"
         android:padding="5dp" />
+
     <Button
+        android:id="@+id/btn_submit"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:text="Submit"
         android:background="@color/colorPrimary"
-        android:textColor="#e6e6e6"/>
+        android:text="Submit"
+        android:textColor="#e6e6e6" />
 </LinearLayout>

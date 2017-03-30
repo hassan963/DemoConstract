@@ -267,6 +267,21 @@ public class MainMenu extends AppCompatActivity {
                         startActivity(new Intent(MainMenu.this, TimeSheet.class));
                         drawer.closeDrawers();
                         return true;
+                    /*case R.id.nav_tailgate_meeting:
+                        // launch new intent instead of loading fragment
+                        startActivity(new Intent(MainMenu.this, TailgateMeeting.class));
+                        drawer.closeDrawers();
+                        return true;
+                    case R.id.nav_daily_task:
+                        // launch new intent instead of loading fragment
+                        startActivity(new Intent(MainMenu.this, DailyTask.class));
+                        drawer.closeDrawers();
+                        return true;
+                    case R.id.nav_hazard_assesment:
+                        // launch new intent instead of loading fragment
+                        startActivity(new Intent(MainMenu.this, HazardAssesment.class));
+                        drawer.closeDrawers();
+                        return true;*/
                     case R.id.nav_category:
                         // launch new intent instead of loading fragment
                         startActivity(new Intent(MainMenu.this, CategoryActivity.class));
@@ -404,11 +419,13 @@ public class MainMenu extends AppCompatActivity {
     }
 
 
+
     private void logoutUser() {
         session.setLogin(false);
 
-        /*db.deleteUsers();
-        db.deleteLabels();*/
+        db.deleteUsers();
+        db.deleteLabels();
+        db.deleteEquipments();
 
         // Launching the login activity
         Intent intent = new Intent(MainMenu.this, LoginActivity.class);
