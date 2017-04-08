@@ -4,16 +4,121 @@
     android:layout_height="match_parent"
     tools:context="com.constructefile.democonstract.Fragment.HowToApproachingTasks">
 
-    <LinearLayout
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#efefef"
+            android:padding="5dp"
+            android:orientation="vertical">
+
+            <ExpandableListView
+                android:id="@+id/lvExp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+        <!--<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="HELLO"
-            android:textSize="24sp"
-            android:textColor="#000"/>
+            android:orientation="vertical"
+            android:padding="10dp">
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:text="Loading Trucks"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="With Loader:"
+                android:textColor="#000be1"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Fill bucket and rise to loading area. Signal truck to advance to loading area, when in position signal to stop. Fill truck and signal when finished."
+                android:textColor="#181818"
+                android:textSize="20sp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="With Excavator:"
+                android:textColor="#000be1"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Signal truck to advance to loading area. Fill bucket and swing over the back end of the truck.(never go over the cab of the truck) When finished loading signal truck."
+                android:textColor="#181818"
+                android:textSize="20sp"
+                android:layout_marginBottom="15dp"/>
+            //
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:text="Keeping grade"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:text="When bringing dirt to grade, keep your bucket or blade full to always have material to work with.
+Having stakes in different areas to keep track of different grade helps.
+If digging area is soft and moves the stakes when approaching with machinery, using a line level you can move the stake to a different location while keeping the grade in the desired location until finished with equipment in area
+"
+                android:textColor="#181818"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:text="Digging a trench"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Before digging a trench, mark out your area of digging. Then make your one call to make sure there are no cables or pipes underground in your area of digging.
+Allow enough room in your easement for the backfill material to be 1 meter away from your trench.Use the dirt management section to calculate how much dirt you will be removing to do better estimates on area needed for your easement.
+When digging with a surveyor, be aware and have good communication with them. They will be around you at all times to make sure you are at a correct depth and may leave to go check other areas of site.
+Keeping track of your depth on the stick of the machinery helps keeping a steady grade for beginners.
+"
+                android:textColor="#181818"
+                android:textSize="20sp" />
+        </LinearLayout>-->
+    </ScrollView>
 </FrameLayout>

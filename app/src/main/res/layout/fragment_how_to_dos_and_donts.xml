@@ -4,10 +4,58 @@
     android:layout_height="match_parent"
     tools:context="com.constructefile.democonstract.Fragment.HowToDosAndDonts">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="left"
+                android:text="Do"
+                android:textColor="#000be1"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="# Always remember your center of gravity\n# Have eye contact with other workers at all times\n# Clear any object that could be a potential hazard
+"
+                android:textColor="#181818"
+                android:textSize="20sp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="left"
+                android:text="Dont"
+                android:textColor="#000be1"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="# Never load over the cab of the truck\n# Never go more than a 45degree angle with the equipment\n# Never leave the bucket raised and leave the equipment.
+"
+                android:textColor="#181818"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>
