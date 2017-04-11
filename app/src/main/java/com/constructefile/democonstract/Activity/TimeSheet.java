@@ -87,6 +87,7 @@ public class TimeSheet extends AppCompatActivity {
         // Fetching user details from SQLite
         HashMap<String, String> user = db.getUserDetails();
         operator_id = user.get("server_user_id");
+
         job = (EditText) findViewById(R.id.job);
         remarks = (EditText) findViewById(R.id.remarks);
         description_of_work = (EditText) findViewById(R.id.description_of_work);

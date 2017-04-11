@@ -1,11 +1,13 @@
 package com.constructefile.democonstract.app;
 
 import android.app.Application;
+import android.content.Context;
 import android.text.TextUtils;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.constructefile.democonstract.Activity.ConnectivityReceiver;
 
 /**
  * Created by Optimus Prime on 12/18/2016.
@@ -14,19 +16,24 @@ import com.android.volley.toolbox.Volley;
 public class AppController extends Application {
 
     public static final String TAG = AppController.class.getSimpleName();
-
     private RequestQueue mRequestQueue;
-
+    private static Context mContext;
     private static AppController mInstance;
 
     @Override
     public void onCreate() {
         super.onCreate();
         mInstance = this;
+        mContext = getApplicationContext();
     }
 
     public static synchronized AppController getInstance() {
         return mInstance;
+    }
+
+    public void setConnectivityReceiver(ConnectivityReceiver.ConnectivityReceiverListener listener) {
+        ConnectivityReceiver.connectivityReceiverListener = listener;
+
     }
 
     public RequestQueue getRequestQueue() {
@@ -51,5 +58,9 @@ public class AppController extends Application {
         if (mRequestQueue != null) {
             mRequestQueue.cancelAll(tag);
         }
+    }
+
+    public static Context getAppCOntext() {
+        return AppController.mContext;
     }
 }

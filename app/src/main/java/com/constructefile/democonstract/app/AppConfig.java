@@ -49,4 +49,6 @@ public class AppConfig {
     //Server insert time sheet in database
     public static String URL_INSERT_TIMESHEET = "http://23.235.211.194/~tecnot5/dev/construction/v1/timesheet";
 
+    public static String  GET_ALL_DAILY_TASK = "http://23.235.211.194/~tecnot5/dev/construction/v1/daily_task/today/operator/";
+
 }
