@@ -95,7 +95,7 @@ public class UnsafeWorkNotify extends Fragment implements AdapterView.OnItemSele
         View view = inflater.inflate(R.layout.fragment_unsafe_work_notify, container, false);
 
         spinnerUnsafe = (Spinner) view.findViewById(R.id.spinnerUnsafe);
-        chatET = (EditText) view.findViewById(R.id.chatET );
+        chatET = (EditText) view.findViewById(R.id.chatET);
         chatSendBTN = (Button) view.findViewById(R.id.chatSendBTN);
 
         getAllSuperVisor();
@@ -110,8 +110,6 @@ public class UnsafeWorkNotify extends Fragment implements AdapterView.OnItemSele
                 saveData(chatET.getText().toString());
             }
         });
-
-
 
 
         // Inflate the layout for this fragment
@@ -153,7 +151,7 @@ public class UnsafeWorkNotify extends Fragment implements AdapterView.OnItemSele
     }
 
     // sending response to server NEAR MISS API
-    public void saveData(final String text){
+    public void saveData(final String text) {
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfig.URL_INSERT_UNSAFE_WORK, new Response.Listener<String>() {
             @Override
@@ -200,7 +198,7 @@ public class UnsafeWorkNotify extends Fragment implements AdapterView.OnItemSele
                         String id = jsonobject.getString("id");
                         //String email = jsonobject.getString("email");
 
-                        superVisorList.add(id+" "+ first_name+" "+last_name);
+                        superVisorList.add(id + " " + first_name + " " + last_name);
 
                     }
 
@@ -224,7 +222,6 @@ public class UnsafeWorkNotify extends Fragment implements AdapterView.OnItemSele
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
 
     }
-
 
 
     /**

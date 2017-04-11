@@ -57,6 +57,8 @@
             android:label="Near Miss"
             android:theme="@style/AppThemeSigm"
             android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".Activity.TailgateMeeting" />
+        <activity android:name=".Activity.HazardAssesment"></activity>
     </application>
 
 </manifest>

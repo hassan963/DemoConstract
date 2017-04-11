@@ -4,10 +4,44 @@
     android:layout_height="match_parent"
     tools:context="com.constructefile.democonstract.Fragment.HowToOperateSafely">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="left"
+                android:text="Operating Machinery:"
+                android:textColor="#000be1"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="When operating any type of machinery make sure you have gotten the proper training by a qualified person.
+If you are operating any new piece of equipment ASK before operating if any modification has been done the machine.
+ Maintenance is key to keeping the equipment in top operating condition. Before starting the machine, go to checklist in your app and fill out the form to keep maintenance up to date.
+All equipment needs to be greased daily to avoid damage. Locate the grease point chart on the equipment to be certain you have greased every nipple. ( grease point chart can be found outside the cab and in manual)
+When first learning to operate start at a low idle to get the feel of your machine and be comfortable to accelerate your speed and engine idle.
+Before moving the machine, fine your blind spot and pinch points to be aware of higher danger areas.
+Any machine with a seat belt must be worn.
+Never leave any bucket raised unattended, hydraulics can let go at any moment.
+Turn off equipment before fueling.
+"
+                android:textColor="#181818"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>
