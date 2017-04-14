@@ -28,8 +28,8 @@ public class ProfileFragment extends Fragment {
 
     private SQLiteHandler db;
     private SessionManager session;
-    TextView txtid, txtName, txtEmail, txtdateStarted;
     String f_name, l_name, user_id, email, date_started;
+    TextView txtid, txtName, txtEmail, txtdateStarted;
 
 
     // TODO: Rename parameter arguments, choose names that match

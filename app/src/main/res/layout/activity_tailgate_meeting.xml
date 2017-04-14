@@ -21,20 +21,50 @@
                 android:layout_weight="1"
                 android:text="Conducted By:"
                 android:textColor="#262626"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/conducted_by"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="10dp"
-            android:background="#949494">
+            android:background="#c2c2c2">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="date:"
+                android:textColor="#262626"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="10dp"
+            android:background="#c2c2c2">
 
         </LinearLayout>
 
@@ -49,20 +79,21 @@
                 android:layout_weight="1"
                 android:text="Safety Report:"
                 android:textColor="#262626"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/safety_rep"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="10dp"
-            android:background="#949494">
+            android:background="#c2c2c2">
 
         </LinearLayout>
 
@@ -77,20 +108,21 @@
                 android:layout_weight="1"
                 android:text="Job:"
                 android:textColor="#262626"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/job"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="10dp"
-            android:background="#949494">
+            android:background="#c2c2c2">
 
         </LinearLayout>
 
@@ -105,20 +137,21 @@
                 android:layout_weight="1"
                 android:text="Contact:"
                 android:textColor="#262626"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/contact"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="10dp"
-            android:background="#949494">
+            android:background="#c2c2c2">
 
         </LinearLayout>
 
@@ -133,20 +166,21 @@
                 android:layout_weight="1"
                 android:text="Phone:"
                 android:textColor="#262626"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/phone"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="10dp"
-            android:background="#949494">
+            android:background="#c2c2c2">
 
         </LinearLayout>
 
@@ -161,20 +195,21 @@
                 android:layout_weight="1"
                 android:text="Master Point:"
                 android:textColor="#262626"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/master_point"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="10dp"
-            android:background="#949494">
+            android:background="#c2c2c2">
 
         </LinearLayout>
 
@@ -189,20 +224,21 @@
                 android:layout_weight="1"
                 android:text="First Aid Location:"
                 android:textColor="#262626"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/first_aid_loc"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="10dp"
-            android:background="#949494">
+            android:background="#c2c2c2">
 
         </LinearLayout>
 
@@ -217,20 +253,21 @@
                 android:layout_weight="1"
                 android:text="First Aid Qualified:"
                 android:textColor="#262626"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/first_aid_qualified"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="10dp"
-            android:background="#949494">
+            android:background="#c2c2c2">
 
         </LinearLayout>
 
@@ -245,20 +282,21 @@
                 android:layout_weight="1"
                 android:text="Permit No:"
                 android:textColor="#262626"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/permit_no"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="10dp"
-            android:background="#949494">
+            android:background="#c2c2c2">
 
         </LinearLayout>
 
@@ -273,20 +311,21 @@
                 android:layout_weight="1"
                 android:text="Hazard Assesment No:"
                 android:textColor="#262626"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/hazard_assesment_no"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="10dp"
-            android:background="#949494">
+            android:background="#c2c2c2">
 
         </LinearLayout>
 
@@ -301,20 +340,21 @@
                 android:layout_weight="1"
                 android:text="Safety Topic:"
                 android:textColor="#262626"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/safety_topic"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="10dp"
-            android:background="#949494">
+            android:background="#c2c2c2">
 
         </LinearLayout>
 
@@ -329,20 +369,21 @@
                 android:layout_weight="1"
                 android:text="Discussion:"
                 android:textColor="#262626"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/discussion"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="10dp"
-            android:background="#949494">
+            android:background="#c2c2c2">
 
         </LinearLayout>
 
@@ -357,55 +398,27 @@
                 android:layout_weight="1"
                 android:text="Emergency Plan:"
                 android:textColor="#262626"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/emergency_plan"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginBottom="10dp"
-            android:background="#949494">
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Operator Id:"
-                android:textColor="#262626"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/operator_id"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginBottom="10dp"
-            android:background="#949494">
+            android:background="#c2c2c2">
 
         </LinearLayout>
 
 
         <Button
-            android:id="@+id/signature"
+            android:id="@+id/btn_signature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -415,7 +428,7 @@
             android:textColor="#e6e6e6" />
 
         <Button
-            android:id="@+id/sendBTN"
+            android:id="@+id/btn_send"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
