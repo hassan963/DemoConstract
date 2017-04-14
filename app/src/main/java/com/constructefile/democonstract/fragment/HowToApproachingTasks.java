@@ -3,18 +3,15 @@ package com.constructefile.democonstract.fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
-import com.constructefile.democonstract.adapter.ExpandableListAdapter;
 import com.constructefile.democonstract.R;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import com.constructefile.democonstract.adapter.ExpandableListAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,10 +24,10 @@ import java.util.List;
 public class HowToApproachingTasks extends Fragment {
 
 
-    ExpandableListAdapter listAdapter;
+    View rootView;
     ExpandableListView expListView;
-    List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
+    private String[] groups;
+    private String[][] children;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -79,124 +76,37 @@ public class HowToApproachingTasks extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_how_to_approaching_tasks, container, false);
-
-        // get the listview
-        expListView = (ExpandableListView) view.findViewById(R.id.lvExp);
+        rootView = inflater.inflate(R.layout.fragment_howto, container, false);
 
         // preparing list data
         prepareListData();
 
-        listAdapter = new ExpandableListAdapter(getContext(), listDataHeader, listDataChild);
-
-        // setting list adapter
-        expListView.setAdapter(listAdapter);
-
-        // Listview Group click listener
-        expListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v,
-                                        int groupPosition, long id) {
-                // Toast.makeText(getApplicationContext(),
-                // "Group Clicked " + listDataHeader.get(groupPosition),
-                // Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        });
-
-        // Listview Group expanded listener
-        expListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                /*Toast.makeText(getContext(),
-                        listDataHeader.get(groupPosition) + " Expanded",
-                        Toast.LENGTH_SHORT).show();*/
-            }
-        });
-
-        // Listview Group collasped listener
-        expListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-                /*Toast.makeText(getContext(),
-                        listDataHeader.get(groupPosition) + " Collapsed",
-                        Toast.LENGTH_SHORT).show();*/
-
-            }
-        });
-
-        // Listview on child click listener
-        expListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
-                // TODO Auto-generated method stub
-                /*Toast.makeText(
-                        getContext(),
-                        listDataHeader.get(groupPosition)
-                                + " : "
-                                + listDataChild.get(
-                                listDataHeader.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT)
-                        .show();*/
-                return false;
-            }
-        });
-        return view;
+        return rootView;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        expListView = (ExpandableListView) view.findViewById(R.id.expListView);
+        expListView.setAdapter(new ExpandableListAdapter(getActivity(), groups, children));
+        expListView.setGroupIndicator(null);
+    }
 
     /*
-     * Preparing the list data
-     */
+         * Preparing the list data
+         */
     private void prepareListData() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
 
-        // Adding child data
-        listDataHeader.add("Digging a trench");
-        listDataHeader.add("Keeping grade");
-        listDataHeader.add("Loading Trucks");
+        groups = new String[] { "Test Header 1", "Test Header 2", "Test Header 3", "Test Header 4" };
 
-        // Adding child data
-        List<String> top250 = new ArrayList<String>();
-        top250.add("Before digging a trench, mark out your area of digging. Then make your one call to make sure there are no cables or pipes underground in your area of digging.\n" +
-                "Allow enough room in your easement for the backfill material to be 1 meter away from your trench.Use the dirt management section to calculate how much dirt you will be removing to do better estimates on area needed for your easement.\n" +
-                "When digging with a surveyor, be aware and have good communication with them. They will be around you at all times to make sure you are at a correct depth and may leave to go check other areas of site.\n" +
-                "Keeping track of your depth on the stick of the machinery helps keeping a steady grade for beginners.");
-        /*top250.add("The Godfather");
-        top250.add("The Godfather: Part II");
-        top250.add("Pulp Fiction");
-        top250.add("The Good, the Bad and the Ugly");
-        top250.add("The Dark Knight");
-        top250.add("12 Angry Men");*/
+        children = new String [][] {
+                { "s simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." },
+                { "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of comes from a line in section 1.10.32." },
+                { "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)." },
+                { "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc." }
+        };
 
-        List<String> nowShowing = new ArrayList<String>();
-        nowShowing.add("When bringing dirt to grade, keep your bucket or blade full to always have material to work with. \n" +
-                "Having stakes in different areas to keep track of different grade helps.\n" +
-                "If digging area is soft and moves the stakes when approaching with machinery, using a line level you can move the stake to a different location while keeping the grade in the desired location until finished with equipment in area\n");
-        /*nowShowing.add("Despicable Me 2");
-        nowShowing.add("Turbo");
-        nowShowing.add("Grown Ups 2");
-        nowShowing.add("Red 2");
-        nowShowing.add("The Wolverine");*/
 
-        List<String> comingSoon = new ArrayList<String>();
-        comingSoon.add("With Loader:\n" +
-                "Fill bucket and rise to loading area. Signal truck to advance to loading area, when in position signal to stop. Fill truck and signal when finished\n");
-        comingSoon.add("With Excavator:\n" +
-                "Signal truck to advance to loading area. Fill bucket and swing over the back end of the truck.(never go over the cab of the truck) When finished loading signal truck.\n");
-        /*comingSoon.add("The Spectacular Now");
-        comingSoon.add("The Canyons");
-        comingSoon.add("Europa Report");*/
 
-        listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), nowShowing);
-        listDataChild.put(listDataHeader.get(2), comingSoon);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -237,4 +147,101 @@ public class HowToApproachingTasks extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    /*public class ExpandableListAdapter extends BaseExpandableListAdapter {
+
+        private final LayoutInflater inf;
+        private String[] groups;
+        private String[][] children;
+
+        public ExpandableListAdapter(String[] groups, String[][] children) {
+            this.groups = groups;
+            this.children = children;
+            inf = LayoutInflater.from(getActivity());
+        }
+
+        @Override
+        public int getGroupCount() {
+            return groups.length;
+        }
+
+        @Override
+        public int getChildrenCount(int groupPosition) {
+            return children[groupPosition].length;
+        }
+
+        @Override
+        public Object getGroup(int groupPosition) {
+            return groups[groupPosition];
+        }
+
+        @Override
+        public Object getChild(int groupPosition, int childPosition) {
+            return children[groupPosition][childPosition];
+        }
+
+        @Override
+        public long getGroupId(int groupPosition) {
+            return groupPosition;
+        }
+
+        @Override
+        public long getChildId(int groupPosition, int childPosition) {
+            return childPosition;
+        }
+
+        @Override
+        public boolean hasStableIds() {
+            return true;
+        }
+
+        @Override
+        public View getChildView(int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+
+            ViewHolder holder;
+            if (convertView == null) {
+                convertView = inf.inflate(R.layout.list_item, parent, false);
+                holder = new ViewHolder();
+
+                holder.text = (TextView) convertView.findViewById(R.id.lblListItem);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+            holder.text.setText(getChild(groupPosition, childPosition).toString());
+
+            return convertView;
+        }
+
+        @Override
+        public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+
+            if (convertView == null) {
+                convertView = inf.inflate(R.layout.list_group, parent, false);
+
+                holder = new ViewHolder();
+                holder.text = (TextView) convertView.findViewById(R.id.lblListHeader);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+
+            holder.text.setText(getGroup(groupPosition).toString());
+
+            return convertView;
+        }
+
+        @Override
+        public boolean isChildSelectable(int groupPosition, int childPosition) {
+            return true;
+        }
+
+        private class ViewHolder {
+            TextView text;
+        }
+
+    }*/
+
 }

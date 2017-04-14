@@ -350,7 +350,7 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
                 params.put("concern_type", concern_type);
                 params.put("date", timestamp);
                 params.put("description", description);
-                params.put("employee_id", "1"); // will implement later
+                params.put("operator_id", "9"); // will implement later
                 params.put("signature", sign);  // not done yet
                 params.put("image", sign);
                 return params;
