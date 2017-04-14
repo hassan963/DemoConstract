@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="#f2f2f2"
-    tools:context="com.constructefile.democonstract.Activity.MainMenu">
+    tools:context="com.constructefile.democonstract.activity.MainMenu">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
