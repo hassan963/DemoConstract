@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activity.LoginActivity"
+            android:name=".activity.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -25,45 +25,45 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.CategoryActivity"
+            android:name=".activity.CategoryActivity"
             android:label="Categories" />
         <activity
             android:name=".MainActivity"
-            android:parentActivityName=".Activity.CategoryActivity"
+            android:parentActivityName=".activity.CategoryActivity"
             android:theme="@style/AppTheme.TransNav"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".Activity.ProfileActivity"
+            android:name=".activity.ProfileActivity"
             android:label="Profile" />
         <activity
-            android:name=".Activity.FuelRecordActivity"
+            android:name=".activity.FuelRecordActivity"
             android:label="Fuel Record"
-            android:parentActivityName=".Activity.CategoryActivity"
+            android:parentActivityName=".activity.CategoryActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.constructefile.democonstract.Activity.CategoryActivity" />
+                android:value="com.constructefile.democonstract.activity.CategoryActivity" />
         </activity>
         <activity
-            android:name=".Activity.MainMenu"
+            android:name=".activity.MainMenu"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.TimeSheet" />
-        <activity android:name=".Activity.Excavator" />
+        <activity android:name=".activity.TimeSheet" />
+        <activity android:name=".activity.Excavator" />
         <activity
-            android:name=".Activity.Injury_Report_Activity"
+            android:name=".activity.Injury_Report_Activity"
             android:theme="@style/AppThemeSigm"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".Activity.NearMiss_Activity"
+            android:name=".activity.NearMiss_Activity"
             android:label="Near Miss"
             android:theme="@style/AppThemeSigm"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".Activity.TailgateMeeting" />
-        <activity android:name=".Activity.HazardAssesment" />
-        <activity android:name=".Activity.DailyTask" />
+        <activity android:name=".activity.TailgateMeeting" />
+        <activity android:name=".activity.HazardAssesment" />
+        <activity android:name=".activity.DailyTask" />
 
         <receiver
-            android:name=".Activity.ConnectivityReceiver"
+            android:name=".activity.ConnectivityReceiver"
             android:enabled="true">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />

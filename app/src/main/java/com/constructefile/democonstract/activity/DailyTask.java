@@ -1,4 +1,4 @@
-package com.constructefile.democonstract.Activity;
+package com.constructefile.democonstract.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -24,7 +24,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.constructefile.democonstract.Adapter.GetAdapter;
+import com.constructefile.democonstract.adapter.GetAdapter;
 import com.constructefile.democonstract.R;
 import com.constructefile.democonstract.app.AppConfig;
 import com.constructefile.democonstract.app.AppController;

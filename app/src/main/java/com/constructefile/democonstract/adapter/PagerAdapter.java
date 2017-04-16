@@ -1,12 +1,12 @@
-package com.constructefile.democonstract.Adapter;
+package com.constructefile.democonstract.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
-import com.constructefile.democonstract.Fragment.FormFragment;
-import com.constructefile.democonstract.Fragment.FormFragmentTwo;
+import com.constructefile.democonstract.fragment.FormFragment;
+import com.constructefile.democonstract.fragment.FormFragmentTwo;
 
 /**
  * Created by Hassan M.Ashraful on 11/25/2016.

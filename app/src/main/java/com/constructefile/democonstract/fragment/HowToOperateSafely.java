@@ -1,4 +1,4 @@
-package com.constructefile.democonstract.Fragment;
+package com.constructefile.democonstract.fragment;
 
 import android.content.Context;
 import android.net.Uri;
@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 
 import com.constructefile.democonstract.R;
-import com.constructefile.democonstract.Adapter.ExpandableListAdapter;
+import com.constructefile.democonstract.adapter.ExpandableListAdapter;
 
 /**
  * A simple {@link Fragment} subclass.

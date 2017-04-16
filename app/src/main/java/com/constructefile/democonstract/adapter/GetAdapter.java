@@ -1,4 +1,4 @@
-package com.constructefile.democonstract.Adapter;
+package com.constructefile.democonstract.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

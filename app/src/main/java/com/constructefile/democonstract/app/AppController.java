@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.constructefile.democonstract.Activity.ConnectivityReceiver;
+import com.constructefile.democonstract.activity.ConnectivityReceiver;
 
 /**
  * Created by Optimus Prime on 12/18/2016.

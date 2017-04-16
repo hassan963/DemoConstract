@@ -1,4 +1,4 @@
-package com.constructefile.democonstract.Activity;
+package com.constructefile.democonstract.activity;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -11,8 +11,8 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.constructefile.democonstract.Adapter.CategoryAdapter;
-import com.constructefile.democonstract.Content.CategoryData;
+import com.constructefile.democonstract.adapter.CategoryAdapter;
+import com.constructefile.democonstract.content.CategoryData;
 import com.constructefile.democonstract.R;
 import com.constructefile.democonstract.helper.SQLiteHandler;
 import com.constructefile.democonstract.helper.SessionManager;

@@ -1,4 +1,4 @@
-package com.constructefile.democonstract.Activity;
+package com.constructefile.democonstract.activity;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
