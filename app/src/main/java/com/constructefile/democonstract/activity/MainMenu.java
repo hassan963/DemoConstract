@@ -1,4 +1,4 @@
-package com.constructefile.democonstract.activity;
+package com.constructefile.democonstract.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,12 +18,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.constructefile.democonstract.fragment.HowToApproachingTasks;
-import com.constructefile.democonstract.fragment.HowToDosAndDonts;
-import com.constructefile.democonstract.fragment.HowToOHNSLaws;
-import com.constructefile.democonstract.fragment.HowToOperateSafely;
-import com.constructefile.democonstract.fragment.HowToOperationSafety;
-import com.constructefile.democonstract.fragment.ProfileFragment;
+import com.constructefile.democonstract.Fragment.HowToApproachingTasks;
+import com.constructefile.democonstract.Fragment.HowToDosAndDonts;
+import com.constructefile.democonstract.Fragment.HowToOHNSLaws;
+import com.constructefile.democonstract.Fragment.HowToOperateSafely;
+import com.constructefile.democonstract.Fragment.HowToOperationSafety;
+import com.constructefile.democonstract.Fragment.ProfileFragment;
 import com.constructefile.democonstract.R;
 import com.constructefile.democonstract.helper.SQLiteHandler;
 import com.constructefile.democonstract.helper.SessionManager;

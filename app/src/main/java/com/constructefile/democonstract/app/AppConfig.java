@@ -59,4 +59,6 @@ public class AppConfig {
 
     public static String URL_UPDATE_TODAY_HAZARD_ASSESMENT = "http://23.235.211.194/~tecnot5/dev/construction/v1/hazard_assessment/";
 
+    public static String GET_SUPERVISOR_NAME_BY_ID = "http://23.235.211.194/~tecnot5/dev/construction/v1/supervisors/";
+
 }

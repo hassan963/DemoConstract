@@ -1,4 +1,4 @@
-package com.constructefile.democonstract.adapter;
+package com.constructefile.democonstract.Adapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.constructefile.democonstract.activity.FuelRecordActivity;
-import com.constructefile.democonstract.content.CategoryData;
+import com.constructefile.democonstract.Activity.FuelRecordActivity;
+import com.constructefile.democonstract.Content.CategoryData;
 import com.constructefile.democonstract.MainActivity;
 import com.constructefile.democonstract.R;
 import com.squareup.picasso.Picasso;

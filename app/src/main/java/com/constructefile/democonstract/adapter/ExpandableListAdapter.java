@@ -1,4 +1,4 @@
-package com.constructefile.democonstract.adapter;
+package com.constructefile.democonstract.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -1,4 +1,4 @@
-package com.constructefile.democonstract.fragment;
+package com.constructefile.democonstract.Fragment;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -19,8 +19,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.constructefile.democonstract.adapter.FormOneAdapter;
-import com.constructefile.democonstract.content.FormData;
+import com.constructefile.democonstract.Adapter.FormOneAdapter;
+import com.constructefile.democonstract.Content.FormData;
 import com.constructefile.democonstract.R;
 import com.constructefile.democonstract.app.AppConfig;
 import com.constructefile.democonstract.app.AppController;

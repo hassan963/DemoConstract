@@ -37,7 +37,7 @@ public class GetAdapter extends RecyclerView.Adapter<GetAdapter.ViewHolder> {
 
         Gets gets = getList.get(position);
         holder.date.setText(gets.date);
-        holder.supervisor.setText(gets.supervisor_id);
+        //holder.supervisor.setText(gets.supervisor_id);
         holder.desc.setText(gets.description);
     }
 
@@ -54,7 +54,7 @@ public class GetAdapter extends RecyclerView.Adapter<GetAdapter.ViewHolder> {
         public ViewHolder(View itemView) {
             super(itemView);
             date = (TextView) itemView.findViewById(R.id.date);
-            supervisor = (TextView) itemView.findViewById(R.id.supervisor);
+            //supervisor = (TextView) itemView.findViewById(R.id.supervisor);
             desc = (TextView) itemView.findViewById(R.id.desc);
         }
     }

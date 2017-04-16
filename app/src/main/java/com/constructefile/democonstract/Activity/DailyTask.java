@@ -53,7 +53,7 @@ public class DailyTask extends AppCompatActivity implements ConnectivityReceiver
     public SwipeRefreshLayout swipeRefreshLayout;
     private SQLiteHandler db;
     private SessionManager session;
-
+    //public String supervisor_first_name = "", supervisor_last_name = "", supervisor_full_name = "";
     public String operator_id;
 
     @Override
@@ -141,6 +141,9 @@ public class DailyTask extends AppCompatActivity implements ConnectivityReceiver
                     for (int i = 0; i < jsonarray.length(); i++) {
                         JSONObject jsonobject = jsonarray.getJSONObject(i);
 
+                        //String supervisorId = jsonobject.getString("supervisor_id");
+                        //getSupervisorName(supervisorId);
+
                         Gets gets = new Gets();
                         gets.id = jsonobject.getString("id");
                         gets.date = jsonobject.getString("date");
@@ -190,4 +193,36 @@ public class DailyTask extends AppCompatActivity implements ConnectivityReceiver
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+    /*public String getSupervisorName(String supervisor) {
+
+        String supervisor_first_name, supervisor_last_name, supervisor_full_name;
+        Log.i("called with ", supervisor);
+        String tag_string_req = "req_get_supervisor_name";
+        StringRequest strReq = new StringRequest(Request.Method.GET, AppConfig.GET_SUPERVISOR_NAME_BY_ID + supervisor, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.i("all_supervisor_name", "Response: " + response.toString());
+                try {
+                    JSONArray jsonarray = new JSONArray(response);
+                    JSONObject jsonobject = jsonarray.getJSONObject(0);
+                    supervisor_first_name = jsonobject.getString("first_name");
+                    supervisor_last_name = jsonobject.getString("last_name");
+                    supervisor_full_name = supervisor_first_name + " " + supervisor_last_name;
+                    Log.i("s_name", supervisor_full_name);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+        return supervisor_full_name;
+    }*/
 }

@@ -18,12 +18,12 @@ import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
-import com.constructefile.democonstract.activity.CategoryActivity;
-import com.constructefile.democonstract.activity.LoginActivity;
-import com.constructefile.democonstract.adapter.PagerAdapter;
-import com.constructefile.democonstract.content.SpinnerData;
-import com.constructefile.democonstract.fragment.FormFragment;
-import com.constructefile.democonstract.fragment.FormFragmentTwo;
+import com.constructefile.democonstract.Activity.CategoryActivity;
+import com.constructefile.democonstract.Activity.LoginActivity;
+import com.constructefile.democonstract.Adapter.PagerAdapter;
+import com.constructefile.democonstract.Content.SpinnerData;
+import com.constructefile.democonstract.Fragment.FormFragment;
+import com.constructefile.democonstract.Fragment.FormFragmentTwo;
 import com.constructefile.democonstract.helper.SQLiteHandler;
 import com.constructefile.democonstract.helper.SessionManager;
 

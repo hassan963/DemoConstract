@@ -1,4 +1,4 @@
-package com.constructefile.democonstract.activity;
+package com.constructefile.democonstract.Activity;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -119,6 +119,18 @@ public class TailgateMeeting extends AppCompatActivity {
         btn_signature = (Button) findViewById(R.id.btn_signature);
         btn_send = (Button) findViewById(R.id.btn_send);
 
+        // Method to create Directory, if the Directory doesn't exists
+        file = new File(DIRECTORY);
+        if (!file.exists()) {
+            file.mkdir();
+        }
+
+        // Dialog Function
+        dialog = new Dialog(TailgateMeeting.this);
+        // Removing the features of Normal Dialogs
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.sign_dialog_signature);
+        dialog.setCancelable(true);
         Log.i("tailgate_api", AppConfig.GET_TODAY_TAILGATE_MEETING + server_user_id);
         getAllData();
 
@@ -156,7 +168,7 @@ public class TailgateMeeting extends AppCompatActivity {
     public void dialog_action() {
 
         mContent = (LinearLayout) dialog.findViewById(R.id.linearLayout);
-        mSignature = new TailgateMeeting.signature(getApplicationContext(), null);
+        mSignature = new signature(getApplicationContext(), null);
         mSignature.setBackgroundColor(Color.WHITE);
         // Dynamically generating Layout through java code
         mContent.addView(mSignature, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);

@@ -1,4 +1,4 @@
-package com.constructefile.democonstract.adapter;
+package com.constructefile.democonstract.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -12,7 +12,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.constructefile.democonstract.content.FormData;
+import com.constructefile.democonstract.Content.FormData;
 import com.constructefile.democonstract.R;
 
 import java.util.ArrayList;

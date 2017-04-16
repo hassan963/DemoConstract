@@ -1,4 +1,4 @@
-package com.constructefile.democonstract.content;
+package com.constructefile.democonstract.Content;
 
 /**
  * Created by Hassan M.Ashraful on 12/22/2016.

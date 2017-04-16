@@ -1,4 +1,4 @@
-package com.constructefile.democonstract.activity;
+package com.constructefile.democonstract.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

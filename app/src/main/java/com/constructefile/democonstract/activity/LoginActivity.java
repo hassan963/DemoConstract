@@ -1,4 +1,4 @@
-package com.constructefile.democonstract.activity;
+package com.constructefile.democonstract.Activity;
 
 import android.Manifest;
 import android.app.Activity;

@@ -1,4 +1,4 @@
-package com.constructefile.democonstract.fragment;
+package com.constructefile.democonstract.Fragment;
 
 import android.content.Context;
 import android.net.Uri;

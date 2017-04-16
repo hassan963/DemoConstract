@@ -1,4 +1,4 @@
-package com.constructefile.democonstract.activity;
+package com.constructefile.democonstract.Activity;
 
 /**
  * Created by Hassan M.Ashraful on 3/11/2017.
@@ -13,6 +13,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
@@ -27,6 +29,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -62,39 +65,38 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
 
     private Toolbar toolbar;
     private Button btn_get_sign, mClear, mGetSign, mCancel;
-
     private TextView dateNear;
     private Spinner typeNear, typeConcern;
     private EditText eventET, jobET;
-
     private Button sendBTN;
-
     private String sOne, sTwo, timestamp, date;
-
     private File file;
     private Dialog dialog;
     private LinearLayout mContent;
     private View view;
     private signature mSignature;
     private Bitmap bitmap;
-
     // Creating Separate Directory for saving Generated Images
     private String DIRECTORY = Environment.getExternalStorageDirectory().getPath() + "/ConstructeFile/";
     private String pic_name = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
     private String StoredPath = DIRECTORY + pic_name + ".JPG";
-
     private SharedPreferences sharedpreferences;
-
-    public static final String MyPREFERENCES = "MySign" ;
+    public static final String MyPREFERENCES = "MySign";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearmiss);
+        /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
+                .getColor(R.color.primary)));
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.primary_dark));
+        }*/
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-
-
         typeNear = (Spinner) findViewById(R.id.typeNear);
         typeConcern = (Spinner) findViewById(R.id.typeConcern);
         sendBTN = (Button) findViewById(R.id.sendBTN);
@@ -132,11 +134,12 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
         data.setDropDownViewResource(R.layout.spinner_drop_down);
         typeConcern.setAdapter(data);
 
+
         // Setting ToolBar as ActionBar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.back); // just setNavigationIcon
-        toolbar.setBackgroundColor(Color.parseColor("#e1660f"));
+        toolbar.setBackgroundColor(getResources().getColor(R.color.primary));
         //this.navigationBack();
 
         // Button to open signature panel
@@ -155,7 +158,8 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
         dialog.setContentView(R.layout.sign_dialog_signature);
         dialog.setCancelable(true);
 
-        getDateTime(); dateNear.setText(date);
+        getDateTime();
+        dateNear.setText(date);
 
 
         btn_get_sign.setOnClickListener(new View.OnClickListener() {
@@ -178,10 +182,10 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
                     Log.v("$$^%%^&%&^% SIGN", sign);
                 }
 
-                if (sign.equals("")){
+                if (sign.equals("")) {
                     Snackbar.make(view, "Please sign the form", Snackbar.LENGTH_SHORT)
                             .setAction("Action", null).show();
-                }else {
+                } else {
                     saveData(jobET.getText().toString(), sOne, sTwo, eventET.getText().toString(), sign);
 
                     Snackbar.make(view, "Sending data to server..", Snackbar.LENGTH_SHORT)
@@ -198,7 +202,7 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
     }
 
 
-   @Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         // Handle action bar item clicks here. The action bar will
@@ -268,7 +272,7 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
 
-        switch(adapterView.getId()) {
+        switch (adapterView.getId()) {
 
             case R.id.typeNear:
                 // On selecting a spinner item
@@ -286,7 +290,7 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
                 break;
 
         }
-        Toast.makeText(getApplicationContext(), sOne+sTwo, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), sOne + sTwo, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -294,7 +298,7 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
 
     }
 
-    private void getDateTime(){
+    private void getDateTime() {
         Calendar c = Calendar.getInstance();
         int month = c.get(Calendar.MONTH) + 1;
         int hour = c.get(Calendar.HOUR);
@@ -326,7 +330,7 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
     }
 
     // sending response to server NEAR MISS API
-    public void saveData(final String job, final String nearmiss_type, final String concern_type, final String description, final String sign){
+    public void saveData(final String job, final String nearmiss_type, final String concern_type, final String description, final String sign) {
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppConfig.URL_INSERT_NEAR_MISS, new Response.Listener<String>() {
             @Override
@@ -498,8 +502,6 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
             dirtyRect.bottom = Math.max(lastTouchY, eventY);
         }
     }
-
-
 
 
 }

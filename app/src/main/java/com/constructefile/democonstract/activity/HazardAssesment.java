@@ -1,4 +1,4 @@
-package com.constructefile.democonstract.activity;
+package com.constructefile.democonstract.Activity;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -109,6 +109,18 @@ public class HazardAssesment extends AppCompatActivity {
         btn_signature = (Button) findViewById(R.id.signature);
         btn_send = (Button) findViewById(R.id.btn_send);
 
+        // Method to create Directory, if the Directory doesn't exists
+        file = new File(DIRECTORY);
+        if (!file.exists()) {
+            file.mkdir();
+        }
+
+        // Dialog Function
+        dialog = new Dialog(HazardAssesment.this);
+        // Removing the features of Normal Dialogs
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.sign_dialog_signature);
+        dialog.setCancelable(true);
         Log.i("harad_api", AppConfig.GET_TODAY_HAZARD_ASSESMENT + server_user_id);
         getAllData();
 

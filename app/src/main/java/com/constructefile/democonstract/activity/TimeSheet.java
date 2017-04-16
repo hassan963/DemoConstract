@@ -1,4 +1,4 @@
-package com.constructefile.democonstract.activity;
+package com.constructefile.democonstract.Activity;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;
@@ -24,7 +24,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.constructefile.democonstract.content.SpinnerData;
+import com.constructefile.democonstract.Content.SpinnerData;
 import com.constructefile.democonstract.R;
 import com.constructefile.democonstract.app.AppConfig;
 import com.constructefile.democonstract.app.AppController;
