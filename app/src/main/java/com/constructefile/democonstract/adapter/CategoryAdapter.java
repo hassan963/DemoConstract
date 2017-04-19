@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.constructefile.democonstract.activity.FuelRecordActivity;
+import com.constructefile.democonstract.activity.FuelRecord;
 import com.constructefile.democonstract.content.CategoryData;
 import com.constructefile.democonstract.MainActivity;
 import com.constructefile.democonstract.R;
@@ -81,9 +81,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             builder.setPositiveButton("Fuel Record", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(context, FuelRecordActivity.class);
+                            Intent intent = new Intent(context, FuelRecord.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.putExtra("CATEGORY", position+1);
+                            intent.putExtra("CATEGORY", position + 1);
                             intent.putExtra("CATEGORY_NAME", android.getrecyclerViewTitleText());
                             context.startActivity(intent);
                         }
@@ -94,7 +94,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                         public void onClick(DialogInterface dialog, int which) {
                             Intent intent = new Intent(context, MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.putExtra("CATEGORY", position+1);
+                            intent.putExtra("CATEGORY", position + 1);
                             context.startActivity(intent);
                         }
                     }

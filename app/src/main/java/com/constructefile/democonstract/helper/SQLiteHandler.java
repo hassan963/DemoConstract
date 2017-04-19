@@ -140,8 +140,6 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
         //Log.i("labels", "getAllLabels method called with " + id);
         List<String> Equipments = new ArrayList<String>();
-
-
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_EQUIPMENT, null);

@@ -36,8 +36,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -64,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressDialog pDialog;
     private SessionManager session;
     private SQLiteHandler db;
-
+    public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -100,17 +102,18 @@ public class LoginActivity extends AppCompatActivity {
 
         // Login button Click Event
         btnLogin.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View view) {
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
 
                 // Check for empty data in the form
                 if (!email.isEmpty() && !password.isEmpty()) {
-
-                    //checkForPhoneStatePermission();
+                    //checkForPhoneStatePermission();╥
                     // login user
-                    checkLogin(email, password);
+                    if (checkAndRequestPermissions()) {
+                        // carry on the normal flow, as the case of  permissions  granted.
+                        checkLogin(email, password);
+                    }
                 } else {
                     // Prompt user to enter credentials
                     Toast.makeText(getApplicationContext(),
@@ -121,43 +124,118 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private boolean checkAndRequestPermissions() {
+        int permissionSendMessage = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int locationPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+        if (locationPermission != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.READ_PHONE_STATE);
+        }
+        if (permissionSendMessage != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), REQUEST_ID_MULTIPLE_PERMISSIONS);
+            return false;
+        }
+        return true;
+    }
 
-    private void checkForPhoneStatePermission() {
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        Log.d(TAG, "Permission callback called-------");
+        switch (requestCode) {
+            case REQUEST_ID_MULTIPLE_PERMISSIONS: {
+
+                Map<String, Integer> perms = new HashMap<>();
+                // Initialize the map with both permissions
+                perms.put(Manifest.permission.WRITE_EXTERNAL_STORAGE, PackageManager.PERMISSION_GRANTED);
+                perms.put(Manifest.permission.READ_PHONE_STATE, PackageManager.PERMISSION_GRANTED);
+                // Fill with actual results from user
+                if (grantResults.length > 0) {
+                    for (int i = 0; i < permissions.length; i++)
+                        perms.put(permissions[i], grantResults[i]);
+                    // Check for both permissions
+                    if (perms.get(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+                            && perms.get(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+                        Log.d(TAG, "sms & location services permission granted");
+                        // process the normal flow
+                        //else any one or both the permissions are not granted
+                        String email = inputEmail.getText().toString().trim();
+                        String password = inputPassword.getText().toString().trim();
+                        checkLogin(email, password);
+                    } else {
+                        Log.d(TAG, "Some permissions are not granted ask again ");
+                        //permission is denied (this is the first time, when "never ask again" is not checked) so ask again explaining the usage of permission
+//                        // shouldShowRequestPermissionRationale will return true
+                        //show the dialog or snackbar saying its necessary and try again otherwise proceed with setup.
+                        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) ||
+                                ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE)) {
+                            showDialogOK("Read Storage and Write Storage Permission required for this app",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            switch (which) {
+                                                case DialogInterface.BUTTON_POSITIVE:
+                                                    checkAndRequestPermissions();
+                                                    break;
+                                                case DialogInterface.BUTTON_NEGATIVE:
+                                                    // proceed with logic by disabling the related features or quit the app.
+                                                    break;
+                                            }
+                                        }
+                                    });
+                        }
+                        //permission is denied (and never ask again is  checked)
+                        //shouldShowRequestPermissionRationale will return false
+                        else {
+                            Toast.makeText(this, "Go to settings and enable permissions", Toast.LENGTH_LONG)
+                                    .show();
+                            //                            //proceed with logic by disabling the related features or quit the app.
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    private void showDialogOK(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(this)
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", okListener)
+                .create()
+                .show();
+    }
+
+    /*private void checkForPhoneStatePermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
             if (ContextCompat.checkSelfPermission(LoginActivity.this,
                     Manifest.permission.READ_PHONE_STATE)
                     != PackageManager.PERMISSION_GRANTED) {
-
                 // Should we show an explanation?
                 if (ActivityCompat.shouldShowRequestPermissionRationale(LoginActivity.this,
                         Manifest.permission.READ_PHONE_STATE)) {
-
                     // Show an explanation to the user *asynchronously* -- don't block
                     // this thread waiting for the user's response! After the user
                     // sees the explanation, try again to request the permission.
-
                     showPermissionMessage();
-
                 } else {
-
                     // No explanation needed, we can request the permission.
                     ActivityCompat.requestPermissions(LoginActivity.this,
                             new String[]{Manifest.permission.READ_PHONE_STATE},
                             REQUEST_PHONE_STATE);
                 }
-
             } else {
                 //... Permission has already been granted, obtain the UUID
                 getDeviceUuId(LoginActivity.this);
             }
-
         } else {
             //... No need to request permission, obtain the UUID
             getDeviceUuId(LoginActivity.this);
         }
     }
-
 
     private void showPermissionMessage() {
         new AlertDialog.Builder(this)
@@ -179,9 +257,7 @@ public class LoginActivity extends AppCompatActivity {
 
         switch (requestCode) {
             case REQUEST_PHONE_STATE:
-
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
                     // .. Can now obtain the UUID
                     getDeviceUuId(LoginActivity.this);
                 } else {
@@ -205,9 +281,7 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             Toast.makeText(context, "Sorry...IMEI Number Did Not Matched!!! ", Toast.LENGTH_SHORT).show();
         }
-
-    }
-
+    }*/
 
     /**
      * function to verify login details in mysql db
@@ -292,6 +366,7 @@ public class LoginActivity extends AppCompatActivity {
                             login_at_time = hr + ":" + min + ":" + sec;
                             db.addUser(server_user_id, f_name, l_name, user_email, id, login_at_date, login_at_time, date_started);
                             getEquipmentFromWebAndInsertIntoDB();
+                            getListFromWebAndInsertIntoDB();
                             Intent intent = new Intent(LoginActivity.this, MainMenu.class);
                             startActivity(intent);
                             finish();
@@ -409,7 +484,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         }, new Response.ErrorListener() {
-
             @Override
             public void onErrorResponse(VolleyError error) {
                 hideDialog();
@@ -418,7 +492,6 @@ public class LoginActivity extends AppCompatActivity {
                 hideDialog();
             }
         }) {
-
             @Override
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
@@ -428,7 +501,6 @@ public class LoginActivity extends AppCompatActivity {
                 return params;
             }
         };
-
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
@@ -466,7 +538,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-
     }
 
     public void getListFromWebAndInsertIntoDB() {
@@ -504,7 +575,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
-
     }
 
 
@@ -517,7 +587,6 @@ public class LoginActivity extends AppCompatActivity {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
-
 
     @Override
     public void onBackPressed() {

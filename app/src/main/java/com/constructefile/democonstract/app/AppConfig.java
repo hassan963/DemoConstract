@@ -25,10 +25,10 @@ public class AppConfig {
     public static String URL_TRUCK = "http://constructefile.com/v1/trucks/vehicle/";
 
     //Server get all vehicles available in database
-    public static String URL_ALL_VEHICLES = "http://constructefile.com/v1/trucks";
+    public static String URL_ALL_VEHICLES = "http://23.235.211.194/~tecnot5/dev/construction/v1/trucks";
 
     //Server get all vehicles available in database
-    public static String URL_INSERT_FUEL_RECORD = "http://constructefile.com/v1/fuel_record";
+    public static String URL_INSERT_FUEL_RECORD = "http://23.235.211.194/~tecnot5/dev/construction/v1/equipment_fuel";
 
     //Server INJURY REPORT POST
     public static String URL_INSERT_INJURY_REPORT = "http://23.235.211.194/~tecnot5/dev/construction/v1/incident_report";

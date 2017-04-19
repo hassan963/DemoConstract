@@ -47,10 +47,13 @@
         <activity
             android:name=".activity.MainMenu"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.TimeSheet" />
+        <activity
+            android:name=".activity.TimeSheet"
+            android:label="Time Sheet" />
         <activity android:name=".activity.Excavator" />
         <activity
             android:name=".activity.Injury_Report_Activity"
+            android:label="Injury Report"
             android:theme="@style/AppThemeSigm"
             android:windowSoftInputMode="adjustPan" />
         <activity
@@ -58,9 +61,15 @@
             android:label="Near Miss"
             android:theme="@style/AppThemeSigm"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".activity.TailgateMeeting" />
-        <activity android:name=".activity.HazardAssesment" />
-        <activity android:name=".activity.DailyTask" />
+        <activity
+            android:name=".activity.TailgateMeeting"
+            android:label="Tailgate Meeting" />
+        <activity
+            android:name=".activity.HazardAssesment"
+            android:label="Hazard Assesment" />
+        <activity
+            android:name=".activity.DailyTask"
+            android:label="Daily Task" />
 
         <receiver
             android:name=".activity.ConnectivityReceiver"
@@ -69,6 +78,8 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".activity.FuelRecord"></activity>
     </application>
 
 </manifest>

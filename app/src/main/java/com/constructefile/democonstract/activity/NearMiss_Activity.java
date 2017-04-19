@@ -59,7 +59,6 @@ import java.util.Map;
 
 
 public class NearMiss_Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-
     private Toolbar toolbar;
     private Button btn_get_sign, mClear, mGetSign, mCancel;
     private TextView dateNear;
@@ -87,7 +86,6 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
         /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
                 .getColor(R.color.primary)));
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -394,28 +392,21 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
                 // Output the file
                 FileOutputStream mFileOutStream = new FileOutputStream(StoredPath);
                 v.draw(canvas);
-
-
                 // Convert the output file to Image such as .jpeg
                 ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
                 byte[] imgBytes = byteArrayOutputStream.toByteArray();
                 String signString = Base64.encodeToString(imgBytes, Base64.DEFAULT);
-
                 SharedPreferences.Editor editor = sharedpreferences.edit();
-
                 editor.putString("signNear", signString);
                 editor.apply();
-
                 // Convert the output file to Image such as .jpeg
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, mFileOutStream);
                 mFileOutStream.flush();
                 mFileOutStream.close();
-
             } catch (Exception e) {
                 Log.v("log_tag", e.toString());
             }
-
         }
 
         public void clear() {
@@ -433,18 +424,14 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
             float eventX = event.getX();
             float eventY = event.getY();
             mGetSign.setEnabled(true);
-
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     path.moveTo(eventX, eventY);
                     lastTouchX = eventX;
                     lastTouchY = eventY;
                     return true;
-
                 case MotionEvent.ACTION_MOVE:
-
                 case MotionEvent.ACTION_UP:
-
                     resetDirtyRect(eventX, eventY);
                     int historySize = event.getHistorySize();
                     for (int i = 0; i < historySize; i++) {
@@ -455,27 +442,21 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
                     }
                     path.lineTo(eventX, eventY);
                     break;
-
                 default:
                     debug("Ignored touch event: " + event.toString());
                     return false;
             }
-
             invalidate((int) (dirtyRect.left - HALF_STROKE_WIDTH),
                     (int) (dirtyRect.top - HALF_STROKE_WIDTH),
                     (int) (dirtyRect.right + HALF_STROKE_WIDTH),
                     (int) (dirtyRect.bottom + HALF_STROKE_WIDTH));
-
             lastTouchX = eventX;
             lastTouchY = eventY;
-
             return true;
         }
 
         private void debug(String string) {
-
             Log.v("log_tag", string);
-
         }
 
         private void expandDirtyRect(float historicalX, float historicalY) {
@@ -491,7 +472,6 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
                 dirtyRect.bottom = historicalY;
             }
         }
-
         private void resetDirtyRect(float eventX, float eventY) {
             dirtyRect.left = Math.min(lastTouchX, eventX);
             dirtyRect.right = Math.max(lastTouchX, eventX);
@@ -499,6 +479,4 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
             dirtyRect.bottom = Math.max(lastTouchY, eventY);
         }
     }
-
-
 }
