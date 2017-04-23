@@ -29,13 +29,7 @@ public class CategoryActivity extends AppCompatActivity {
 
     private SQLiteHandler db;
     private SessionManager session;
-    String f_name;
-    String l_name;
-    String user_id;
-    String email;
-    String login_at_date;
-    String login_at_time;
-    String shift_id;
+    String server_user_id, date_started, email, l_name, f_name;
 
     private final String recyclerViewTitleText[] = {
             "Dozer",
@@ -75,6 +69,17 @@ public class CategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.category_layout);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
+                .getColor(R.color.primary)));
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.primary_dark));
+        }
+
+
         initRecyclerViews();
         // SqLite database handler
         db = new SQLiteHandler(getApplicationContext());
@@ -88,24 +93,11 @@ public class CategoryActivity extends AppCompatActivity {
         }
         // Fetching user details from SQLite
         HashMap<String, String> user = db.getUserDetails();
-
         f_name = user.get("f_name");
         l_name = user.get("l_name");
-        user_id = user.get("id");
+        server_user_id = user.get("server_user_id");
         email = user.get("email");
-        login_at_date = user.get("login_at_date");
-        login_at_time = user.get("login_at_time");
-        shift_id = user.get("shift_id");
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
-                .getColor(R.color.primary)));
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(getResources().getColor(R.color.primary_dark));
-        }
+        date_started = user.get("date_started");
 
     }
 
@@ -138,15 +130,6 @@ public class CategoryActivity extends AppCompatActivity {
         }
         return categoryDatas;
     }
-
-
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_category, menu);
-        return true;
-    }*/
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         final int id = item.getItemId();
@@ -416,21 +399,11 @@ public class CategoryActivity extends AppCompatActivity {
 
         db.deleteUsers();
         db.deleteLabels();
+        db.deleteEquipments();
 
         // Launching the login activity
         Intent intent = new Intent(CategoryActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
-
-   /* @Override
-    public void onBackPressed() {
-        //To EXIT the game
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-        System.exit(0);
-    }*/
 }

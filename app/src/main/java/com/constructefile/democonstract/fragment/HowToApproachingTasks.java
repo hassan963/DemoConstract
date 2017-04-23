@@ -96,15 +96,21 @@ public class HowToApproachingTasks extends Fragment {
          */
     private void prepareListData() {
 
-        groups = new String[] { "Test Header 1", "Test Header 2", "Test Header 3", "Test Header 4" };
+        groups = new String[]{"Digging a trench", "Keeping grade", "Loading Trucks"};
 
-        children = new String [][] {
-                { "s simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum." },
-                { "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of comes from a line in section 1.10.32." },
-                { "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)." },
-                { "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc." }
+        children = new String[][]{
+                {"Before digging a trench, mark out your area of digging. Then make your one call to make sure there are no cables or pipes underground in your area of digging.\n" +
+                        "Allow enough room in your easement for the backfill material to be 1 meter away from your trench.Use the dirt management section to calculate how much dirt you will be removing to do better estimates on area needed for your easement.\n" +
+                        "When digging with a surveyor, be aware and have good communication with them. They will be around you at all times to make sure you are at a correct depth and may leave to go check other areas of site.\n" +
+                        "Keeping track of your depth on the stick of the machinery helps keeping a steady grade for beginners.\n"},
+                {"When bringing dirt to grade, keep your bucket or blade full to always have material to work with. \n" +
+                        "Having stakes in different areas to keep track of different grade helps.\n" +
+                        "If digging area is soft and moves the stakes when approaching with machinery, using a line level you can move the stake to a different location while keeping the grade in the desired location until finished with equipment in area\n"},
+                {"With Loader:\n" +
+                        "Fill bucket and rise to loading area. Signal truck to advance to loading area, when in position signal to stop. Fill truck and signal when finished.\n" +
+                        "\nWith Excavator:\n" +
+                        "Signal truck to advance to loading area. Fill bucket and swing over the back end of the truck.(never go over the cab of the truck) When finished loading signal truck.\n"}
         };
-
 
 
     }

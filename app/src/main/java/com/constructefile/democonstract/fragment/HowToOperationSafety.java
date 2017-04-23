@@ -73,18 +73,18 @@ public class HowToOperationSafety extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_howto, container, false);
+        rootView = inflater.inflate(R.layout.fragment_how_to_operation_safety, container, false);
 
-        prepareListData();
+        //prepareListData();
         // Inflate the layout for this fragment
         return rootView;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        expListView = (ExpandableListView) view.findViewById(R.id.expListView);
+      /*  expListView = (ExpandableListView) view.findViewById(R.id.expListView);
         expListView.setAdapter(new ExpandableListAdapter(getActivity(), groups, children));
-        expListView.setGroupIndicator(null);
+        expListView.setGroupIndicator(null);*/
     }
 
     private void prepareListData() {

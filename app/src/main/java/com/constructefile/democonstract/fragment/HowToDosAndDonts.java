@@ -74,18 +74,18 @@ public class HowToDosAndDonts extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_howto, container, false);
+        rootView = inflater.inflate(R.layout.fragment_how_to_dos_and_donts, container, false);
 
-        prepareListData();
+        //prepareListData();
         // Inflate the layout for this fragment
         return rootView;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        expListView = (ExpandableListView) view.findViewById(R.id.expListView);
+        /*expListView = (ExpandableListView) view.findViewById(R.id.expListView);
         expListView.setAdapter(new ExpandableListAdapter(getActivity(), groups, children));
-        expListView.setGroupIndicator(null);
+        expListView.setGroupIndicator(null);*/
     }
 
     // TODO: Rename method, update argument and hook method into UI event

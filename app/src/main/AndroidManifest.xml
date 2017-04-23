@@ -79,7 +79,9 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.FuelRecord"></activity>
+        <activity android:name=".activity.FuelRecord" />
+        <activity android:name=".activity.Converter" />
+        <activity android:name=".activity.Hours"></activity>
     </application>
 
 </manifest>

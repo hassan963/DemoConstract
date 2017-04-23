@@ -4,10 +4,49 @@
     android:layout_height="match_parent"
     tools:context="com.constructefile.democonstract.fragment.HowToOperationSafety">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:gravity="left"
+                android:text="Operation Safety"
+                android:textColor="#000be1"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="Around above ground wires:
+Around underground wires:
+Around underground pipes:
+Around foundations:
+Road work:
+Highway work:
+Back country work:
+Pedestrians:
+In tight areas:
+With no visibility:
+"
+                android:textColor="#181818"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
 
 </FrameLayout>

@@ -267,6 +267,11 @@ public class MainMenu extends AppCompatActivity {
                         startActivity(new Intent(MainMenu.this, TimeSheet.class));
                         drawer.closeDrawers();
                         return true;
+                    case R.id.nav_hours:
+                        // launch new intent instead of loading fragment
+                        startActivity(new Intent(MainMenu.this, Hours.class));
+                        drawer.closeDrawers();
+                        return true;
                     case R.id.nav_tailgate_meeting:
                         // launch new intent instead of loading fragment
                         startActivity(new Intent(MainMenu.this, TailgateMeeting.class));
@@ -295,6 +300,11 @@ public class MainMenu extends AppCompatActivity {
                     case R.id.nav_near_miss:
                         // launch new intent instead of loading fragment
                         startActivity(new Intent(MainMenu.this, NearMiss_Activity.class));
+                        drawer.closeDrawers();
+                        return true;
+                    case R.id.nav_converter:
+                        // launch new intent instead of loading fragment
+                        startActivity(new Intent(MainMenu.this, Converter.class));
                         drawer.closeDrawers();
                         return true;
                     case R.id.nav_logout:

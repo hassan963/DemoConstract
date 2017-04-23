@@ -40,13 +40,7 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
 
     private static final String TAG_BACK = "button_back";
     private static final String TAG_SEND = "button_send";
-    String f_name;
-    String l_name;
-    String user_id;
-    String email;
-    String login_at_date;
-    String login_at_time;
-    String shift_id;
+    String server_user_id, date_started, email, l_name, f_name;
 
     ArrayAdapter<String> dataModelAdapter;
 
@@ -80,7 +74,6 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
 
         //Getting session
         db = new SQLiteHandler(getApplicationContext());
-
         // session manager
         session = new SessionManager(getApplicationContext());
 
@@ -90,14 +83,11 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
 
         // Fetching user details from SQLite
         HashMap<String, String> user = db.getUserDetails();
-
         f_name = user.get("f_name");
         l_name = user.get("l_name");
-        user_id = user.get("id");
+        server_user_id = user.get("server_user_id");
         email = user.get("email");
-        login_at_date = user.get("login_at_date");
-        login_at_time = user.get("login_at_time");
-        shift_id = user.get("shift_id");
+        date_started = user.get("date_started");
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
@@ -140,10 +130,10 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
                     //Toast.makeText(MainActivity.this, "SEND ", Toast.LENGTH_SHORT).show();
                     if (viewpager.getCurrentItem() == 0) {
                         FormFragment frag1 = (FormFragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
-                        frag1.postDATA(TRUCK_ID_SELECTED, user_id, shift_id);
+                        frag1.postDATA(TRUCK_ID_SELECTED, server_user_id);
                     } else if (viewpager.getCurrentItem() == 1) {
                         FormFragmentTwo frag2 = (FormFragmentTwo) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
-                        frag2.postDATA(TRUCK_ID_SELECTED, user_id, shift_id);
+                        frag2.postDATA(TRUCK_ID_SELECTED, server_user_id);
                     }
                 }
             }
@@ -205,6 +195,7 @@ public class MainActivity extends FragmentActivity implements AdapterView.OnItem
 
         db.deleteUsers();
         db.deleteLabels();
+        db.deleteEquipments();
 
         // Launching the login activity
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);

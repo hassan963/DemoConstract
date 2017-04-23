@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.constructefile.democonstract.activity.FuelRecord;
 import com.constructefile.democonstract.content.CategoryData;
@@ -89,9 +90,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                         }
                     }
             );
-            builder.setNegativeButton("Operational Check", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton("Equipment Checklist", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+
+
+                            Toast.makeText(context, android.getrecyclerViewTitleText() + " " + position, Toast.LENGTH_SHORT).show();
+
                             Intent intent = new Intent(context, MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.putExtra("CATEGORY", position + 1);

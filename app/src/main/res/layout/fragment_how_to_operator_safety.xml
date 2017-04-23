@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context="com.constructefile.democonstract.fragment.HowToOperateSafely">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
@@ -15,6 +15,7 @@
             android:orientation="vertical"
             android:padding="10dp">
 
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -24,8 +25,8 @@
                 android:textColor="#000be1"
                 android:textSize="30sp"
                 android:textStyle="bold" />
-
             <TextView
+                android:id="@+id/textView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -41,6 +42,7 @@ Turn off equipment before fueling.
 "
                 android:textColor="#181818"
                 android:textSize="20sp" />
+
         </LinearLayout>
     </ScrollView>
 

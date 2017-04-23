@@ -9,7 +9,7 @@
 
     <string name="firstTV">text</string>
     <string name="checkbox_ok">OK</string>
-    <string name="commentET"> :add comment</string>
+    <string name="commentET"> Add comment</string>
 
     <string name="dateTV">" Date: "</string>
     <string name="truckTV">" truck: "</string>
@@ -94,6 +94,7 @@
     <string name="hint_clear">Clear</string>
     <string name="hint_save">Save</string>
     <string name="nav_logout">Logout</string>
+    <string name="nav_hours">Hours</string>
 
 
 </resources>

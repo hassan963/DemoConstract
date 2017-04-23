@@ -79,35 +79,37 @@ public class FormFragment extends Fragment {
     private ArrayList<FormData> getFormData() {
         formDatas = new ArrayList<>();
         formDatas.clear();
-        formDatas.add(new FormData("Leaks - Fuel, Hydraulic Oil or Radiator Coolant", 3));
-        formDatas.add(new FormData("Tires - Condition and Pressure", 4));
-        formDatas.add(new FormData("Fork, Top Clip Retaining Pin and Heel - Check Condition", 5));
-        formDatas.add(new FormData("Load Backrest - Securely Attached", 6));
-        formDatas.add(new FormData("Hydraulic Hoses, Mast Chains, Cables and Stops - Check Visually", 7));
-        formDatas.add(new FormData("Overhead Guard - Attached", 8));
-        formDatas.add(new FormData("Finger Guards - Attached", 9));
-        formDatas.add(new FormData("Propane Tank(LP Gas Truck) - Rust Corrision, Damage", 10));
-        formDatas.add(new FormData("Safety Wanings - Attached(Refer to Parts Manual for Location)", 11));
-        formDatas.add(new FormData("Battery - Check Water/Electrolyte LEvel and Change", 12));
-        formDatas.add(new FormData("All Engine Belts - Check Visually", 13));
-        formDatas.add(new FormData("Hydraulic Fluid Level- Check Level", 14));
-        formDatas.add(new FormData("Engine Oil Level - Dipstick", 15));
-        formDatas.add(new FormData("Transmission Fluid Level - Dipstick", 16));
-        formDatas.add(new FormData("Engine Air Cleaner - Squeeze Rubber Dirt Trap or Check the Restriction Alarm (if equipped)", 17));
-        formDatas.add(new FormData("Fuel Sedimentor (Disel)", 18));
-        formDatas.add(new FormData("Radiator Coolant - Check Level", 19));
-        formDatas.add(new FormData("Operator's Mannual - In Container", 20));
-        formDatas.add(new FormData("Nameplate - Attached and Information Matches Model, Serial Number and Attachments", 21));
-        formDatas.add(new FormData("Seat Belt - Functioning Smoothly", 22));
-        formDatas.add(new FormData("Hood Latch - Adjusted and Securely Fastened", 23));
-        formDatas.add(new FormData("Brake Fluid - Check Level", 24));
-
-
+        formDatas.add(new FormData("Engine Oil", 1));
+        formDatas.add(new FormData("All hoses", 2));
+        formDatas.add(new FormData("All belts", 3));
+        formDatas.add(new FormData("Overall Engine", 4));
+        formDatas.add(new FormData("Hydraulic Fluid", 6));
+        formDatas.add(new FormData("Swing Gear Oil", 7));
+        formDatas.add(new FormData("Engine Coolant", 8));
+        formDatas.add(new FormData("Radiator", 9));
+        formDatas.add(new FormData("Air filter", 10));
+        formDatas.add(new FormData("Batteries", 11));
+        formDatas.add(new FormData("Fire Extinguisher", 12));
+        formDatas.add(new FormData("Lights", 13));
+        formDatas.add(new FormData("Mirrors", 14));
+        formDatas.add(new FormData("Windshield", 15));
+        formDatas.add(new FormData("Wipers/windshield fluid", 16));
+        formDatas.add(new FormData("Tracks/under carriage", 17));
+        formDatas.add(new FormData("Steps and handle bars", 18));
+        formDatas.add(new FormData("Boom/Stick/Cylinders", 19));
+        formDatas.add(new FormData("Bucket", 20));
+        formDatas.add(new FormData("Over all Machine", 21));
+        formDatas.add(new FormData("Indicators and gauges", 22));
+        formDatas.add(new FormData("Horn, Back up alarm", 23));
+        formDatas.add(new FormData("Seatbelt, seat and mounting", 24));
+        formDatas.add(new FormData("Operator Manual", 25));
+        formDatas.add(new FormData("Safety Warning", 26));
+        formDatas.add(new FormData("Over all Machine", 27));
         return formDatas;
     }
 
 
-    public void postDATA(String truck_id, String user_id, String shift_id) {
+    public void postDATA(String truck_id, String user_id) {
 /**
  * generate unique id for each form
  * **/
@@ -126,12 +128,12 @@ public class FormFragment extends Fragment {
         Log.i("timestamp", "ID : " + id);
 
         for (int i = 0; i < formDatas.size(); i++) {
-            save(i, id, truck_id, user_id, shift_id);
+            save(i, id, truck_id, user_id);
         }
 
     }
 
-    public void save(final int i, final String form_id, final String truck_id, final String user_id, final String shift_id) {
+    public void save(final int i, final String form_id, final String truck_id, final String user_id) {
 
         pDialog.setMessage("Sending Data...");
         showDialog();
@@ -216,7 +218,6 @@ public class FormFragment extends Fragment {
                 params.put("checklist_item_id", String.valueOf(formDatas.get(i).getId()));
                 params.put("truck_id", truck_id);
                 params.put("operator_id", user_id);
-                params.put("shift_id", shift_id);
                 params.put("status", String.valueOf(formDatas.get(i).getStatus()));
                 params.put("maintenance", formDatas.get(i).getComment());
                 params.put("timestamp", timestamp);

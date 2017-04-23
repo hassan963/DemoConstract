@@ -46,13 +46,7 @@ public class FormFragmentTwo extends Fragment {
     private SQLiteHandler db;
     private SessionManager session;
     String timestamp;
-    String f_name;
-    String l_name;
-    String user_id;
-    String email;
-    String login_at_date;
-    String login_at_time;
-    String shift_id;
+    String server_user_id, date_started, email, l_name, f_name;
 
     @Nullable
     @Override
@@ -78,11 +72,9 @@ public class FormFragmentTwo extends Fragment {
         HashMap<String, String> user = db.getUserDetails();
         f_name = user.get("f_name");
         l_name = user.get("l_name");
-        user_id = user.get("id");
+        server_user_id = user.get("server_user_id");
         email = user.get("email");
-        login_at_date = user.get("login_at_date");
-        login_at_time = user.get("login_at_time");
-        shift_id = user.get("shift_id");
+        date_started = user.get("date_started");
 
         return rootView;
     }
@@ -104,7 +96,7 @@ public class FormFragmentTwo extends Fragment {
     }
 
 
-    public void postDATA(String truck_id, String user_id, String shift_id) {
+    public void postDATA(String truck_id, String user_id) {
 
 
         /**
@@ -131,12 +123,12 @@ public class FormFragmentTwo extends Fragment {
 
 
         for (int i = 0; i < formDatas.size(); i++) {
-            save(i, id, truck_id, user_id, shift_id);
+            save(i, id, truck_id, user_id);
         }
     }
 
 
-    public void save(final int i, final String form_id, final String truck_id, final String user_id, final String shift_id) {
+    public void save(final int i, final String form_id, final String truck_id, final String user_id) {
 
 
         pDialog.setMessage("Sending Data ...");
@@ -236,7 +228,6 @@ public class FormFragmentTwo extends Fragment {
                 params.put("checklist_item_id", String.valueOf(formDatas.get(i).getId()));
                 params.put("truck_id", truck_id);
                 params.put("operator_id", user_id);
-                params.put("shift_id", shift_id);
                 params.put("status", String.valueOf(formDatas.get(i).getStatus()));
                 params.put("maintenance", formDatas.get(i).getComment());
                 params.put("timestamp", timestamp);

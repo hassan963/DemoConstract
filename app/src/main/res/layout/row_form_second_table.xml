@@ -20,6 +20,7 @@
             android:layout_marginStart="4dp"
             android:layout_weight="3"
             android:textSize="15sp"
+            android:textColor="#484848"
             android:layout_marginBottom="10dp"
             android:text="@string/firstTV" />
 
@@ -28,7 +29,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/checkbox_ok" />
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:button="@drawable/custom_checkbox"
+            android:text="   Alert" />
 
 
     </LinearLayout>
@@ -39,7 +43,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
+        android:textColor="#484848"
         android:layout_marginStart="4dp"
+        android:textColorHint="#484848"
         android:hint="@string/commentET" />
 
 </LinearLayout>
