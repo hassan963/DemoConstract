@@ -58,8 +58,9 @@ public class TimeSheet extends AppCompatActivity {
     private ProgressDialog pDialog;
     String equipment_id_selected = "";
     String shift = "";
-    String operator_id, jobTextValue, descriptionTextValue, remarksTextValue, hourStart, hourFinish, hourTotal;
+    String operator_id, operator_name, jobTextValue, descriptionTextValue, remarksTextValue, hourStart, hourFinish, hourTotal;
     String hourStartHour, hourStartMinute, hourFinishHour, hourFinishMinute;
+    String formSubmitDateTime;
     Button btn_submit, btn_show_total;
     EditText job, description_of_work, remarks;
 
@@ -87,6 +88,7 @@ public class TimeSheet extends AppCompatActivity {
         // Fetching user details from SQLite
         HashMap<String, String> user = db.getUserDetails();
         operator_id = user.get("server_user_id");
+        operator_name = user.get("f_name") + " " + user.get("l_name");
 
         job = (EditText) findViewById(R.id.job);
         remarks = (EditText) findViewById(R.id.remarks);
@@ -143,7 +145,7 @@ public class TimeSheet extends AppCompatActivity {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
                 // display a toast with changed values of time picker
-                Toast.makeText(getApplicationContext(), hourOfDay + "  " + minute, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), hourOfDay + "  " + minute, Toast.LENGTH_SHORT).show();
 
                 String hr;
                 String min;
@@ -165,7 +167,7 @@ public class TimeSheet extends AppCompatActivity {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
                 // display a toast with changed values of time picker
-                Toast.makeText(getApplicationContext(), hourOfDay + "  " + minute, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), hourOfDay + "  " + minute, Toast.LENGTH_SHORT).show();
                 String hr;
                 String min;
                 if (hourOfDay >= 0 && hourOfDay <= 9) {
@@ -234,7 +236,7 @@ public class TimeSheet extends AppCompatActivity {
                 ((TextView) parent.getChildAt(0)).setTextColor(Color.BLACK);
                 equipment_id_selected = ids.get(position);
                 // Showing selected spinner item
-                Toast.makeText(parent.getContext(), "Selected: " + equipment_id_selected, Toast.LENGTH_LONG).show();
+                //Toast.makeText(parent.getContext(), "Selected: " + equipment_id_selected, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -247,7 +249,7 @@ public class TimeSheet extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 shift = parent.getItemAtPosition(position).toString();
                 // Showing selected spinner item
-                Toast.makeText(parent.getContext(), "Selected: " + shift, Toast.LENGTH_LONG).show();
+                //Toast.makeText(parent.getContext(), "Selected: " + shift, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -331,7 +333,7 @@ public class TimeSheet extends AppCompatActivity {
 
         String formSubmitDay = c.get(Calendar.YEAR) + "-" + month + "-" + c.get(Calendar.DATE);
         String formSubmitTime = hr + ":" + min + ":" + sec;
-        final String formSubmitDateTime = formSubmitDay + " " + formSubmitTime;
+        formSubmitDateTime = formSubmitDay + " " + formSubmitTime;
 
         //insertion
 
@@ -357,6 +359,8 @@ public class TimeSheet extends AppCompatActivity {
 
                         // Fuel record Inserted successfully
                         Toast.makeText(TimeSheet.this, "Time Sheet Sent To Server", Toast.LENGTH_SHORT).show();
+
+                        //insertHours();
                     } else {
                         Log.i("insert_time_sheet", "time_sheet was not inserted");
                     }
@@ -372,6 +376,7 @@ public class TimeSheet extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+                hideDialog();
                 Log.i("insert_time_sheet", "time_sheet Error: " + error.getMessage());
                 Toast.makeText(getApplicationContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();
@@ -391,6 +396,8 @@ public class TimeSheet extends AppCompatActivity {
                 params.put("hours_finish", hourFinish);
                 params.put("hours_total", hourTotal);
                 params.put("remarks", remarksTextValue);
+                params.put("supervisor", "0");
+                params.put("updated_on", "0000-00-00 00:00:00");
 
                 return params;
             }
