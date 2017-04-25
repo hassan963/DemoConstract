@@ -35,7 +35,7 @@
         <activity
             android:name=".activity.ProfileActivity"
             android:label="Profile" />
-        <activity
+        <!--<activity
             android:name=".activity.FuelRecordActivity"
             android:label="Fuel Record"
             android:parentActivityName=".activity.CategoryActivity"
@@ -43,7 +43,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.constructefile.democonstract.activity.CategoryActivity" />
-        </activity>
+        </activity>-->
         <activity
             android:name=".activity.MainMenu"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -79,9 +79,15 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.FuelRecord" />
-        <activity android:name=".activity.Converter" />
-        <activity android:name=".activity.Hours"></activity>
+        <activity
+            android:name=".activity.FuelRecord"
+            android:label="Fuel Record" />
+        <activity
+            android:name=".activity.Converter"
+            android:label="COnverter" />
+        <activity
+            android:name=".activity.Hours"
+            android:label="Hours" />
     </application>
 
 </manifest>

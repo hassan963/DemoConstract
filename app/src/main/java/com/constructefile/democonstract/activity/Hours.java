@@ -156,9 +156,18 @@ public class Hours extends AppCompatActivity implements ConnectivityReceiver.Con
                             GetsHour getshour = new GetsHour();
                             getshour.id = jsonobject.getString("id");
                             getshour.date = jsonobject.getString("date");
-                            getshour.supervisor = jsonobject.getString("supervisor");
+                            if (jsonobject.getString("supervisor") == "1") {
+                                getshour.supervisor = "Checked";
+                            } else {
+                                getshour.supervisor = "Unchecked";
+                            }
                             getshour.remarks = jsonobject.getString("remarks");
-                            getshour.updatedOn = jsonobject.getString("updated_on");
+                            //getshour.updatedOn = jsonobject.getString("updated_on");
+                            if (jsonobject.getString("updated_on").equals("0000-00-00 00:00:00")) {
+                                getshour.updatedOn = "Not Updated Yet";
+                            } else {
+                                getshour.updatedOn = jsonobject.getString("updated_on");
+                            }
                             getshour.name = operator_name;
                             getshour.job = jsonobject.getString("job");
                             getshour.clockInTime = jsonobject.getString("hours_start");
