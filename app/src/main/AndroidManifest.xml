@@ -7,6 +7,11 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:name=".app.AppController"
         android:allowBackup="true"
@@ -35,7 +40,8 @@
         <activity
             android:name=".activity.ProfileActivity"
             android:label="Profile" />
-        <!--<activity
+        <!--
+        <activity
             android:name=".activity.FuelRecordActivity"
             android:label="Fuel Record"
             android:parentActivityName=".activity.CategoryActivity"
@@ -43,7 +49,8 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.constructefile.democonstract.activity.CategoryActivity" />
-        </activity>-->
+        </activity>
+        -->
         <activity
             android:name=".activity.MainMenu"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -80,6 +87,21 @@
         </receiver>
 
         <activity
+            android:name=".activity.BackFill_Activity"
+            android:label="@string/nav_backfill" />
+        <activity
+            android:name=".activity.Trench_Pipe_Activity"
+            android:label="@string/nav_trench_footing" />
+        <activity
+            android:name=".activity.Excavation_Basement_Activity"
+            android:label="@string/nav_basement_excavation" />
+        <activity
+            android:name=".activity.BackfillSope_Activity"
+            android:label="@string/nav_excavating_backfill" />
+        <activity
+            android:name=".activity.Slope_Run_Activity"
+            android:label="@string/nav_grade_from_run_to_slop" />
+        <activity
             android:name=".activity.FuelRecord"
             android:label="Fuel Record" />
         <activity
@@ -88,6 +110,8 @@
         <activity
             android:name=".activity.Hours"
             android:label="Hours" />
+
+
     </application>
 
 </manifest>

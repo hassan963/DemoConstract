@@ -33,9 +33,6 @@ public class CategoryActivity extends AppCompatActivity {
 
     private final String recyclerViewTitleText[] = {
             "Dozer",
-            //"Concretemixer",
-            //"Crane",
-            //"Dump Truck",
             "Excavator",
             "Truck",
             "Back hoe",

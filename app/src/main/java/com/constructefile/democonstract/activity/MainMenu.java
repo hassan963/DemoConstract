@@ -18,15 +18,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.constructefile.democonstract.R;
 import com.constructefile.democonstract.fragment.HowToApproachingTasks;
 import com.constructefile.democonstract.fragment.HowToDosAndDonts;
 import com.constructefile.democonstract.fragment.HowToOHNSLaws;
 import com.constructefile.democonstract.fragment.HowToOperateSafely;
 import com.constructefile.democonstract.fragment.HowToOperationSafety;
 import com.constructefile.democonstract.fragment.ProfileFragment;
-import com.constructefile.democonstract.R;
 import com.constructefile.democonstract.helper.SQLiteHandler;
 import com.constructefile.democonstract.helper.SessionManager;
+
+import java.util.HashMap;
 
 public class MainMenu extends AppCompatActivity {
 
@@ -41,7 +43,7 @@ public class MainMenu extends AppCompatActivity {
     private TextView txtName, txtWebsite;
     private Toolbar toolbar;
     private FloatingActionButton fab;
-
+    String f_name, l_name;
     //load images here when have such function
 
     // index to identify current nav menu item
@@ -54,6 +56,11 @@ public class MainMenu extends AppCompatActivity {
     private static final String TAG_OPERATOR_SAFETY = "operator_safety";
     private static final String TAG_DOS_DONTS = "dos_donts";
     private static final String TAG_OHNS_LAWS = "ohns_laws";
+    private static final String TAG_BAC_FILL = "backFill";
+    private static final String TAG_BAC_SLOPE = "backFill_on_slope";
+    private static final String TAG_BAS_EXCAV = "basement_excavation";
+    private static final String TAG_TRENCH = "trench_pipe";
+    private static final String TAG_RUN = "slope_run";
     public static String CURRENT_TAG = TAG_HOME;
 
     // toolbar titles respected to selected nav menu item
@@ -72,8 +79,11 @@ public class MainMenu extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//Getting session
+        //Getting session
         db = new SQLiteHandler(getApplicationContext());
+        HashMap<String, String> user = db.getUserDetails();
+        f_name = user.get("f_name");
+        l_name = user.get("l_name");
 
         // session manager
         session = new SessionManager(getApplicationContext());
@@ -127,7 +137,7 @@ public class MainMenu extends AppCompatActivity {
      */
     private void loadNavHeader() {
         // name, website
-        txtName.setText("Operator");
+        txtName.setText("Welcome: " + f_name + " " + l_name);
         txtWebsite.setText("CONSTRUCTEFILE APP");
     }
 
@@ -307,6 +317,31 @@ public class MainMenu extends AppCompatActivity {
                         startActivity(new Intent(MainMenu.this, Converter.class));
                         drawer.closeDrawers();
                         return true;
+                    case R.id.nav_backfill:
+                        startActivity(new Intent(MainMenu.this, BackFill_Activity.class));
+                        drawer.closeDrawers();
+                        return true;
+
+                    case R.id.nav_excavating_backfill:
+                        startActivity(new Intent(MainMenu.this, BackfillSope_Activity.class));
+                        drawer.closeDrawers();
+                        return true;
+
+                    case R.id.nav_basement_excavation:
+                        startActivity(new Intent(MainMenu.this, Excavation_Basement_Activity.class));
+                        drawer.closeDrawers();
+                        return true;
+
+                    case R.id.nav_trench_pipe:
+                        startActivity(new Intent(MainMenu.this, Trench_Pipe_Activity.class));
+                        drawer.closeDrawers();
+                        return true;
+
+                    case R.id.nav_run_to_slop:
+                        startActivity(new Intent(MainMenu.this, Slope_Run_Activity.class));
+                        drawer.closeDrawers();
+                        return true;
+
                     case R.id.nav_logout:
                         logoutUser();
                         drawer.closeDrawers();

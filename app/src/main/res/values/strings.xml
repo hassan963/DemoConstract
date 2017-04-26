@@ -2,15 +2,11 @@
     <string name="app_name">Constructefile</string>
     <string name="action_settings">Settings</string>
     <string name="internet_connected">Internet connected !</string>
-
     <string name="no_internet_connected">No Internet connected !</string>
-
     <string name="settings">Setting</string>
-
     <string name="firstTV">text</string>
     <string name="checkbox_ok">OK</string>
     <string name="commentET"> Add comment</string>
-
     <string name="dateTV">" Date: "</string>
     <string name="truckTV">" truck: "</string>
     <string name="deptTV">" Dept: "</string>
@@ -20,10 +16,7 @@
     <string name="engineOilTV">"  Engine Oil: "</string>
     <string name="radiatorTV">"  Radiator: "</string>
     <string name="hydraulicTV">"  Hydraulic Oil: "</string>
-
-
     <string name="spinner">Spinner</string>
-
 
     <!--for nav drawer navigating-->
 
@@ -37,13 +30,13 @@
     <string name="nav_o_safety">Operation Safety</string>
     <string name="nav_dos">Do And Dont</string>
     <string name="nav_ohns_laws">OHNS Laws</string>
-    <string name="nav_trench_excavating">Trench Excavating</string>
-    <string name="nav_trench_footing">Trench Footing</string>
-    <string name="nav_basement_excavation">Basement Excavation</string>
     <string name="nav_backfill">Backfill</string>
     <string name="nav_excavating_backfill">Excavating Backfill</string>
+    <string name="nav_basement_excavation">Basement Excavation</string>
+    <string name="nav_trench_pipe">Trench Pipe</string>
     <string name="nav_grade_from_run_to_slop">Run to Slop Grade</string>
-    <string name="nav_grade_from_slope_length">Slope Length Grade</string>
+    <string name="nav_trench_excavating">Trench Excavating</string>
+    <string name="nav_trench_footing">Trench Footing</string>
     <string name="nav_converter">Converter</string>
     <string name="nav_daily_task">Daily Task</string>
     <string name="nav_tailgate_meeting">Tailgate Meeting</string>
@@ -51,6 +44,11 @@
     <string name="nav_injury_report">Injury Report</string>
     <string name="nav_near_miss">Near Miss</string>
     <string name="nav_category">Category</string>
+    <string name="nav_logout">Logout</string>
+    <string name="nav_hours">Hours</string>
+    <string name="nav_timesheet">Time Sheet</string>
+    <string name="nav_unsafe">Unsafe work</string>
+
 
     <!-- Toolbar titles when navigation menu item is selected -->
     <string-array name="nav_item_activity_titles">
@@ -61,12 +59,15 @@
         <item>Do and Dont</item>
         <item>HNS Laws</item>
         <item>Unsafe work</item>
+        <item>BackFill</item>
+        <item>Excavating Backfill</item>
+        <item>Basement Excavation</item>
+        <item>Trench Pipe</item>
+        <item>Run to Slop Grade</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="nav_timesheet">Time Sheet</string>
-    <string name="nav_unsafe">Unsafe work</string>
 
 
     <string name="name">Name </string>
@@ -93,8 +94,20 @@
     <string name="hint_cancel">Cancel</string>
     <string name="hint_clear">Clear</string>
     <string name="hint_save">Save</string>
-    <string name="nav_logout">Logout</string>
-    <string name="nav_hours">Hours</string>
+    <string name="title_activity_back_fill_sope">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
 
 
 </resources>
