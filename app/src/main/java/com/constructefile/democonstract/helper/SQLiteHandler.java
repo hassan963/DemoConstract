@@ -21,18 +21,15 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     // Database Name
     private static final String DATABASE_NAME = "android_api";
 
-    // Login table name
+    // table name
     private static final String TABLE_USER = "user";
-
-    // Login table name
+    private static final String TABLE_SUPERVISOR = "supervisor";
     private static final String TABLE_LABELS = "labels";
-
-    // Login table name
     private static final String TABLE_EQUIPMENT = "equipments";
 
     // Login Table Columns names
@@ -57,6 +54,10 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     private static final String KEY_EQUIPMENT_SERVER_ID = "equipment_server_id";
     private static final String KEY_EQUIPMENT_NAME = "equipment_name";
 
+
+    private static final String KEY_SUPERVISOR_ID = "supervisor_id";
+    private static final String KEY_SUPERVISOR_SERVER_ID = "supervisor_server_id";
+    private static final String KEY_SUPERVISOR_NAME = "supervisor_name";
 
     public SQLiteHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -92,6 +93,14 @@ public class SQLiteHandler extends SQLiteOpenHelper {
                 + KEY_EQUIPMENT_NAME + " TEXT)";
         db.execSQL(CREATE_EQUIPMENT_TABLE);
 
+
+        // Category table create query
+        String CREATE_SUPERVISOR_TABLE = "CREATE TABLE " + TABLE_SUPERVISOR + "("
+                + KEY_SUPERVISOR_ID + " INTEGER PRIMARY KEY,"
+                + KEY_SUPERVISOR_SERVER_ID + " TEXT,"
+                + KEY_SUPERVISOR_NAME + " TEXT)";
+        db.execSQL(CREATE_SUPERVISOR_TABLE);
+
         Log.d(TAG, "Database tables created");
     }
 
@@ -104,10 +113,86 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_LABELS);
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_EQUIPMENT);
+        // Drop older table if existed
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SUPERVISOR);
 
         // Create tables again
         onCreate(db);
     }
+
+    /**
+     * Inserting new lable into lables table
+     */
+    public void insertSupervisor(String serverid, String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues valuesSupervisor = new ContentValues();
+        valuesSupervisor.put(KEY_SUPERVISOR_SERVER_ID, serverid);
+        valuesSupervisor.put(KEY_SUPERVISOR_NAME, name);
+
+        long uid = db.insert(TABLE_SUPERVISOR, null, valuesSupervisor);
+        String strLong = Long.toString(uid);
+
+        if (strLong != null) {
+            Log.i("inserted", "successfully " + serverid + name);
+        } else {
+            Log.i("inserted", "error");
+        }
+
+        db.close(); // Closing database connection
+    }
+
+    /**
+     * Getting all labels
+     * returns list of labels
+     */
+    public List<String> getAllSupervisor() {
+
+        //Log.i("labels", "getAllLabels method called with " + id);
+        List<String> Supervisors = new ArrayList<String>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_SUPERVISOR, null);
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                Supervisors.add(cursor.getString(2));
+            } while (cursor.moveToNext());
+        }
+
+        // closing connection
+        cursor.close();
+        db.close();
+        Log.i("supervisor_from_db", "load spinner data " + Supervisors.toString());
+
+        // returning lables
+        return Supervisors;
+    }
+
+
+    /**
+     * Getting all labels
+     * returns list of labels
+     */
+    public List<String> getAllSupervisorIds() {
+        List<String> ids = new ArrayList<String>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_SUPERVISOR, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                ids.add(cursor.getString(1));
+            } while (cursor.moveToNext());
+        }
+        // closing connection
+        cursor.close();
+        db.close();
+
+        // returning lables
+        return ids;
+    }
+
 
     /**
      * Inserting new lable into lables table
@@ -374,6 +459,19 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         db.close();
 
         Log.i(TAG, "Deleted all equipments info from sqlite");
+    }
+
+
+    /**
+     * Re crate database Delete all tables and create them again
+     */
+    public void deleteSupervisor() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        // Delete All Rows
+        db.execSQL("delete from " + TABLE_SUPERVISOR);
+        db.close();
+
+        Log.i(TAG, "Deleted all supervisors info from sqlite");
     }
 
 }

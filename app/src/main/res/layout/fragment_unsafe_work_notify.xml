@@ -7,53 +7,57 @@
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:textStyle="bold|italic"
             android:gravity="center_horizontal"
             android:text="Notify a Supervisor"
-            android:textColor="#000"/>
+            android:textColor="#232323"
+            android:textSize="24sp"
+            android:textStyle="bold|italic" />
 
         <Spinner
             android:id="@+id/spinnerUnsafe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp">
-        </Spinner>
+            android:layout_marginTop="4dp" />
 
         <TextView
-            android:layout_marginTop="4dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="  write your thoughts..."
-            android:textStyle="bold|italic"
+            android:layout_marginTop="4dp"
             android:gravity="center_horizontal"
-            android:textColor="#000"/>
+            android:text="  write your thoughts..."
+            android:textColor="#232323"
+            android:textStyle="bold|italic" />
 
-            <EditText
-                android:id="@+id/chatET"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:textColor="#000" />
-       <Button
-           android:id="@+id/chatSendBTN"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:text="SEND"
-           android:layout_marginTop="4dp"
-           android:layout_marginLeft="4dp"
-           android:layout_marginRight="4dp"
-           android:background="@color/colorPrimary"/>
+        <EditText
+
+            android:id="@+id/chatET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textColor="#000" />
+
+        <Button
+            android:id="@+id/chatSendBTN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/colorPrimary"
+            android:text="SEND"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
-
 
 
 </FrameLayout>

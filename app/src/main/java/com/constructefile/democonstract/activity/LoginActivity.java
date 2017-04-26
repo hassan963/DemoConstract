@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -367,6 +368,7 @@ public class LoginActivity extends AppCompatActivity {
                             db.addUser(server_user_id, f_name, l_name, user_email, id, login_at_date, login_at_time, date_started);
                             getEquipmentFromWebAndInsertIntoDB();
                             getListFromWebAndInsertIntoDB();
+                            getAllSuperVisorAndInsert();
                             Intent intent = new Intent(LoginActivity.this, MainMenu.class);
                             startActivity(intent);
                             finish();
@@ -571,6 +573,42 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 hideDialog();
+                error.printStackTrace();
+            }
+        });
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+
+    public void getAllSuperVisorAndInsert() {
+
+        String tag_string_req = "req_get_all_supervisor";
+        StringRequest strReq = new StringRequest(Request.Method.GET, AppConfig.URL_GET_SUPERVISOR,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i("all_supervisor", "Response: " + response.toString());
+                        try {
+                            JSONArray jsonarray = new JSONArray(response);
+                            for (int i = 0; i < jsonarray.length(); i++) {
+                                JSONObject jsonobject = jsonarray.getJSONObject(i);
+                                String first_name = jsonobject.getString("first_name");
+                                String last_name = jsonobject.getString("last_name");
+                                String server_id = jsonobject.getString("id");
+                                String full_name = first_name + " " + last_name;
+
+                                Log.i("serial_supervisor", server_id + " - " + first_name + " - " + last_name);
+                                //Toast.makeText(LoginActivity.this, "1st One " + vehicle_type_id + " - " + vehicle_id + " - " + serial_no, Toast.LENGTH_SHORT).show();
+                                db.insertSupervisor(server_id, full_name);
+                                // Log.i("labelInsert", vehicle_type_id + " " + vehicle_id + " " + serial_no);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
                 error.printStackTrace();
             }
         });

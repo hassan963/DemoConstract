@@ -199,9 +199,7 @@ public class UnsafeWorkNotify extends Fragment implements AdapterView.OnItemSele
                         //String email = jsonobject.getString("email");
 
                         superVisorList.add(id + " " + first_name + " " + last_name);
-
                     }
-
                     // Creating adapter for spinner
                     ArrayAdapter<String> data = new ArrayAdapter<String>(getActivity(), R.layout.spinner_item_text, superVisorList);
                     data.setDropDownViewResource(R.layout.spinner_drop_down);

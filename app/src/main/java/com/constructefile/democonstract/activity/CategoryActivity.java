@@ -46,9 +46,9 @@ public class CategoryActivity extends AppCompatActivity {
 
     private final int recyclerViewImages[] = {
             R.drawable.bulldozer,
-           // R.drawable.concretemixer,
+            // R.drawable.concretemixer,
             //R.drawable.crane,
-           // R.drawable.dumptruck,
+            // R.drawable.dumptruck,
             R.drawable.excavator,
             R.drawable.flatbed,
             R.drawable.frontbackhoe,
@@ -127,6 +127,7 @@ public class CategoryActivity extends AppCompatActivity {
         }
         return categoryDatas;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         final int id = item.getItemId();
@@ -397,7 +398,7 @@ public class CategoryActivity extends AppCompatActivity {
         db.deleteUsers();
         db.deleteLabels();
         db.deleteEquipments();
-
+        db.deleteSupervisor();
         // Launching the login activity
         Intent intent = new Intent(CategoryActivity.this, LoginActivity.class);
         startActivity(intent);

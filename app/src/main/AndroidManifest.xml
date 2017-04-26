@@ -35,6 +35,7 @@
         <activity
             android:name=".MainActivity"
             android:parentActivityName=".activity.CategoryActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.TransNav"
             android:windowSoftInputMode="adjustPan" />
         <activity
@@ -110,8 +111,17 @@
         <activity
             android:name=".activity.Hours"
             android:label="Hours" />
-
-
+        <activity
+            android:name=".activity.EquipmentChechklist"
+            android:parentActivityName=".activity.CategoryActivity" />
+        <activity android:name=".activity.DozerActivity" />
+        <activity android:name=".activity.TruckActivity" />
+        <activity android:name=".activity.BackHoeActivity" />
+        <activity android:name=".activity.LoaderActivity" />
+        <activity android:name=".activity.CompanyTruckActivity" />
+        <activity android:name=".activity.RoadRollerActivity" />
+        <activity android:name=".activity.SkidSteerActivity" />
+        <activity android:name=".activity.UnsafeWork"></activity>
     </application>
 
 </manifest>

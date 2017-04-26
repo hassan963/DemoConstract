@@ -470,7 +470,7 @@ public class MainMenu extends AppCompatActivity {
         db.deleteUsers();
         db.deleteLabels();
         db.deleteEquipments();
-
+        db.deleteSupervisor();
         // Launching the login activity
         Intent intent = new Intent(MainMenu.this, LoginActivity.class);
         startActivity(intent);

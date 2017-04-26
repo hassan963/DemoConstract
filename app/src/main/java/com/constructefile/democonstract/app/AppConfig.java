@@ -62,5 +62,7 @@ public class AppConfig {
     public static String URL_UPDATE_TODAY_HAZARD_ASSESMENT = "http://23.235.211.194/~tecnot5/dev/construction/v1/hazard_assessment/";
 
     public static String GET_SUPERVISOR_NAME_BY_ID = "http://23.235.211.194/~tecnot5/dev/construction/v1/supervisors/";
+    public static String URL_INSERT_EQUIPMENT_CHECKLIST = "http://23.235.211.194/~tecnot5/dev/construction/v1/equipment_checklist";
+    public static String URL_INSERT_EQUIPMENT_CHECKLIST_CHECK = "http://23.235.211.194/~tecnot5/dev/construction/v1/equipment_checklist_checks";
 
 }

@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.constructefile.democonstract.activity.EquipmentChechklist;
 import com.constructefile.democonstract.activity.FuelRecord;
 import com.constructefile.democonstract.content.CategoryData;
 import com.constructefile.democonstract.MainActivity;
@@ -93,11 +94,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             builder.setNegativeButton("Equipment Checklist", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            //Toast.makeText(context, android.getrecyclerViewTitleText() + " " + position, Toast.LENGTH_SHORT).show();
 
-
-                            Toast.makeText(context, android.getrecyclerViewTitleText() + " " + position, Toast.LENGTH_SHORT).show();
-
-                            Intent intent = new Intent(context, MainActivity.class);
+                            Intent intent = new Intent(context, EquipmentChechklist.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.putExtra("CATEGORY", position + 1);
                             context.startActivity(intent);

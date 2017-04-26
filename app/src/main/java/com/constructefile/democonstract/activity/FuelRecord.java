@@ -321,8 +321,8 @@ public class FuelRecord extends AppCompatActivity implements AdapterView.OnItemS
         fuelTankValue = fuelTank.getText().toString();
         jobValue = jobText.getText().toString();
 
-        Log.i("fuel_record", EQUIPMENT_ID_SELECTED + " "+ TRUCK_ID_SELECTED + " " + hydraulicFluidValue + " " +
-                transmissionOilValue + " "+ engineOilValue + " " + engineCoolantValue);
+        Log.i("fuel_record", EQUIPMENT_ID_SELECTED + " " + TRUCK_ID_SELECTED + " " + hydraulicFluidValue + " " +
+                transmissionOilValue + " " + engineOilValue + " " + engineCoolantValue);
         pDialog.setMessage("Sending ...");
         showDialog();
         //insertion
@@ -432,7 +432,7 @@ public class FuelRecord extends AppCompatActivity implements AdapterView.OnItemS
         db.deleteUsers();
         db.deleteLabels();
         db.deleteEquipments();
-
+        db.deleteSupervisor();
         // Launching the login activity
         Intent intent = new Intent(FuelRecord.this, LoginActivity.class);
         startActivity(intent);
