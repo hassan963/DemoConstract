@@ -342,6 +342,11 @@ public class MainMenu extends AppCompatActivity {
                         drawer.closeDrawers();
                         return true;
 
+                    case R.id.nav_unsafe_work:
+                        startActivity(new Intent(MainMenu.this, UnsafeWork.class));
+                        drawer.closeDrawers();
+                        return true;
+
                     case R.id.nav_logout:
                         logoutUser();
                         drawer.closeDrawers();

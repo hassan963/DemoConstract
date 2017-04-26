@@ -6,6 +6,7 @@ import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -25,6 +26,7 @@ import com.constructefile.democonstract.app.AppConfig;
 import com.constructefile.democonstract.app.AppController;
 import com.constructefile.democonstract.helper.SQLiteHandler;
 import com.constructefile.democonstract.helper.SessionManager;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -151,6 +153,16 @@ public class UnsafeWork extends AppCompatActivity implements AdapterView.OnItemS
         Intent intent = new Intent(UnsafeWork.this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        final int id = item.getItemId();
+        if (id == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }
