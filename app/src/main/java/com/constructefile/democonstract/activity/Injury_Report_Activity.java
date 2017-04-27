@@ -248,7 +248,7 @@ public class Injury_Report_Activity extends AppCompatActivity implements Adapter
             public void onClick(View view) {
 
                 if (isSettingsClicked == false) {
-                    stepOne.setBackgroundResource(R.color.colorAccent);
+                    //stepOne.setBackgroundResource(R.color.colorAccent);
                     stepTwoLayout.setVisibility(View.GONE);
                     stepOneLayout.setVisibility(View.VISIBLE);
                     isSettingsClicked = true;
@@ -257,7 +257,7 @@ public class Injury_Report_Activity extends AppCompatActivity implements Adapter
 
                     // _settings.setBackgroundResource(null);
                     isSettingsClicked = false;
-                    stepOne.setBackgroundResource(R.color.colorPrimary);
+                    //stepOne.setBackgroundResource(R.color.colorPrimary);
                 }
 
             }
@@ -269,7 +269,7 @@ public class Injury_Report_Activity extends AppCompatActivity implements Adapter
             public void onClick(View view) {
 
                 if (isSettingsClicked == false) {
-                    stepTwo.setBackgroundResource(R.color.colorAccent);
+                    //stepTwo.setBackgroundResource(R.color.colorAccent);
                     stepOneLayout.setVisibility(View.GONE);
                     stepTwoLayout.setVisibility(View.VISIBLE);
                     isSettingsClicked = true;
@@ -278,7 +278,7 @@ public class Injury_Report_Activity extends AppCompatActivity implements Adapter
 
                     // _settings.setBackgroundResource(null);
                     isSettingsClicked = false;
-                    stepTwo.setBackgroundResource(R.color.colorPrimary);
+                    //stepTwo.setBackgroundResource(R.color.colorPrimary);
                 }
 
             }
@@ -482,7 +482,7 @@ public class Injury_Report_Activity extends AppCompatActivity implements Adapter
         }
 
         // Showing selected spinner item
-        Toast.makeText(adapterView.getContext(), "Selected: " + sOne+" "+sTwo+" "+sThree+" "+sFour+" "+sFive, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(adapterView.getContext(), "Selected: " + sOne+" "+sTwo+" "+sThree+" "+sFour+" "+sFive, Toast.LENGTH_SHORT).show();
 
 
     }

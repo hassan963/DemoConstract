@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
                 .getColor(R.color.primary)));
         // Progress dialog
-        pDialog = new ProgressDialog(getApplicationContext());
+        pDialog = new ProgressDialog(MainActivity.this);
         pDialog.setCancelable(false);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -187,13 +187,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void postDATA() {
 
+        Log.i("form_size", formDatas.size() + "");
+        //save(2, "1");
         for (int i = 0; i < formDatas.size(); i++) {
-            save(i);
+            String com = formDatas.get(i).getComment();
+            if (formDatas.get(i).getStatus() == true) {
+                save(i, "1", com);
+            } else if (formDatas.get(i).getStatus() == false) {
+                save(i, "0", com);
+            }
         }
-
     }
 
-    public void save(final int i) {
+    public void save(final int i, final String status, final String com) {
 
         pDialog.setMessage("Sending Data...");
         showDialog();
@@ -238,8 +244,8 @@ public class MainActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("equipment_checklist_id", checklist_id);
                 params.put("checklist_id", String.valueOf(formDatas.get(i).getId()));
-                params.put("status", String.valueOf(formDatas.get(i).getStatus()));
-                params.put("comment", formDatas.get(i).getComment());
+                params.put("status", status);
+                params.put("comment", com);
                 return params;
             }
         };

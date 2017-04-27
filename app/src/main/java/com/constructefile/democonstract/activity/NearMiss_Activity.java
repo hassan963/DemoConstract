@@ -44,6 +44,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.constructefile.democonstract.R;
 import com.constructefile.democonstract.app.AppConfig;
 import com.constructefile.democonstract.app.AppController;
+import com.constructefile.democonstract.helper.SQLiteHandler;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -78,6 +79,8 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
     private String StoredPath = DIRECTORY + pic_name + ".JPG";
     private SharedPreferences sharedpreferences;
     public static final String MyPREFERENCES = "MySign";
+    private SQLiteHandler db;
+    String server_user_id, date_started, email, l_name, f_name;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -102,6 +105,14 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
         typeNear.setOnItemSelectedListener(this);
         typeConcern.setOnItemSelectedListener(this);
 
+
+        db = new SQLiteHandler(getApplicationContext());
+        HashMap<String, String> user = db.getUserDetails();
+        f_name = user.get("f_name");
+        l_name = user.get("l_name");
+        server_user_id = user.get("server_user_id");
+        email = user.get("email");
+        date_started = user.get("date_started");
         List<String> typeOfMiss = new ArrayList<String>();
         typeOfMiss.add("Near Miss");
         typeOfMiss.add("Safety Concern");
@@ -349,7 +360,7 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
                 params.put("concern_type", concern_type);
                 params.put("date", timestamp);
                 params.put("description", description);
-                params.put("operator_id", "9"); // will implement later
+                params.put("operator_id", server_user_id); // will implement later
                 params.put("signature", sign);  // not done yet
                 params.put("image", sign);
                 return params;
@@ -472,6 +483,7 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
                 dirtyRect.bottom = historicalY;
             }
         }
+
         private void resetDirtyRect(float eventX, float eventY) {
             dirtyRect.left = Math.min(lastTouchX, eventX);
             dirtyRect.right = Math.max(lastTouchX, eventX);

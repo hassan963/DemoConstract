@@ -86,7 +86,7 @@ public class Hours extends AppCompatActivity implements ConnectivityReceiver.Con
         recycler_get_hours = (RecyclerView) findViewById(R.id.recycler_get_hours);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_hours);
         swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorPrimaryDark);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recycler_get_hours.setLayoutManager(linearLayoutManager);

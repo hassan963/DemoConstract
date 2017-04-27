@@ -137,7 +137,7 @@ public class MainMenu extends AppCompatActivity {
      */
     private void loadNavHeader() {
         // name, website
-        txtName.setText("Welcome: " + f_name + " " + l_name);
+        txtName.setText("Welcome, " + f_name + " " + l_name);
         txtWebsite.setText("CONSTRUCTEFILE APP");
     }
 

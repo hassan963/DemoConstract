@@ -582,11 +582,13 @@ public class LoginActivity extends AppCompatActivity {
 
     public void getAllSuperVisorAndInsert() {
 
+        showDialog();
         String tag_string_req = "req_get_all_supervisor";
         StringRequest strReq = new StringRequest(Request.Method.GET, AppConfig.URL_GET_SUPERVISOR,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        hideDialog();
                         Log.i("all_supervisor", "Response: " + response.toString());
                         try {
                             JSONArray jsonarray = new JSONArray(response);
@@ -609,6 +611,7 @@ public class LoginActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                hideDialog();
                 error.printStackTrace();
             }
         });

@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -125,6 +126,8 @@ public class UnsafeWork extends AppCompatActivity implements AdapterView.OnItemS
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        chatET.setText("");
+                        Toast.makeText(UnsafeWork.this, "Sent To Server", Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
             @Override

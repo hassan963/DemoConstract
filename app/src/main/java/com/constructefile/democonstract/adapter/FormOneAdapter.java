@@ -58,7 +58,7 @@ public class FormOneAdapter extends RecyclerView.Adapter<FormOneAdapter.MyViewHo
 
             @Override
             public void afterTextChanged(Editable s) {
-                Log.v("%%%$$ " + position, formDatas.get(position).getComment());
+                Log.i("com " + position, formDatas.get(position).getComment());
             }
         });
     }

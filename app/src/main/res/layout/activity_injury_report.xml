@@ -27,8 +27,10 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
+                android:layout_marginBottom="10dp"
                 android:text="This is a report of a: "
-                android:textColor="#464646" />
+                android:textColor="#464646"
+                android:textSize="14sp" />
 
             <!-- Spinner Element -->
             <Spinner
@@ -36,22 +38,29 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/report"
+                android:layout_marginBottom="10dp"
                 android:prompt="@string/spinner_title" />
 
             <EditText
+
                 android:id="@+id/dateIncident"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/spinnerReport"
-                android:hint="Date of incident" />
+                android:layout_marginBottom="10dp"
+                android:hint="Date-time ex. 1234-56-78 12:34:56"
+                android:inputType="datetime"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/reportMadeBy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dateIncident"
+                android:layout_marginBottom="10dp"
                 android:text="This report is made by: "
-                android:textColor="#464646" />
+                android:textColor="#464646"
+                android:textSize="14sp" />
 
             <!-- Spinner Element -->
             <Spinner
@@ -59,6 +68,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/reportMadeBy"
+                android:layout_marginBottom="10dp"
                 android:prompt="@string/spinner_title" />
 
 
@@ -68,7 +78,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/spinnerReportMade"
                 android:text="STEP 1"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/stepTwo"
@@ -77,7 +88,8 @@
                 android:layout_below="@id/stepOne"
                 android:layout_marginTop="4dp"
                 android:text="STEP 2"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp" />
 
             <Button
                 android:id="@+id/signatureInjury"
@@ -88,7 +100,8 @@
                 android:background="@color/colorPrimary"
                 android:padding="5dp"
                 android:text="@string/hint_sign"
-                android:textColor="#e6e6e6" />
+                android:textColor="#e6e6e6"
+                android:textSize="18sp" />
 
         </RelativeLayout>
 
@@ -96,7 +109,8 @@
             android:id="@+id/scroll"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_below="@id/mainscreen">
+            android:layout_below="@id/mainscreen"
+            android:layout_marginTop="10dp">
 
 
             <RelativeLayout
@@ -111,14 +125,16 @@
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/name" />
+                    android:hint="@string/name"
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/department"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/name"
-                    android:hint="@string/department" />
+                    android:hint="@string/department"
+                    android:textSize="18sp" />
 
                 <RadioGroup
                     android:id="@+id/radioSex"
@@ -126,21 +142,24 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/department"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:textSize="18sp">
 
                     <RadioButton
                         android:id="@+id/radioMale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onRadioButtonClicked"
-                        android:text="@string/male" />
+                        android:text="@string/male"
+                        android:textSize="18sp" />
 
                     <RadioButton
                         android:id="@+id/radioFemale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="onRadioButtonClicked"
-                        android:text="@string/female" />
+                        android:text="@string/female"
+                        android:textSize="18sp" />
 
                 </RadioGroup>
 
@@ -149,21 +168,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/radioSex"
-                    android:hint="@string/age" />
+                    android:hint="@string/age"
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/jobTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/age"
-                    android:hint="@string/jobTitle" />
+                    android:hint="@string/jobTitle"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/nature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/jobTitle"
-                    android:text="@string/nature" />
+                    android:text="@string/nature"
+                    android:textSize="18sp" />
                 <!-- Spinner Element -->
                 <Spinner
                     android:id="@+id/spinnerNature"
@@ -177,7 +199,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/spinnerNature"
-                    android:text="@string/employeeWorks" />
+                    android:text="@string/employeeWorks"
+                    android:textSize="18sp" />
                 <!-- Spinner Element -->
                 <Spinner
                     android:id="@+id/spinneremployeeWorks"
@@ -191,14 +214,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/spinneremployeeWorks"
-                    android:hint="@string/monthsEmploee" />
+                    android:hint="@string/monthsEmploee"
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/monthsJob"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/monthsEmploee"
-                    android:hint="@string/monthsJob" />
+                    android:hint="@string/monthsJob"
+                    android:textSize="18sp" />
 
 
             </RelativeLayout>
@@ -211,6 +236,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/mainscreen"
+            android:layout_marginTop="10dp"
             android:background="@drawable/round_layout"
             android:visibility="gone">
 
@@ -218,21 +244,24 @@
                 android:id="@+id/location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/location" />
+                android:hint="@string/location"
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/location"
-                android:hint="@string/time" />
+                android:hint="@string/time"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/workday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/time"
-                android:text="@string/workday" />
+                android:text="@string/workday"
+                android:textSize="18sp" />
             <!-- Spinner Element -->
             <Spinner
                 android:id="@+id/spinnerworkday"
@@ -246,7 +275,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/spinnerworkday"
-                android:hint="@string/witness" />
+                android:hint="@string/witness"
+                android:textSize="18sp" />
 
 
         </RelativeLayout>

@@ -20,10 +20,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
-                android:gravity="left"
+                android:gravity="center"
                 android:text="Operation Safety"
                 android:textColor="#000be1"
-                android:textSize="30sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -43,7 +43,7 @@ In tight areas:
 With no visibility:
 "
                 android:textColor="#181818"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
     </ScrollView>
