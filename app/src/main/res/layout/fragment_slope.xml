@@ -43,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:hint="input numbers..."
+                android:inputType="numberDecimal"
                 android:textColor="@color/black" />
 
         </LinearLayout>
@@ -67,6 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:hint="input numbers..."
+                android:inputType="numberDecimal"
                 android:textColor="@color/black" />
 
         </LinearLayout>
@@ -91,6 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:hint="input numbers..."
+                android:inputType="numberDecimal"
                 android:textColor="@color/black" />
 
         </LinearLayout>
@@ -115,6 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:hint="input numbers..."
+                android:inputType="numberDecimal"
                 android:textColor="@color/black" />
 
         </LinearLayout>

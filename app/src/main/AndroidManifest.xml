@@ -114,13 +114,6 @@
         <activity
             android:name=".activity.EquipmentChechklist"
             android:parentActivityName=".activity.CategoryActivity" />
-        <activity android:name=".activity.DozerActivity" />
-        <activity android:name=".activity.TruckActivity" />
-        <activity android:name=".activity.BackHoeActivity" />
-        <activity android:name=".activity.LoaderActivity" />
-        <activity android:name=".activity.CompanyTruckActivity" />
-        <activity android:name=".activity.RoadRollerActivity" />
-        <activity android:name=".activity.SkidSteerActivity" />
         <activity android:name=".activity.UnsafeWork"></activity>
     </application>
 

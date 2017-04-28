@@ -116,7 +116,6 @@ public class EquipmentChechklist extends AppCompatActivity implements AdapterVie
         jobText = (EditText) findViewById(R.id.jobText);
         remarksText = (EditText) findViewById(R.id.remarksText);
 
-
         ids = db.getAllLabelIds(String.valueOf(pressBTN));
         equipmentIds = db.getAllEquipmentIds();
         // Loading spinner data from database
@@ -158,66 +157,16 @@ public class EquipmentChechklist extends AppCompatActivity implements AdapterVie
                     // Now store the user in SQLite
                     String response_id = jObj.getString("id");
                     String previous_remarks = jObj.getString("remakrs");
-
                     if (response_id != null) {
                         Toast.makeText(EquipmentChechklist.this, "One More Step", Toast.LENGTH_SHORT).show();
 
-                        if (pressBTN == 2 || pressBTN == 9 || pressBTN == 10) {
-                            Intent intent = new Intent(EquipmentChechklist.this, MainActivity.class);
-                            intent.putExtra("response_id", response_id);
-                            intent.putExtra("previous_remarks", previous_remarks);
-                            startActivity(intent);
-                            finish();
-                        }
-                        if (pressBTN == 1) {
-                            Intent intent = new Intent(EquipmentChechklist.this, DozerActivity.class);
-                            intent.putExtra("response_id", response_id);
-                            intent.putExtra("previous_remarks", previous_remarks);
-                            startActivity(intent);
-                            finish();
-                        }
-                        if (pressBTN == 3) {
-                            Intent intent = new Intent(EquipmentChechklist.this, TruckActivity.class);
-                            intent.putExtra("response_id", response_id);
-                            intent.putExtra("previous_remarks", previous_remarks);
-                            startActivity(intent);
-                            finish();
-                        }
-                        if (pressBTN == 4) {
-                            Intent intent = new Intent(EquipmentChechklist.this, BackHoeActivity.class);
-                            intent.putExtra("response_id", response_id);
-                            intent.putExtra("previous_remarks", previous_remarks);
-                            startActivity(intent);
-                            finish();
-                        }
-                        if (pressBTN == 5) {
-                            Intent intent = new Intent(EquipmentChechklist.this, LoaderActivity.class);
-                            intent.putExtra("response_id", response_id);
-                            intent.putExtra("previous_remarks", previous_remarks);
-                            startActivity(intent);
-                            finish();
-                        }
-                        if (pressBTN == 6) {
-                            Intent intent = new Intent(EquipmentChechklist.this, CompanyTruckActivity.class);
-                            intent.putExtra("response_id", response_id);
-                            intent.putExtra("previous_remarks", previous_remarks);
-                            startActivity(intent);
-                            finish();
-                        }
-                        if (pressBTN == 7) {
-                            Intent intent = new Intent(EquipmentChechklist.this, RoadRollerActivity.class);
-                            intent.putExtra("response_id", response_id);
-                            intent.putExtra("previous_remarks", previous_remarks);
-                            startActivity(intent);
-                            finish();
-                        }
-                        if (pressBTN == 8) {
-                            Intent intent = new Intent(EquipmentChechklist.this, SkidSteerActivity.class);
-                            intent.putExtra("response_id", response_id);
-                            intent.putExtra("previous_remarks", previous_remarks);
-                            startActivity(intent);
-                            finish();
-                        }
+                        Intent intent = new Intent(EquipmentChechklist.this, MainActivity.class);
+                        intent.putExtra("response_id", response_id);
+                        intent.putExtra("previous_remarks", previous_remarks);
+                        intent.putExtra("presBTN", pressBTN);
+                        startActivity(intent);
+                        Toast.makeText(getApplicationContext(), pressBTN + "", Toast.LENGTH_LONG).show();
+                        finish();
                     } else {
                         Log.i("equipment_check", "equipment check was not inserted");
                     }
@@ -226,7 +175,6 @@ public class EquipmentChechklist extends AppCompatActivity implements AdapterVie
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 }
-
             }
         }, new Response.ErrorListener() {
 
@@ -253,7 +201,6 @@ public class EquipmentChechklist extends AppCompatActivity implements AdapterVie
                 params.put("truck_id", TRUCK_ID_SELECTED);
                 return params;
             }
-
         };
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
@@ -273,7 +220,6 @@ public class EquipmentChechklist extends AppCompatActivity implements AdapterVie
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // attaching data adapter to spinner
         spinnerSerial.setAdapter(dataAdapter);
-
 
         // Spinner Drop down elements
         equipments = db.getAllEquipments();
@@ -299,13 +245,11 @@ public class EquipmentChechklist extends AppCompatActivity implements AdapterVie
         } else {
             hr = hour + "";
         }
-
         if (minute >= 0 && minute <= 9) {
             min = "0" + minute;
         } else {
             min = minute + "";
         }
-
         if (second >= 0 && second <= 9) {
             sec = "0" + second;
         } else {
@@ -327,7 +271,6 @@ public class EquipmentChechklist extends AppCompatActivity implements AdapterVie
             case R.id.equipmentSerial:
                 EQUIPMENT_ID_SELECTED = equipmentIds.get(position);
                 break;
-
             default:
                 TRUCK_ID_SELECTED = parent.getItemAtPosition(position).toString();
                 EQUIPMENT_ID_SELECTED = parent.getItemAtPosition(position).toString();
@@ -338,14 +281,11 @@ public class EquipmentChechklist extends AppCompatActivity implements AdapterVie
     public void onNothingSelected(AdapterView<?> arg0) {
         // TODO Auto-generated method stub
     }
-
     private void logoutUser() {
         session.setLogin(false);
         db.deleteUsers();
         db.deleteLabels();
         db.deleteEquipments();
-        db.deleteSupervisor();
-        // Launching the login activity
         Intent intent = new Intent(EquipmentChechklist.this, LoginActivity.class);
         startActivity(intent);
         finish();
@@ -360,21 +300,19 @@ public class EquipmentChechklist extends AppCompatActivity implements AdapterVie
         }
         return super.onOptionsItemSelected(item);
     }
-
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(EquipmentChechklist.this, CategoryActivity.class);
         startActivity(intent);
         finish();
     }
-
     private void showDialog() {
         if (!pDialog.isShowing())
             pDialog.show();
     }
-
     private void hideDialog() {
         if (pDialog.isShowing())
             pDialog.dismiss();
     }
 }
+

@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,19 +14,19 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.Toast;
+import android.support.design.widget.FloatingActionButton;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.constructefile.democonstract.activity.CategoryActivity;
+import com.constructefile.democonstract.activity.LoginActivity;
 import com.constructefile.democonstract.adapter.FormOneAdapter;
 import com.constructefile.democonstract.app.AppConfig;
 import com.constructefile.democonstract.app.AppController;
 import com.constructefile.democonstract.content.FormData;
-import com.constructefile.democonstract.activity.CategoryActivity;
-import com.constructefile.democonstract.activity.LoginActivity;
 import com.constructefile.democonstract.content.SpinnerData;
 import com.constructefile.democonstract.helper.SQLiteHandler;
 import com.constructefile.democonstract.helper.SessionManager;
@@ -50,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
     private FormOneAdapter formOneAdapter;
     private SQLiteHandler db;
     private SessionManager session;
+    private int pressBTN;
 
-    Button btn_send;
     List<String> list = new ArrayList<>();
     ArrayList<SpinnerData> spinnerDatas = new ArrayList<>();
     private static short backStatus = 0;
@@ -65,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
                 .getColor(R.color.primary)));
         // Progress dialog
+
         pDialog = new ProgressDialog(MainActivity.this);
         pDialog.setCancelable(false);
 
@@ -105,8 +104,53 @@ public class MainActivity extends AppCompatActivity {
         }
         Log.i("clicked", previous_remarks + " " + checklist_id);
         recyclerView = (RecyclerView) findViewById(R.id.recycleListView);
-        btn_send = (Button) findViewById(R.id.btn_send);
-        formOneAdapter = new FormOneAdapter(getFormData(), getApplicationContext());
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if (extras == null) {
+                pressBTN = 0;
+            } else {
+                pressBTN = extras.getInt("presBTN");
+            }
+        } else {
+            pressBTN = (Integer) savedInstanceState.getSerializable("presBTN");
+        }
+
+        Log.v("#^$^$^%%&& POSI", pressBTN + "");
+
+        if (pressBTN == 1)
+            formOneAdapter = new FormOneAdapter(getFormDataDozer(), getApplicationContext());
+
+        if (pressBTN == 2)
+            formOneAdapter = new FormOneAdapter(getFormDataExcavator(), getApplicationContext());
+
+        if (pressBTN == 3)
+            formOneAdapter = new FormOneAdapter(getFormDataTrucks(), getApplicationContext());
+
+        if (pressBTN == 4)
+            formOneAdapter = new FormOneAdapter(getFormDataBackhoe(), getApplicationContext());
+
+        if (pressBTN == 5)
+            formOneAdapter = new FormOneAdapter(getFormDataLoader(), getApplicationContext());
+
+        if (pressBTN == 6)
+            formOneAdapter = new FormOneAdapter(getFormDataCompanyTrucks(), getApplicationContext());
+
+        if (pressBTN == 7)
+            formOneAdapter = new FormOneAdapter(getFormDataRoadRoller(), getApplicationContext());
+
+        if (pressBTN == 8)
+            formOneAdapter = new FormOneAdapter(getFormDataSkidsteer(), getApplicationContext());
+
+        if (pressBTN == 9)
+            formOneAdapter = new FormOneAdapter(getFormDataCrusher(), getApplicationContext());
+
+        if (pressBTN == 10)
+            formOneAdapter = new FormOneAdapter(getFormDataScreener(), getApplicationContext());
+
+
+        //  if (pressBTN  == 2) formOneAdapter = new FormOneAdapter(getFormDataTwo(), getApplicationContext());
+
         recyclerView.setAdapter(formOneAdapter);
         formOneAdapter.notifyDataSetChanged();
 
@@ -114,13 +158,15 @@ public class MainActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
-
-        btn_send.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
+                // Click action
                 postDATA();
             }
         });
+
     }
 
     private void logoutUser() {
@@ -129,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
         db.deleteUsers();
         db.deleteLabels();
         db.deleteEquipments();
-        db.deleteSupervisor();
         // Launching the login activity
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
@@ -153,53 +198,337 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    private ArrayList<FormData> getFormData() {
+    private ArrayList<FormData> getFormDataExcavator() {
         formDatas = new ArrayList<>();
         formDatas.clear();
-        formDatas.add(new FormData("Engine Oil", 1));
-        formDatas.add(new FormData("All hoses", 2));
-        formDatas.add(new FormData("All belts", 3));
-        formDatas.add(new FormData("Overall Engine", 4));
-        formDatas.add(new FormData("Hydraulic Fluid", 6));
-        formDatas.add(new FormData("Swing Gear Oil", 7));
-        formDatas.add(new FormData("Engine Coolant", 8));
-        formDatas.add(new FormData("Radiator", 9));
-        formDatas.add(new FormData("Air filter", 10));
-        formDatas.add(new FormData("Batteries", 11));
-        formDatas.add(new FormData("Fire Extinguisher", 12));
-        formDatas.add(new FormData("Lights", 13));
-        formDatas.add(new FormData("Mirrors", 14));
-        formDatas.add(new FormData("Windshield", 15));
-        formDatas.add(new FormData("Wipers/windshield fluid", 16));
-        formDatas.add(new FormData("Tracks/under carriage", 17));
-        formDatas.add(new FormData("Steps and handle bars", 18));
-        formDatas.add(new FormData("Boom/Stick/Cylinders", 19));
-        formDatas.add(new FormData("Bucket", 20));
-        formDatas.add(new FormData("Over all Machine", 21));
-        formDatas.add(new FormData("Indicators and gauges", 22));
-        formDatas.add(new FormData("Horn, Back up alarm", 23));
-        formDatas.add(new FormData("Seatbelt, seat and mounting", 24));
-        formDatas.add(new FormData("Operator Manual", 25));
-        formDatas.add(new FormData("Safety Warning", 26));
-        formDatas.add(new FormData("Over all Machine", 27));
+        formDatas.add(new FormData("Engine Oil\nFluid Level", 1));
+        formDatas.add(new FormData("All hoses\nCracks, Leaks, Worn", 2));
+        formDatas.add(new FormData("All belts\nCracks, Tightness, Worn", 3));
+        formDatas.add(new FormData("Overall Engine\nTrash, dirt build up, leaks", 4));
+        formDatas.add(new FormData("Hydraulic Fluid\nFluid Level", 6));
+        formDatas.add(new FormData("Swing Gear Oil\nFluid Level", 7));
+        formDatas.add(new FormData("Engine Coolant\nFluid Level", 8));
+        formDatas.add(new FormData("Radiator\nLeaks, Bent fins", 9));
+        formDatas.add(new FormData("Air filter\nSqueeze rubber dirt trap/ clean air filter", 10));
+        formDatas.add(new FormData("Batteries\nCleanliness, loose bolts and nuts", 11));
+        formDatas.add(new FormData("Fire Extinguisher\nCharged, Damaged", 12));
+        formDatas.add(new FormData("Lights\nDamage; adjust for best lighting", 13));
+        formDatas.add(new FormData("Mirrors\nClean, Cracks", 14));
+        formDatas.add(new FormData("Windshield\nClean, Cracks", 15));
+        formDatas.add(new FormData("Wipers/windshield fluid\nFluid Level, Worn", 16));
+        formDatas.add(new FormData("Tracks/under carriage\nFinal Drive leaks, Loose bolts and nuts", 17));
+        formDatas.add(new FormData("Steps and handle bars\nCracks, Bent, Missing", 18));
+        formDatas.add(new FormData("Boom/Stick/Cylinders\nWear, Leaks, Damage, Cracks", 19));
+        formDatas.add(new FormData("Bucket\nWear plates, Teeth, Wear, Damage, Cracks", 20));
+        formDatas.add(new FormData("Over all Machine\nGreased, Cracks, Broken", 21));
+        formDatas.add(new FormData("Indicators and gauges\nWorking condition, Damage", 22));
+        formDatas.add(new FormData("Horn, Back up alarm\nWorking, Noise efficient", 23));
+        formDatas.add(new FormData("Seatbelt, seat and mounting\nAdjustment, Damage, Worn", 24));
+        formDatas.add(new FormData("Operator Manual\nClean, Damage, Read-able", 25));
+        formDatas.add(new FormData("Safety Warning\nClean, Damage, Read-able", 26));
+        formDatas.add(new FormData("Over all Machine\nClean, Damage", 27));
         return formDatas;
     }
 
-    public void postDATA() {
-
-        Log.i("form_size", formDatas.size() + "");
-        //save(2, "1");
-        for (int i = 0; i < formDatas.size(); i++) {
-            String com = formDatas.get(i).getComment();
-            if (formDatas.get(i).getStatus() == true) {
-                save(i, "1", com);
-            } else if (formDatas.get(i).getStatus() == false) {
-                save(i, "0", com);
-            }
-        }
+    private ArrayList<FormData> getFormDataLoader() {
+        formDatas = new ArrayList<>();
+        formDatas.clear();
+        formDatas.add(new FormData("Engine Oil\nFluid Level", 1));
+        formDatas.add(new FormData("All hoses\nCracks, Leaks, Worn", 2));
+        formDatas.add(new FormData("All belts\nCracks, Tightness, Worn", 3));
+        formDatas.add(new FormData("Overall Engine\nTrash, dirt build up, leaks", 4));
+        formDatas.add(new FormData("Hydraulic Fluid\nFluid Level", 6));
+        formDatas.add(new FormData("Swing Gear Oil\nTransmission Fluid ", 7));
+        formDatas.add(new FormData("Engine Coolant\nFluid Level", 8));
+        formDatas.add(new FormData("Radiator\nLeaks, Bent fins", 9));
+        formDatas.add(new FormData("Air filter\nSqueeze rubber dirt trap/ clean air filter", 10));
+        formDatas.add(new FormData("Batteries\nCleanliness, loose bolts and nuts", 11));
+        formDatas.add(new FormData("Fire Extinguisher\nCharged, Damaged", 12));
+        formDatas.add(new FormData("Lights\nDamage; adjust for best lighting", 13));
+        formDatas.add(new FormData("Mirrors\nClean, Cracks", 14));
+        formDatas.add(new FormData("Windshield\nClean, Cracks", 15));
+        formDatas.add(new FormData("Wipers/windshield fluid\nFluid Level, Worn", 16));
+        formDatas.add(new FormData("Tracks/under carriage\nWheels", 17));
+        formDatas.add(new FormData("Steps and handle bars\nCracks, Bent, Missing", 18));
+        formDatas.add(new FormData("Boom/Stick/Cylinders\nWear, Leaks, Damage, Cracks", 19));
+        formDatas.add(new FormData("Bucket\nWear plates, Teeth, Wear, Damage, Cracks", 20));
+        formDatas.add(new FormData("Over all Machine\nGreased, Cracks, Broken", 21));
+        formDatas.add(new FormData("Indicators and gauges\nWorking condition, Damage", 22));
+        formDatas.add(new FormData("Horn, Back up alarm\nWorking, Noise efficient", 23));
+        formDatas.add(new FormData("Seatbelt, seat and mounting\nAdjustment, Damage, Worn", 24));
+        formDatas.add(new FormData("Operator Manual\nClean, Damage, Read-able", 25));
+        formDatas.add(new FormData("Safety Warning\nClean, Damage, Read-able", 26));
+        formDatas.add(new FormData("Over all Machine\nClean, Damage", 27));
+        return formDatas;
     }
 
-    public void save(final int i, final String status, final String com) {
+    private ArrayList<FormData> getFormDataDozer() {
+        formDatas = new ArrayList<>();
+        formDatas.clear();
+        formDatas.add(new FormData("Engine Oil\nFluid Level", 1));
+        formDatas.add(new FormData("All hoses\nCracks, Leaks, Worn", 2));
+        formDatas.add(new FormData("All belts\nCracks, Tightness, Worn", 3));
+        formDatas.add(new FormData("Overall Engine\nTrash, dirt build up, leaks", 4));
+        formDatas.add(new FormData("Hydraulic Fluid\nFluid Level", 6));
+        formDatas.add(new FormData("Swing Gear Oil\nTransmission Fluid ", 7));
+        formDatas.add(new FormData("Engine Coolant\nFluid Level", 8));
+        formDatas.add(new FormData("Radiator\nLeaks, Bent fins", 9));
+        formDatas.add(new FormData("Air filter\nSqueeze rubber dirt trap/ clean air filter", 10));
+        formDatas.add(new FormData("Batteries\nCleanliness, loose bolts and nuts", 11));
+        formDatas.add(new FormData("Fire Extinguisher\nCharged, Damaged", 12));
+        formDatas.add(new FormData("Lights\nDamage; adjust for best lighting", 13));
+        formDatas.add(new FormData("Mirrors\nClean, Cracks", 14));
+        formDatas.add(new FormData("Windshield\nClean, Cracks", 15));
+        formDatas.add(new FormData("Wipers/windshield fluid\nFluid Level, Worn", 16));
+        formDatas.add(new FormData("Tracks/under carriage\nFinal Drive leaks, Loose bolts and nuts", 17));
+        formDatas.add(new FormData("Steps and handle bars\nCracks, Bent, Missing", 18));
+        formDatas.add(new FormData("Boom/Stick/Cylinders\nWear, Leaks, Damage, Cracks", 19));
+        formDatas.add(new FormData("Bucket\nBlade", 20));
+        formDatas.add(new FormData("Over all Machine\nGreased, Cracks, Broken", 21));
+        formDatas.add(new FormData("Indicators and gauges\nWorking condition, Damage", 22));
+        formDatas.add(new FormData("Horn, Back up alarm\nWorking, Noise efficient", 23));
+        formDatas.add(new FormData("Seatbelt, seat and mounting\nAdjustment, Damage, Worn", 24));
+        formDatas.add(new FormData("Operator Manual\nClean, Damage, Read-able", 25));
+        formDatas.add(new FormData("Safety Warning\nClean, Damage, Read-able", 26));
+        formDatas.add(new FormData("Over all Machine\nClean, Damage", 27));
+        return formDatas;
+    }
+
+    private ArrayList<FormData> getFormDataBackhoe() {
+        formDatas = new ArrayList<>();
+        formDatas.clear();
+        formDatas.add(new FormData("Engine Oil\nFluid Level", 1));
+        formDatas.add(new FormData("All hoses\nCracks, Leaks, Worn", 2));
+        formDatas.add(new FormData("All belts\nCracks, Tightness, Worn", 3));
+        formDatas.add(new FormData("Overall Engine\nTrash, dirt build up, leaks", 4));
+        formDatas.add(new FormData("Hydraulic Fluid\nFluid Level", 6));
+        formDatas.add(new FormData("Swing Gear Oil\nTransmission Fluid", 7));
+        formDatas.add(new FormData("Engine Coolant\nFluid Level", 8));
+        formDatas.add(new FormData("Radiator\nLeaks, Bent fins", 9));
+        formDatas.add(new FormData("Air filter\nSqueeze rubber dirt trap/ clean air filter", 10));
+        formDatas.add(new FormData("Batteries\nCleanliness, loose bolts and nuts", 11));
+        formDatas.add(new FormData("Fire Extinguisher\nCharged, Damaged", 12));
+        formDatas.add(new FormData("Lights\nDamage; adjust for best lighting", 13));
+        formDatas.add(new FormData("Mirrors\nClean, Cracks", 14));
+        formDatas.add(new FormData("Windshield\nClean, Cracks", 15));
+        formDatas.add(new FormData("Wipers/windshield fluid\nFluid Level, Worn", 16));
+        formDatas.add(new FormData("Tracks/under carriage\nWheels", 17));
+        formDatas.add(new FormData("Steps and handle bars\nCracks, Bent, Missing", 18));
+        formDatas.add(new FormData("Boom/Stick/Cylinders\nWear, Leaks, Damage, Cracks", 19));
+        formDatas.add(new FormData("Bucket\nWear plates, Teeth, Wear, Damage, Cracks", 20));
+        formDatas.add(new FormData("Over all Machine\nGreased, Cracks, Broken", 21));
+        formDatas.add(new FormData("Indicators and gauges\nWorking condition, Damage", 22));
+        formDatas.add(new FormData("Horn, Back up alarm\nWorking, Noise efficient", 23));
+        formDatas.add(new FormData("Seatbelt, seat and mounting\nAdjustment, Damage, Worn", 24));
+        formDatas.add(new FormData("Operator Manual\nClean, Damage, Read-able", 25));
+        formDatas.add(new FormData("Safety Warning\nClean, Damage, Read-able", 26));
+        formDatas.add(new FormData("Over all Machine\nClean, Damage", 27));
+        return formDatas;
+    }
+
+    private ArrayList<FormData> getFormDataSkidsteer() {
+        formDatas = new ArrayList<>();
+        formDatas.clear();
+        formDatas.add(new FormData("Engine Oil\nFluid Level", 1));
+        formDatas.add(new FormData("All hoses\nCracks, Leaks, Worn", 2));
+        formDatas.add(new FormData("All belts\nCracks, Tightness, Worn", 3));
+        formDatas.add(new FormData("Overall Engine\nTrash, dirt build up, leaks", 4));
+        formDatas.add(new FormData("Hydraulic Fluid\nFluid Level", 6));
+        formDatas.add(new FormData("Swing Gear Oil\nTransmission Fluid", 7));
+        formDatas.add(new FormData("Engine Coolant\nFluid Level", 8));
+        formDatas.add(new FormData("Radiator\nLeaks, Bent fins", 9));
+        formDatas.add(new FormData("Air filter\nSqueeze rubber dirt trap/ clean air filter", 10));
+        formDatas.add(new FormData("Batteries\nCleanliness, loose bolts and nuts", 11));
+        formDatas.add(new FormData("Fire Extinguisher\nCharged, Damaged", 12));
+        formDatas.add(new FormData("Lights\nDamage; adjust for best lighting", 13));
+        formDatas.add(new FormData("Mirrors\nClean, Cracks", 14));
+        formDatas.add(new FormData("Windshield\nClean, Cracks", 15));
+        formDatas.add(new FormData("Wipers/windshield fluid\nFluid Level, Worn", 16));
+        formDatas.add(new FormData("Tracks/under carriage\nWheels", 17));
+        formDatas.add(new FormData("Steps and handle bars\nCracks, Bent, Missing", 18));
+        formDatas.add(new FormData("Boom/Stick/Cylinders\nWear, Leaks, Damage, Cracks", 19));
+        formDatas.add(new FormData("Bucket\nWear plates, Teeth, Wear, Damage, Cracks", 20));
+        formDatas.add(new FormData("Over all Machine\nGreased, Cracks, Broken", 21));
+        formDatas.add(new FormData("Indicators and gauges\nWorking condition, Damage", 22));
+        formDatas.add(new FormData("Horn, Back up alarm\nWorking, Noise efficient", 23));
+        formDatas.add(new FormData("Seatbelt, seat and mounting\nAdjustment, Damage, Worn", 24));
+        formDatas.add(new FormData("Operator Manual\nClean, Damage, Read-able", 25));
+        formDatas.add(new FormData("Safety Warning\nClean, Damage, Read-able", 26));
+        formDatas.add(new FormData("Over all Machine\nClean, Damage", 27));
+        return formDatas;
+    }
+
+    private ArrayList<FormData> getFormDataRoadRoller() {
+        formDatas = new ArrayList<>();
+        formDatas.clear();
+        formDatas.add(new FormData("Engine Oil\nFluid Level", 1));
+        formDatas.add(new FormData("All hoses\nCracks, Leaks, Worn", 2));
+        formDatas.add(new FormData("All belts\nCracks, Tightness, Worn", 3));
+        formDatas.add(new FormData("Overall Engine\nTrash, dirt build up, leaks", 4));
+        formDatas.add(new FormData("Hydraulic Fluid\nFluid Level", 6));
+        formDatas.add(new FormData("Swing Gear Oil\ntransmission fluid", 7));
+        formDatas.add(new FormData("Engine Coolant\nFluid Level", 8));
+        formDatas.add(new FormData("Radiator\nLeaks, Bent fins", 9));
+        formDatas.add(new FormData("Air filter\nSqueeze rubber dirt trap/ clean air filter", 10));
+        formDatas.add(new FormData("Batteries\nCleanliness, loose bolts and nuts", 11));
+        formDatas.add(new FormData("Fire Extinguisher\nCharged, Damaged", 12));
+        formDatas.add(new FormData("Lights\nDamage; adjust for best lighting", 13));
+        formDatas.add(new FormData("Mirrors\nClean, Cracks", 14));
+        formDatas.add(new FormData("Windshield\nClean, Cracks", 15));
+        formDatas.add(new FormData("Wipers/windshield fluid\nFluid Level, Worn", 16));
+        formDatas.add(new FormData("Tracks/under carriage\nUndercarriage", 17));
+        formDatas.add(new FormData("Steps and handle bars\nCracks, Bent, Missing", 18));
+        formDatas.add(new FormData("Boom/Stick/Cylinders\nWear, Leaks, Damage, Cracks", 19));
+        formDatas.add(new FormData("Bucket\nRollers", 20));
+        formDatas.add(new FormData("Over all Machine\nGreased, Cracks, Broken", 21));
+        formDatas.add(new FormData("Indicators and gauges\nWorking condition, Damage", 22));
+        formDatas.add(new FormData("Horn, Back up alarm\nWorking, Noise efficient", 23));
+        formDatas.add(new FormData("Seatbelt, seat and mounting\nAdjustment, Damage, Worn", 24));
+        formDatas.add(new FormData("Operator Manual\nClean, Damage, Read-able", 25));
+        formDatas.add(new FormData("Safety Warning\nClean, Damage, Read-able", 26));
+        formDatas.add(new FormData("Over all Machine\nClean, Damage", 27));
+        return formDatas;
+    }
+
+    private ArrayList<FormData> getFormDataCompanyTrucks() {
+        formDatas = new ArrayList<>();
+        formDatas.clear();
+        formDatas.add(new FormData("Engine Oil\nFluid Level", 1));
+        formDatas.add(new FormData("All hoses\nCracks, Leaks, Worn", 2));
+        formDatas.add(new FormData("All belts\nCracks, Tightness, Worn", 3));
+        formDatas.add(new FormData("Overall Engine\nTrash, dirt build up, leaks", 4));
+        formDatas.add(new FormData("Hydraulic Fluid\nBrake  fluid", 6));
+        formDatas.add(new FormData("Swing Gear Oil\nTransmission fluid", 7));
+        formDatas.add(new FormData("Engine Coolant\nFluid Level", 8));
+        formDatas.add(new FormData("Radiator\nLeaks, Bent fins", 9));
+        formDatas.add(new FormData("Air filter\nSqueeze rubber dirt trap/ clean air filter", 10));
+        formDatas.add(new FormData("Batteries\nCleanliness, loose bolts and nuts", 11));
+        formDatas.add(new FormData("Fire Extinguisher\nCharged, Damaged", 12));
+        formDatas.add(new FormData("Lights\nDamage; adjust for best lighting", 13));
+        formDatas.add(new FormData("Mirrors\nClean, Cracks", 14));
+        formDatas.add(new FormData("Windshield\nClean, Cracks", 15));
+        formDatas.add(new FormData("Wipers/windshield fluid\nFluid Level, Worn", 16));
+        formDatas.add(new FormData("Tracks/under carriage\nFinal Drive leaks, Loose bolts and nuts", 17));
+        formDatas.add(new FormData("Steps and handle bars\nCracks, Bent, Missing", 18));
+        formDatas.add(new FormData("Boom/Stick/Cylinders\nWear, Leaks, Damage, Cracks", 19));
+        formDatas.add(new FormData("Bucket\nWorn,Cracked,Secured", 20));
+        formDatas.add(new FormData("Over all Machine\nOverall Truck", 21));
+        formDatas.add(new FormData("Indicators and gauges\nWorking condition, Damage", 22));
+        formDatas.add(new FormData("Horn, Back up alarm\nWorking, Noise efficient", 23));
+        formDatas.add(new FormData("Seatbelt, seat and mounting\nAdjustment, Damage, Worn", 24));
+        formDatas.add(new FormData("Operator Manual\nClean, Damage, Read-able", 25));
+        formDatas.add(new FormData("Safety Warning\nClean, Damage, Read-able", 26));
+        formDatas.add(new FormData("Over all Machine\nClean, Damage", 27));
+        return formDatas;
+    }
+
+
+    private ArrayList<FormData> getFormDataTrucks() {
+        formDatas = new ArrayList<>();
+        formDatas.clear();
+        formDatas.add(new FormData("Engine Oil\nFluid Level", 1));
+        formDatas.add(new FormData("All hoses\nCracks, Leaks, Worn", 2));
+        formDatas.add(new FormData("All belts\nCracks, Tightness, Worn", 3));
+        formDatas.add(new FormData("Overall Engine\nTrash, dirt build up, leaks", 4));
+        formDatas.add(new FormData("Hydraulic Fluid\nFluid Level", 6));
+        formDatas.add(new FormData("Swing Gear Oil\nTransmission fluid", 7));
+        formDatas.add(new FormData("Engine Coolant\nFluid Level", 8));
+        formDatas.add(new FormData("Radiator\nLeaks, Bent fins", 9));
+        formDatas.add(new FormData("Air filter\nSqueeze rubber dirt trap/ clean air filter", 10));
+        formDatas.add(new FormData("Batteries\nCleanliness, loose bolts and nuts", 11));
+        formDatas.add(new FormData("Fire Extinguisher\nCharged, Damaged", 12));
+        formDatas.add(new FormData("Lights\nDamage; adjust for best lighting", 13));
+        formDatas.add(new FormData("Mirrors\nClean, Cracks", 14));
+        formDatas.add(new FormData("Windshield\nClean, Cracks", 15));
+        formDatas.add(new FormData("Wipers/windshield fluid\nFluid Level, Worn", 16));
+        formDatas.add(new FormData("Tracks/under carriage\nWheels", 17));
+        formDatas.add(new FormData("Steps and handle bars\nCracks, Bent, Missing", 18));
+        formDatas.add(new FormData("Boom/Cylinders\nWear, Leaks, Damage, Cracks", 19));
+        formDatas.add(new FormData("Bucket\nBox liner,tailgate,clamps", 20));
+        formDatas.add(new FormData("Over all Machine\nGreased, Cracks, Broken", 21));
+        formDatas.add(new FormData("Indicators and gauges\nWorking condition, Damage", 22));
+        formDatas.add(new FormData("Horn, Back up alarm\nWorking, Noise efficient", 23));
+        formDatas.add(new FormData("Seatbelt, seat and mounting\nAdjustment, Damage, Worn", 24));
+        formDatas.add(new FormData("Operator Manual\nClean, Damage, Read-able", 25));
+        formDatas.add(new FormData("Safety Warning\nClean, Damage, Read-able", 26));
+        formDatas.add(new FormData("Over all Machine\nOverall Truck", 27));
+        return formDatas;
+    }
+
+    private ArrayList<FormData> getFormDataCrusher() {
+        formDatas = new ArrayList<>();
+        formDatas.clear();
+        formDatas.add(new FormData("Engine Oil\nFluid Level", 1));
+        formDatas.add(new FormData("All hoses\nCracks, Leaks, Worn", 2));
+        formDatas.add(new FormData("All belts\nCracks, Tightness, Worn", 3));
+        formDatas.add(new FormData("Overall Engine\nTrash, dirt build up, leaks", 4));
+        formDatas.add(new FormData("Hydraulic Fluid\nFluid Level", 6));
+        formDatas.add(new FormData("Swing Gear Oil\nFluid Level", 7));
+        formDatas.add(new FormData("Engine Coolant\nFluid Level", 8));
+        formDatas.add(new FormData("Radiator\nLeaks, Bent fins", 9));
+        formDatas.add(new FormData("Air filter\nSqueeze rubber dirt trap/ clean air filter", 10));
+        formDatas.add(new FormData("Batteries\nCleanliness, loose bolts and nuts", 11));
+        formDatas.add(new FormData("Fire Extinguisher\nCharged, Damaged", 12));
+        formDatas.add(new FormData("Lights\nDamage; adjust for best lighting", 13));
+        formDatas.add(new FormData("Mirrors\nClean, Cracks", 14));
+        formDatas.add(new FormData("Windshield\nClean, Cracks", 15));
+        formDatas.add(new FormData("Wipers/windshield fluid\nFluid Level, Worn", 16));
+        formDatas.add(new FormData("Tracks/under carriage\nFinal Drive leaks, Loose bolts and nuts", 17));
+        formDatas.add(new FormData("Steps and handle bars\nCracks, Bent, Missing", 18));
+        formDatas.add(new FormData("Boom/Stick/Cylinders\nWear, Leaks, Damage, Cracks", 19));
+        formDatas.add(new FormData("Bucket\nWear plates, Teeth, Wear, Damage, Cracks", 20));
+        formDatas.add(new FormData("Over all Machine\nGreased, Cracks, Broken", 21));
+        formDatas.add(new FormData("Indicators and gauges\nWorking condition, Damage", 22));
+        formDatas.add(new FormData("Horn, Back up alarm\nWorking, Noise efficient", 23));
+        formDatas.add(new FormData("Seatbelt, seat and mounting\nAdjustment, Damage, Worn", 24));
+        formDatas.add(new FormData("Operator Manual\nClean, Damage, Read-able", 25));
+        formDatas.add(new FormData("Safety Warning\nClean, Damage, Read-able", 26));
+        formDatas.add(new FormData("Over all Machine\nClean, Damage", 27));
+        return formDatas;
+    }
+
+    private ArrayList<FormData> getFormDataScreener() {
+        formDatas = new ArrayList<>();
+        formDatas.clear();
+        formDatas.add(new FormData("Engine Oil\nFluid Level", 1));
+        formDatas.add(new FormData("All hoses\nCracks, Leaks, Worn", 2));
+        formDatas.add(new FormData("All belts\nCracks, Tightness, Worn", 3));
+        formDatas.add(new FormData("Overall Engine\nTrash, dirt build up, leaks", 4));
+        formDatas.add(new FormData("Hydraulic Fluid\nFluid Level", 6));
+        formDatas.add(new FormData("Swing Gear Oil\nFluid Level", 7));
+        formDatas.add(new FormData("Engine Coolant\nFluid Level", 8));
+        formDatas.add(new FormData("Radiator\nLeaks, Bent fins", 9));
+        formDatas.add(new FormData("Air filter\nSqueeze rubber dirt trap/ clean air filter", 10));
+        formDatas.add(new FormData("Batteries\nCleanliness, loose bolts and nuts", 11));
+        formDatas.add(new FormData("Fire Extinguisher\nCharged, Damaged", 12));
+        formDatas.add(new FormData("Lights\nDamage; adjust for best lighting", 13));
+        formDatas.add(new FormData("Mirrors\nClean, Cracks", 14));
+        formDatas.add(new FormData("Windshield\nClean, Cracks", 15));
+        formDatas.add(new FormData("Wipers/windshield fluid\nFluid Level, Worn", 16));
+        formDatas.add(new FormData("Tracks/under carriage\nFinal Drive leaks, Loose bolts and nuts", 17));
+        formDatas.add(new FormData("Steps and handle bars\nCracks, Bent, Missing", 18));
+        formDatas.add(new FormData("Boom/Stick/Cylinders\nWear, Leaks, Damage, Cracks", 19));
+        formDatas.add(new FormData("Bucket\nWear plates, Teeth, Wear, Damage, Cracks", 20));
+        formDatas.add(new FormData("Over all Machine\nGreased, Cracks, Broken", 21));
+        formDatas.add(new FormData("Indicators and gauges\nWorking condition, Damage", 22));
+        formDatas.add(new FormData("Horn, Back up alarm\nWorking, Noise efficient", 23));
+        formDatas.add(new FormData("Seatbelt, seat and mounting\nAdjustment, Damage, Worn", 24));
+        formDatas.add(new FormData("Operator Manual\nClean, Damage, Read-able", 25));
+        formDatas.add(new FormData("Safety Warning\nClean, Damage, Read-able", 26));
+        formDatas.add(new FormData("Over all Machine\nClean, Damage", 27));
+        return formDatas;
+    }
+
+
+    public void postDATA() {
+
+        for (int i = 0; i < formDatas.size(); i++) {
+            save(i);
+        }
+
+    }
+
+    public void save(final int i) {
 
         pDialog.setMessage("Sending Data...");
         showDialog();
@@ -244,8 +573,13 @@ public class MainActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("equipment_checklist_id", checklist_id);
                 params.put("checklist_id", String.valueOf(formDatas.get(i).getId()));
-                params.put("status", status);
-                params.put("comment", com);
+                Log.v("46656755 CBID ", String.valueOf(formDatas.get(i).getId()));
+
+                params.put("status", String.valueOf(formDatas.get(i).getStatus()));
+                Log.v("46656755 STATUS ", String.valueOf(formDatas.get(i).getStatus()));
+
+                params.put("comment", formDatas.get(i).getComment());
+                Log.v("46656755 COMMENT ", formDatas.get(i).getComment());
                 return params;
             }
         };
@@ -262,3 +596,4 @@ public class MainActivity extends AppCompatActivity {
             pDialog.dismiss();
     }
 }
+
