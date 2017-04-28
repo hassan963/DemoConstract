@@ -113,8 +113,11 @@
             android:label="Hours" />
         <activity
             android:name=".activity.EquipmentChechklist"
+            android:label="Equipment Checklist"
             android:parentActivityName=".activity.CategoryActivity" />
-        <activity android:name=".activity.UnsafeWork"></activity>
+        <activity
+            android:name=".activity.UnsafeWork"
+            android:label="Unsafe Work" />
     </application>
 
 </manifest>

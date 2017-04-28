@@ -22,7 +22,7 @@
                 android:layout_marginBottom="5dp"
                 android:gravity="center"
                 android:text="Operation Safety"
-                android:textColor="#000be1"
+                android:textColor="#000000"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 

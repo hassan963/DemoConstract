@@ -75,8 +75,6 @@ public class MainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //Getting session
@@ -84,14 +82,12 @@ public class MainMenu extends AppCompatActivity {
         HashMap<String, String> user = db.getUserDetails();
         f_name = user.get("f_name");
         l_name = user.get("l_name");
-
         // session manager
         session = new SessionManager(getApplicationContext());
 
         if (!session.isLoggedIn()) {
             logoutUser();
         }
-
 
         mHandler = new Handler();
 
@@ -112,8 +108,7 @@ public class MainMenu extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                logoutUser();
             }
         });
 

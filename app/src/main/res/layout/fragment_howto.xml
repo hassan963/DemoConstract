@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="10dp"
     tools:context="com.constructefile.democonstract.fragment.HowToDosAndDonts">
 
     <LinearLayout
@@ -9,7 +10,10 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <ExpandableListView
-
+            android:padding="5dp"
+            android:divider="#848484"
+            android:childDivider="#bababa"
+            android:dividerHeight="1dp"
             android:id="@+id/expListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

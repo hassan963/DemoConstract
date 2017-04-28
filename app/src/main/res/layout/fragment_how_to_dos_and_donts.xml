@@ -21,7 +21,7 @@
                 android:layout_marginBottom="5dp"
                 android:gravity="left"
                 android:text="Do"
-                android:textColor="#000be1"
+                android:textColor="#000000"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -43,7 +43,7 @@
                 android:layout_marginBottom="5dp"
                 android:gravity="left"
                 android:text="Dont"
-                android:textColor="#000be1"
+                android:textColor="#000000"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
