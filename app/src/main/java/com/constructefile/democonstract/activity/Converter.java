@@ -92,94 +92,101 @@ public class Converter extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
 
-        try {
-            inputNumberValue = input.getText().toString(); // Same
-            inputNumberValueInDouble = Double.parseDouble(inputNumberValue); // Make use of autoboxing.  It's also easier to read.
-        } catch (Exception e) {
-            // p did not contain a valid double
-        }
+        if (input.getText().toString() == "") {
+            Toast.makeText(this, "Insert Number To Convert", Toast.LENGTH_SHORT).show();
+        } else {
 
-        switch (v.getId()) {
+            try {
+                inputNumberValue = input.getText().toString(); // Same
+                inputNumberValueInDouble = Double.parseDouble(inputNumberValue); // Make use of autoboxing.  It's also easier to read.
+            } catch (Exception e) {
+                // p did not contain a valid double
+            }
 
-            case R.id.inputCelToFahrBtn:
-                outputNumberValueInDouble = inputNumberValueInDouble * 33.8;
-                output.setText(outputNumberValueInDouble + " F");
-                break;
+            switch (v.getId()) {
 
-            case R.id.inputCmToInchBtn:
-                outputNumberValueInDouble = inputNumberValueInDouble * 0.393701;
-                output.setText(outputNumberValueInDouble + " inch");
-                break;
+                case R.id.inputCelToFahrBtn:
+                    outputNumberValueInDouble = inputNumberValueInDouble * 33.8;
+                    output.setText(outputNumberValueInDouble + " F");
+                    break;
 
-            case R.id.inputFarToCelBtn:
-                outputNumberValueInDouble = ((inputNumberValueInDouble - 32) * 5) / 9;
-                output.setText(outputNumberValueInDouble + " Degree Celcius");
-                break;
+                case R.id.inputCmToInchBtn:
+                    outputNumberValueInDouble = inputNumberValueInDouble * 0.393701;
+                    output.setText(outputNumberValueInDouble + " inch");
+                    break;
 
-            case R.id.inputFeetToMeterBtn:
-                outputNumberValueInDouble = inputNumberValueInDouble * 0.3048;
-                output.setText(outputNumberValueInDouble + " Meter");
-                break;
+                case R.id.inputFarToCelBtn:
+                    outputNumberValueInDouble = ((inputNumberValueInDouble - 32) * 5) / 9;
+                    output.setText(outputNumberValueInDouble + " Degree Celcius");
+                    break;
 
-            case R.id.inputStoneToKgBtn:
-                outputNumberValueInDouble = inputNumberValueInDouble * 6.35029;
-                output.setText(outputNumberValueInDouble + " KG");
-                break;
+                case R.id.inputFeetToMeterBtn:
+                    outputNumberValueInDouble = inputNumberValueInDouble * 0.3048;
+                    output.setText(outputNumberValueInDouble + " Meter");
+                    break;
 
-            case R.id.inputPoundToKgBtn:
-                outputNumberValueInDouble = inputNumberValueInDouble * 0.453592;
-                output.setText(outputNumberValueInDouble + " KG");
-                break;
+                case R.id.inputStoneToKgBtn:
+                    outputNumberValueInDouble = inputNumberValueInDouble * 6.35029;
+                    output.setText(outputNumberValueInDouble + " KG");
+                    break;
 
-            case R.id.inputMToKmBtn:
-                outputNumberValueInDouble = inputNumberValueInDouble * 1.60934;
-                output.setText(outputNumberValueInDouble + " KM");
-                break;
+                case R.id.inputPoundToKgBtn:
+                    outputNumberValueInDouble = inputNumberValueInDouble * 0.453592;
+                    output.setText(outputNumberValueInDouble + " KG");
+                    break;
 
-            case R.id.inputMmToInchBtn:
-                outputNumberValueInDouble = inputNumberValueInDouble * 0.0393701;
-                output.setText(outputNumberValueInDouble + " inch");
-                break;
+                case R.id.inputMToKmBtn:
+                    outputNumberValueInDouble = inputNumberValueInDouble * 1.60934;
+                    output.setText(outputNumberValueInDouble + " KM");
+                    break;
 
-            case R.id.inputMeterToFeetBtn:
-                outputNumberValueInDouble = inputNumberValueInDouble * 3.28084;
-                output.setText(outputNumberValueInDouble + " ft");
-                break;
+                case R.id.inputMmToInchBtn:
+                    outputNumberValueInDouble = inputNumberValueInDouble * 0.0393701;
+                    output.setText(outputNumberValueInDouble + " inch");
+                    break;
 
-            case R.id.inputKmToMBtn:
-                outputNumberValueInDouble = inputNumberValueInDouble * 0.621371;
-                output.setText(outputNumberValueInDouble + " Mile");
-                break;
+                case R.id.inputMeterToFeetBtn:
+                    outputNumberValueInDouble = inputNumberValueInDouble * 3.28084;
+                    output.setText(outputNumberValueInDouble + " ft");
+                    break;
 
-            case R.id.inputKgToStoneBtn:
-                outputNumberValueInDouble = inputNumberValueInDouble * 0.157473;
-                output.setText(outputNumberValueInDouble + " Stone");
-                break;
+                case R.id.inputKmToMBtn:
+                    outputNumberValueInDouble = inputNumberValueInDouble * 0.621371;
+                    output.setText(outputNumberValueInDouble + " Mile");
+                    break;
 
-            case R.id.inputKgToPoundBtn:
-                outputNumberValueInDouble = inputNumberValueInDouble * 2.20462;
-                output.setText(outputNumberValueInDouble + " Lbs");
-                break;
+                case R.id.inputKgToStoneBtn:
+                    outputNumberValueInDouble = inputNumberValueInDouble * 0.157473;
+                    output.setText(outputNumberValueInDouble + " Stone");
+                    break;
 
-            case R.id.inputInchToMmBtn:
-                outputNumberValueInDouble = inputNumberValueInDouble * 25.4;
-                output.setText(outputNumberValueInDouble + " mm");
-                break;
+                case R.id.inputKgToPoundBtn:
+                    outputNumberValueInDouble = inputNumberValueInDouble * 2.20462;
+                    output.setText(outputNumberValueInDouble + " Lbs");
+                    break;
 
-            case R.id.inputInchToftBtn:
-                outputNumberValueInDouble = inputNumberValueInDouble * 0.0833333;
-                output.setText(outputNumberValueInDouble + " ft");
-                break;
+                case R.id.inputInchToMmBtn:
+                    outputNumberValueInDouble = inputNumberValueInDouble * 25.4;
+                    output.setText(outputNumberValueInDouble + " mm");
+                    break;
 
-            case R.id.inputInchToCmBtn:
-                outputNumberValueInDouble = inputNumberValueInDouble * 2.54;
-                output.setText(outputNumberValueInDouble + " cm");
-                break;
+                case R.id.inputInchToftBtn:
+                    outputNumberValueInDouble = inputNumberValueInDouble * 0.0833333;
+                    output.setText(outputNumberValueInDouble + " ft");
+                    break;
 
-            case R.id.inputFtToInchBtn:
-                outputNumberValueInDouble = inputNumberValueInDouble * 12;
-                output.setText(outputNumberValueInDouble + " inch");
-                break;
+                case R.id.inputInchToCmBtn:
+                    outputNumberValueInDouble = inputNumberValueInDouble * 2.54;
+                    output.setText(outputNumberValueInDouble + " cm");
+                    break;
+
+                case R.id.inputFtToInchBtn:
+                    outputNumberValueInDouble = inputNumberValueInDouble * 12;
+                    output.setText(outputNumberValueInDouble + " inch");
+                    break;
+
+            }
+
 
         }
     }

@@ -107,10 +107,11 @@
             android:label="Fuel Record" />
         <activity
             android:name=".activity.Converter"
-            android:label="COnverter" />
+            android:label="Converter" />
         <activity
             android:name=".activity.Hours"
-            android:label="Hours" />
+            android:label="Hours"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".activity.EquipmentChechklist"
             android:label="Equipment Checklist"

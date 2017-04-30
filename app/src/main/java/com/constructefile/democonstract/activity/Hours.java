@@ -8,12 +8,17 @@ import android.provider.Settings;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -56,6 +61,9 @@ public class Hours extends AppCompatActivity implements ConnectivityReceiver.Con
     public SwipeRefreshLayout swipeRefreshLayout;
     private SQLiteHandler db;
     private SessionManager session;
+    private Toolbar toolbar;
+    private Toolbar searchToolbar;
+    private boolean isSearch = false;
     //public String supervisor_first_name = "", supervisor_last_name = "", supervisor_full_name = "";
     public String operator_id, operator_name;
 
@@ -63,17 +71,15 @@ public class Hours extends AppCompatActivity implements ConnectivityReceiver.Con
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hours);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources()
-                .getColor(R.color.primary)));
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.primary_dark));
         }
+        toolbar = (Toolbar) findViewById(R.id.toolbar_viewpager);
+        searchToolbar = (Toolbar) findViewById(R.id.toolbar_search);
 
+        prepareActionBar(toolbar);
         db = new SQLiteHandler(getApplicationContext());
         // session manager
         session = new SessionManager(getApplicationContext());
@@ -94,6 +100,15 @@ public class Hours extends AppCompatActivity implements ConnectivityReceiver.Con
         getData();
     }
 
+
+    private void prepareActionBar(Toolbar toolbar) {
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setBackgroundDrawable(new ColorDrawable(getResources()
+                .getColor(R.color.primary)));
+        actionBar.setHomeButtonEnabled(true);
+    }
 
     public void getData() {
         if (checkConnectivity()) {
@@ -240,12 +255,64 @@ public class Hours extends AppCompatActivity implements ConnectivityReceiver.Con
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(isSearch ? R.menu.menu_search_toolbar : R.menu.menu_hour, menu);
+        if (isSearch) {
+            //Toast.makeText(getApplicationContext(), "Search " + isSearch, Toast.LENGTH_SHORT).show();
+            final SearchView search = (SearchView) menu.findItem(R.id.action_search).getActionView();
+            search.setIconified(false);
+            search.setQueryHint("Search By Date...");
+            search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String s) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String s) {
+                    adapterHour.getFilter().filter(s);
+                    return true;
+                }
+            });
+            search.setOnCloseListener(new SearchView.OnCloseListener() {
+                @Override
+                public boolean onClose() {
+                    closeSearch();
+                    return true;
+                }
+            });
+        }
+        return super.onCreateOptionsMenu(menu);
+
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         final int id = item.getItemId();
-        if (id == android.R.id.home) {
-            onBackPressed();
-            return true;
+        switch (id) {
+            case R.id.action_search: {
+                isSearch = true;
+                searchToolbar.setVisibility(View.VISIBLE);
+                prepareActionBar(searchToolbar);
+                supportInvalidateOptionsMenu();
+                return true;
+            }
+            case android.R.id.home:
+                closeSearch();
+                onBackPressed();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+    }
+
+    private void closeSearch() {
+        if (isSearch) {
+            isSearch = false;
+            prepareActionBar(toolbar);
+            searchToolbar.setVisibility(View.GONE);
+            supportInvalidateOptionsMenu();
+        }
     }
 }

@@ -109,11 +109,13 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Check for empty data in the form
                 if (!email.isEmpty() && !password.isEmpty()) {
-                    //checkForPhoneStatePermission();╥
+                    //checkForPhoneStatePermission();
                     // login user
                     if (checkAndRequestPermissions()) {
+                        //checkForPhoneStatePermission();
                         // carry on the normal flow, as the case of  permissions  granted.
-                        checkLogin(email, password);
+                        //checkLogin(email, password);
+                        getDeviceUuId(LoginActivity.this);
                     }
                 } else {
                     // Prompt user to enter credentials
@@ -266,13 +268,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 break;
         }
-    }
+    }*/
 
     public void getDeviceUuId(Activity context) {
         TelephonyManager telephonyManager = (TelephonyManager) context.getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
         String phnID = telephonyManager.getDeviceId();
         //Toast.makeText(this, phnID, Toast.LENGTH_LONG).show();
-        //Log.i("imei", phnID);
+        Log.i("imei", phnID);
 
         if (phnID.equals("357743070485838")) {
             String email = inputEmail.getText().toString().trim();
@@ -282,7 +284,7 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             Toast.makeText(context, "Sorry...IMEI Number Did Not Matched!!! ", Toast.LENGTH_SHORT).show();
         }
-    }*/
+    }
 
     /**
      * function to verify login details in mysql db

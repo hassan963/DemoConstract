@@ -197,36 +197,68 @@ public class TimeSheet extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                long diff = date2.getTime() - date1.getTime();
 
-                long timeInSeconds = (diff / 1000);
-                long hours, minutes, seconds;
-                hours = timeInSeconds / 3600;
-                timeInSeconds = timeInSeconds - (hours * 3600);
-                minutes = timeInSeconds / 60;
-                timeInSeconds = timeInSeconds - (minutes * 60);
-                seconds = timeInSeconds;
+                if (date2.getTime() > date1.getTime()) {
+                    long diff = date2.getTime() - date1.getTime();
+                    long timeInSeconds = (diff / 1000);
+                    long hours, minutes, seconds;
+                    hours = timeInSeconds / 3600;
+                    timeInSeconds = timeInSeconds - (hours * 3600);
+                    minutes = timeInSeconds / 60;
+                    timeInSeconds = timeInSeconds - (minutes * 60);
+                    seconds = timeInSeconds;
 
-                String hrs;
-                String mins;
-                String secs;
-                if (hours >= 0 && hours <= 9) {
-                    hrs = "0" + hours;
-                } else {
-                    hrs = hours + "";
+                    String hrs;
+                    String mins;
+                    String secs;
+                    if (hours >= 0 && hours <= 9) {
+                        hrs = "0" + hours;
+                    } else {
+                        hrs = hours + "";
+                    }
+                    if (minutes >= 0 && minutes <= 9) {
+                        mins = "0" + minutes;
+                    } else {
+                        mins = minutes + "";
+                    }
+                    if (seconds >= 0 && seconds <= 9) {
+                        secs = "0" + seconds;
+                    } else {
+                        secs = seconds + "";
+                    }
+                    hourTotal = hrs + ":" + mins + ":" + secs;
+                    total_time.setText(hourTotal);
+                } else if (date2.getTime() < date1.getTime()) {
+                    long diff = date2.getTime() - date1.getTime() + 86400000;
+                    long timeInSeconds = (diff / 1000);
+                    long hours, minutes, seconds;
+                    hours = timeInSeconds / 3600;
+                    timeInSeconds = timeInSeconds - (hours * 3600);
+                    minutes = timeInSeconds / 60;
+                    timeInSeconds = timeInSeconds - (minutes * 60);
+                    seconds = timeInSeconds;
+
+                    String hrs;
+                    String mins;
+                    String secs;
+                    if (hours >= 0 && hours <= 9) {
+                        hrs = "0" + hours;
+                    } else {
+                        hrs = hours + "";
+                    }
+                    if (minutes >= 0 && minutes <= 9) {
+                        mins = "0" + minutes;
+                    } else {
+                        mins = minutes + "";
+                    }
+                    if (seconds >= 0 && seconds <= 9) {
+                        secs = "0" + seconds;
+                    } else {
+                        secs = seconds + "";
+                    }
+                    hourTotal = hrs + ":" + mins + ":" + secs;
+                    total_time.setText(hourTotal);
                 }
-                if (minutes >= 0 && minutes <= 9) {
-                    mins = "0" + minutes;
-                } else {
-                    mins = minutes + "";
-                }
-                if (seconds >= 0 && seconds <= 9) {
-                    secs = "0" + seconds;
-                } else {
-                    secs = seconds + "";
-                }
-                hourTotal = hrs + ":" + mins + ":" + secs;
-                total_time.setText(hourTotal);
             }
         });
         // Spinner click listener

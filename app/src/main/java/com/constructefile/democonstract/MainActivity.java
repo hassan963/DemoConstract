@@ -1,10 +1,12 @@
 package com.constructefile.democonstract;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +24,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.constructefile.democonstract.activity.CategoryActivity;
+import com.constructefile.democonstract.activity.EquipmentChechklist;
 import com.constructefile.democonstract.activity.LoginActivity;
+import com.constructefile.democonstract.activity.MainMenu;
 import com.constructefile.democonstract.adapter.FormOneAdapter;
 import com.constructefile.democonstract.app.AppConfig;
 import com.constructefile.democonstract.app.AppController;
@@ -30,6 +34,17 @@ import com.constructefile.democonstract.content.FormData;
 import com.constructefile.democonstract.content.SpinnerData;
 import com.constructefile.democonstract.helper.SQLiteHandler;
 import com.constructefile.democonstract.helper.SessionManager;
+
+import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
+import android.view.Window;
+import android.view.WindowManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<SpinnerData> spinnerDatas = new ArrayList<>();
     private static short backStatus = 0;
     private ProgressDialog pDialog;
+    boolean sent = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -525,6 +541,25 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < formDatas.size(); i++) {
             save(i);
         }
+        if (sent == true) {
+            Toast.makeText(MainActivity.this, "Done!", Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Previous Remarks About The Equipment You Selected");
+            builder.setMessage(previous_remarks);
+            builder.setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                            Intent intent = new Intent(MainActivity.this, MainMenu.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+            );
+            builder.show();
+        } else{
+            Toast.makeText(MainActivity.this, "Something Went Wrong!", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
@@ -544,12 +579,15 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject jObj = new JSONObject(response);
                     String id = jObj.getString("id");
                     if (id != null) {
-                        Toast.makeText(MainActivity.this, "Done!", Toast.LENGTH_SHORT).show();
+                        sent = true;
                         Log.i("checklist_check", "Inserted: " + id);
                     } else {
                         Log.i("checklist_check", " Not Inserted: Unexpected Error! Try again later.");
                     }
-                } catch (JSONException e) {
+                } catch (
+                        JSONException e)
+
+                {
                     // JSON error
                     e.printStackTrace();
                     Log.i("operational_check", e.toString());
@@ -558,7 +596,9 @@ public class MainActivity extends AppCompatActivity {
 
 
             }
-        }, new Response.ErrorListener() {
+        }, new Response.ErrorListener()
+
+        {
 
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -567,7 +607,9 @@ public class MainActivity extends AppCompatActivity {
                 /*Toast.makeText(getContext(),
                         error.getMessage(), Toast.LENGTH_LONG).show();*/
             }
-        }) {
+        })
+
+        {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
@@ -583,7 +625,10 @@ public class MainActivity extends AppCompatActivity {
                 return params;
             }
         };
-        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+        AppController.getInstance().
+
+                addToRequestQueue(strReq, tag_string_req);
+
     }
 
     private void showDialog() {
