@@ -13,6 +13,7 @@
             android:id="@+id/exIMG"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:scaleType="fitXY"
             android:src="@drawable/ex" />
 
         <ImageView
@@ -20,18 +21,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:scaleType="fitXY"
             android:src="@drawable/base" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
                 android:layout_weight="1"
                 android:text="Basement Width: "
                 android:textColor="@color/black"
@@ -41,7 +41,7 @@
                 android:id="@+id/widthBET"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:hint="input numbers..."
                 android:inputType="numberDecimal"
                 android:textColor="@color/black" />
@@ -56,7 +56,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
                 android:layout_weight="1"
                 android:text="Basement Height: "
                 android:textColor="@color/black"
@@ -66,7 +65,7 @@
                 android:id="@+id/heightBET"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:hint="input numbers..."
                 android:inputType="numberDecimal"
                 android:textColor="@color/black" />
@@ -81,7 +80,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
                 android:layout_weight="1"
                 android:text="Basement Length: "
                 android:textColor="@color/black"
@@ -91,7 +89,7 @@
                 android:id="@+id/lengthBET"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:hint="input numbers..."
                 android:inputType="numberDecimal"
                 android:textColor="@color/black" />
@@ -107,7 +105,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
                 android:layout_weight="1"
                 android:text="Excavated Width: "
                 android:textColor="@color/black"
@@ -117,7 +114,7 @@
                 android:id="@+id/widthEET"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:hint="input numbers..."
                 android:inputType="numberDecimal"
                 android:textColor="@color/black" />
@@ -132,7 +129,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
                 android:layout_weight="1"
                 android:text="Excavated Height: "
                 android:textColor="@color/black"
@@ -142,7 +138,7 @@
                 android:id="@+id/heightEET"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:hint="input numbers..."
                 android:inputType="numberDecimal"
                 android:textColor="@color/black" />
@@ -157,7 +153,6 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
                 android:layout_weight="1"
                 android:text="Excavated Length: "
                 android:textColor="@color/black"
@@ -167,7 +162,7 @@
                 android:id="@+id/lengthEET"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:hint="input numbers..."
                 android:inputType="numberDecimal"
                 android:textColor="@color/black" />
@@ -177,21 +172,30 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/clearBTN"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="2dp"
                 android:layout_weight="1"
-                android:text="Clear" />
+                android:background="@color/colorPrimary"
+                android:text="Clear"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/calculateBTN"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="Calculate" />
+                android:layout_marginLeft="2dp"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:text="Calculate"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -203,7 +207,7 @@
             android:gravity="center"
             android:text="Result"
             android:textColor="@color/black"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
 
     </LinearLayout>
