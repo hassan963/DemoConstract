@@ -108,7 +108,7 @@ public class CategoryActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         ArrayList<CategoryData> categoryDatas = prepareData();
-        CategoryAdapter mAdapter = new CategoryAdapter(getApplicationContext(), categoryDatas);
+        CategoryAdapter mAdapter = new CategoryAdapter(this, categoryDatas);
         mRecyclerView.setAdapter(mAdapter);
 
     }

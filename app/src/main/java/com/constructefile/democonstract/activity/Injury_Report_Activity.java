@@ -55,7 +55,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import static com.constructefile.democonstract.R.id.dateIncident;
+//import static com.constructefile.democonstract.R.id.dateIncident;
 
 /**
  * Created by Hassan M.Ashraful on 3/11/2017.
@@ -66,19 +66,15 @@ public class Injury_Report_Activity extends AppCompatActivity implements Adapter
     Button stepOne, stepTwo;
     RelativeLayout stepOneLayout, stepTwoLayout;
     boolean isSettingsClicked = false;
-    private FloatingActionButton fabInjury;
 
 
-    private File file;
     private Dialog dialog;
     private LinearLayout mContent;
     private View view;
     private signature mSignature;
     private Bitmap bitmap;
 
-    private Toolbar toolbar;
-    private Button signatureInjury, mClear, mGetSign, mCancel;
-    private RadioGroup radioSexGroup;
+    private Button mGetSign;
 
     // Creating Separate Directory for saving Generated Images
     private String DIRECTORY = Environment.getExternalStorageDirectory().getPath() + "/ConstructeFile/";
@@ -101,8 +97,8 @@ public class Injury_Report_Activity extends AppCompatActivity implements Adapter
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-        fabInjury = (FloatingActionButton) findViewById(R.id.fabInjury);
-        dateIncidentET = (EditText) findViewById(dateIncident); nameET = (EditText) findViewById(R.id.name);
+        FloatingActionButton fabInjury = (FloatingActionButton) findViewById(R.id.fabInjury);
+        dateIncidentET = (EditText) findViewById(R.id.dateIncident); nameET = (EditText) findViewById(R.id.name);
         departmentET = (EditText) findViewById(R.id.department); ageET = (EditText) findViewById(R.id.age);
         jobTitleET = (EditText) findViewById(R.id.jobTitle); monthsEmploeeET = (EditText) findViewById(R.id.monthsEmploee);
         monthsJobET = (EditText) findViewById(R.id.monthsJob); locationET = (EditText) findViewById(R.id.location);
@@ -115,7 +111,7 @@ public class Injury_Report_Activity extends AppCompatActivity implements Adapter
         stepOneLayout = (RelativeLayout) findViewById(R.id.stepOneLayout);
         stepTwoLayout = (RelativeLayout) findViewById(R.id.stepTwoLayout);
 
-        radioSexGroup = (RadioGroup)findViewById(R.id.radioSex);
+        RadioGroup radioSexGroup = (RadioGroup) findViewById(R.id.radioSex);
 
 
         // Spinner element
@@ -212,16 +208,16 @@ public class Injury_Report_Activity extends AppCompatActivity implements Adapter
         spinnerworkday.setAdapter(workdaySpinner);
 
         // Setting ToolBar as ActionBar
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.drawable.back);
         toolbar.setBackgroundColor(Color.parseColor("#e1660f"));
 
         // Button to open signature panel
-        signatureInjury = (Button) findViewById(R.id.signatureInjury);
+        Button signatureInjury = (Button) findViewById(R.id.signatureInjury);
 
         // Method to create Directory, if the Directory doesn't exists
-        file = new File(DIRECTORY);
+        File file = new File(DIRECTORY);
         if (!file.exists()) {
             file.mkdir();
         }
@@ -501,10 +497,10 @@ public class Injury_Report_Activity extends AppCompatActivity implements Adapter
         mSignature.setBackgroundColor(Color.WHITE);
         // Dynamically generating Layout through java code
         mContent.addView(mSignature, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        mClear = (Button) dialog.findViewById(R.id.clear);
+        Button mClear = (Button) dialog.findViewById(R.id.clear);
         mGetSign = (Button) dialog.findViewById(R.id.getsign);
         mGetSign.setEnabled(false);
-        mCancel = (Button) dialog.findViewById(R.id.cancel);
+        Button mCancel = (Button) dialog.findViewById(R.id.cancel);
         view = mContent;
 
         mClear.setOnClickListener(new View.OnClickListener() {

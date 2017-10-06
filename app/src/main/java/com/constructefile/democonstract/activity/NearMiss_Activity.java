@@ -296,7 +296,7 @@ public class NearMiss_Activity extends AppCompatActivity implements AdapterView.
                 break;
 
         }
-        Toast.makeText(getApplicationContext(), sOne + sTwo, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), sOne + sTwo, Toast.LENGTH_SHORT).show();
     }
 
     @Override

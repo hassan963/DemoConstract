@@ -406,7 +406,7 @@ public class FuelRecord extends AppCompatActivity implements AdapterView.OnItemS
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(FuelRecord.this, CategoryActivity.class);
+        Intent intent = new Intent(FuelRecord.this, MainMenu.class);
         startActivity(intent);
         finish();
     }

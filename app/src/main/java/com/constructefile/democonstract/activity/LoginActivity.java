@@ -18,7 +18,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -93,6 +92,8 @@ public class LoginActivity extends AppCompatActivity {
         // Session manager
         session = new SessionManager(getApplicationContext());
 
+
+
         // Check if user is already logged in or not
         if (session.isLoggedIn()) {
             // User is already logged in. Take him to main activity
@@ -108,6 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                 String password = inputPassword.getText().toString().trim();
 
                 // Check for empty data in the form
+
                 if (!email.isEmpty() && !password.isEmpty()) {
                     //checkForPhoneStatePermission();
                     // login user
@@ -116,6 +118,7 @@ public class LoginActivity extends AppCompatActivity {
                         // carry on the normal flow, as the case of  permissions  granted.
                         //checkLogin(email, password);
                         getDeviceUuId(LoginActivity.this);
+
                     }
                 } else {
                     // Prompt user to enter credentials
@@ -123,9 +126,18 @@ public class LoginActivity extends AppCompatActivity {
                             "Please enter the credentials!", Toast.LENGTH_LONG)
                             .show();
                 }
+
+
             }
         });
     }
+
+
+
+
+
+
+    //First one IMEI
 
     private boolean checkAndRequestPermissions() {
         int permissionSendMessage = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
@@ -212,63 +224,6 @@ public class LoginActivity extends AppCompatActivity {
                 .show();
     }
 
-    /*private void checkForPhoneStatePermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(LoginActivity.this,
-                    Manifest.permission.READ_PHONE_STATE)
-                    != PackageManager.PERMISSION_GRANTED) {
-                // Should we show an explanation?
-                if (ActivityCompat.shouldShowRequestPermissionRationale(LoginActivity.this,
-                        Manifest.permission.READ_PHONE_STATE)) {
-                    // Show an explanation to the user *asynchronously* -- don't block
-                    // this thread waiting for the user's response! After the user
-                    // sees the explanation, try again to request the permission.
-                    showPermissionMessage();
-                } else {
-                    // No explanation needed, we can request the permission.
-                    ActivityCompat.requestPermissions(LoginActivity.this,
-                            new String[]{Manifest.permission.READ_PHONE_STATE},
-                            REQUEST_PHONE_STATE);
-                }
-            } else {
-                //... Permission has already been granted, obtain the UUID
-                getDeviceUuId(LoginActivity.this);
-            }
-        } else {
-            //... No need to request permission, obtain the UUID
-            getDeviceUuId(LoginActivity.this);
-        }
-    }
-
-    private void showPermissionMessage() {
-        new AlertDialog.Builder(this)
-                .setTitle("Read phone state")
-                .setMessage("This app requires the permission to read phone state to continue")
-                .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ActivityCompat.requestPermissions(LoginActivity.this,
-                                new String[]{Manifest.permission.READ_PHONE_STATE},
-                                REQUEST_PHONE_STATE);
-                    }
-                }).create().show();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        switch (requestCode) {
-            case REQUEST_PHONE_STATE:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // .. Can now obtain the UUID
-                    getDeviceUuId(LoginActivity.this);
-                } else {
-                    Toast.makeText(LoginActivity.this, "Unable to continue without granting permission", Toast.LENGTH_SHORT).show();
-                }
-                break;
-        }
-    }*/
 
     public void getDeviceUuId(Activity context) {
         TelephonyManager telephonyManager = (TelephonyManager) context.getBaseContext().getSystemService(Context.TELEPHONY_SERVICE);
@@ -276,14 +231,17 @@ public class LoginActivity extends AppCompatActivity {
         //Toast.makeText(this, phnID, Toast.LENGTH_LONG).show();
         Log.i("imei", phnID);
 
-        if (phnID.equals("357743070485838")) {
+        //357743070485838
+        //if (phnID.equals("")) {
             String email = inputEmail.getText().toString().trim();
             String password = inputPassword.getText().toString().trim();
-            Toast.makeText(context, " IMEI Matched", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, " IMEI Matched", Toast.LENGTH_SHORT).show();
             checkLogin(email, password);
-        } else {
+
+
+        /*} else {
             Toast.makeText(context, "Sorry...IMEI Number Did Not Matched!!! ", Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
 
     /**

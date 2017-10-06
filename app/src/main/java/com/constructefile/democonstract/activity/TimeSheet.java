@@ -58,7 +58,8 @@ public class TimeSheet extends AppCompatActivity {
     private ProgressDialog pDialog;
     String equipment_id_selected = "";
     String shift = "";
-    String operator_id, operator_name, jobTextValue, descriptionTextValue, remarksTextValue, hourStart, hourFinish, hourTotal;
+    String operator_id, operator_name, jobTextValue, descriptionTextValue, remarksTextValue;
+    String hourStart = "", hourFinish = "", hourTotal = "";
     String hourStartHour, hourStartMinute, hourFinishHour, hourFinishMinute;
     String formSubmitDateTime;
     Button btn_submit, btn_show_total;

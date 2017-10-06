@@ -1,5 +1,6 @@
 package com.constructefile.democonstract.adapter;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -88,6 +89,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                             intent.putExtra("CATEGORY", position + 1);
                             intent.putExtra("CATEGORY_NAME", android.getrecyclerViewTitleText());
                             context.startActivity(intent);
+                            ((Activity)context).finish();
                         }
                     }
             );
@@ -100,11 +102,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.putExtra("CATEGORY", position + 1);
                             context.startActivity(intent);
+                            ((Activity)context).finish();
                         }
                     }
             );
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
+
+
             //Toast.makeText(context, "CLICKED: " + android.getrecyclerViewTitleText(), Toast.LENGTH_SHORT).show();
         }
     }
