@@ -22,7 +22,8 @@
             android:textSize="15sp"
             android:textColor="#484848"
             android:layout_marginBottom="10dp"
-            android:text="@string/firstTV" />
+            android:text="@string/firstTV"
+            android:layout_marginLeft="4dp" />
 
         <CheckBox
             android:id="@+id/checkbox_ok"

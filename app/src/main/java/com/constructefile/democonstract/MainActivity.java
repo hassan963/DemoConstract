@@ -541,7 +541,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < formDatas.size(); i++) {
             save(i);
         }
-        if (sent == true) {
+        if (sent) {
             Toast.makeText(MainActivity.this, "Done!", Toast.LENGTH_SHORT).show();
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle("Previous Remarks About The Equipment You Selected");
